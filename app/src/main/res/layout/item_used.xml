@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relpitem"
+        android:layout_width="180px"
+        android:layout_height="204px"
+        android:layout_marginLeft="33px">
+
+        <ImageView
+            android:id="@+id/ivparticle"
+            android:layout_width="match_parent"
+            android:layout_height="164px"
+            android:layout_centerInParent="true" />
+
+        <RelativeLayout
+            android:id="@+id/relselected"
+            android:layout_width="match_parent"
+            android:layout_height="164px"
+            android:layout_centerInParent="true"
+            android:background="@drawable/transparent_layer"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivtick"
+                android:layout_width="90px"
+                android:layout_height="90px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/tick_mark" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NeonphotoEditor</string>
+
+    <string name="edit">Edit</string>
+    <string name="textures">Textures</string>
+    <string name="font_style">Font Style</string>
+    <string name="preview">Preview</string>
+
+</resources>

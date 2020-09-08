@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvitem"
+        android:layout_width="match_parent"
+        android:layout_height="135px"
+        android:gravity="center"
+        android:text="textfontstyle"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/vline"
+        android:layout_width="900px"
+        android:layout_height="4px"
+        android:background="@drawable/font_divider" />
+</LinearLayout>

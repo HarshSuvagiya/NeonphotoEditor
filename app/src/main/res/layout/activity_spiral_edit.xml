@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/topheader" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/releditor"
+                android:layout_width="match_parent"
+                android:layout_height="1080px"
+                android:layout_marginTop="50px">
+
+                <ImageView
+                    android:id="@+id/ivblur"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivoriginal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivbspiral"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivcut"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivfspiral"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/relTextLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/relelements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvspiral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25px"
+                    android:layout_marginBottom="25px"
+                    android:scrollbars="none"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/lineartext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="20px"
+                    android:paddingBottom="20px"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/ivfont"
+                        android:layout_width="100px"
+                        android:layout_height="120px"
+                        android:onClick="textFont"
+                        android:src="@drawable/fonts_style_unpress" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/reledit"
+                        android:layout_width="821px"
+                        android:layout_height="110px"
+                        android:background="#000"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/ettext"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_vertical"
+                            android:hint="Enter Text"
+                            android:maxLines="1"
+                            android:paddingLeft="50px"
+                            android:paddingRight="120px"
+                            android:singleLine="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="16dp" />
+
+                        <ImageView
+                            android:id="@+id/ivdone"
+                            android:layout_width="100px"
+                            android:layout_height="120px"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10px"
+                            android:onClick="textDone"
+                            android:src="@drawable/done_unpressed" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/ivcolor"
+                        android:layout_width="100px"
+                        android:layout_height="120px"
+                        android:onClick="textColor"
+                        android:src="@drawable/color_unpressed" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/hsbg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/linearbg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="15px"
+                        android:paddingBottom="15px">
+
+                        <ImageView
+                            android:id="@+id/ivgallery"
+                            android:layout_width="302px"
+                            android:layout_height="112px"
+                            android:layout_marginLeft="15px"
+                            android:onClick="gallery"
+                            android:src="@drawable/gallery_unpress" />
+
+                        <ImageView
+                            android:id="@+id/ivbgcolor"
+                            android:layout_width="302px"
+                            android:layout_height="112px"
+                            android:layout_marginLeft="15px"
+                            android:onClick="bgcolor"
+                            android:src="@drawable/color_unpressed" />
+
+                        <ImageView
+                            android:id="@+id/ivgradient"
+                            android:layout_width="302px"
+                            android:layout_height="112px"
+                            android:layout_marginLeft="15px"
+                            android:onClick="gradient"
+                            android:src="@drawable/gradient_unpress" />
+
+                        <ImageView
+                            android:id="@+id/ivtexture"
+                            android:layout_width="302px"
+                            android:layout_height="112px"
+                            android:layout_marginLeft="15px"
+                            android:onClick="texture"
+                            android:src="@drawable/texture_unpress" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:id="@+id/lineargradient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#80000000"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="15px"
+                    android:paddingBottom="15px"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1.5" />
+
+                    <ImageView
+                        android:id="@+id/ivgback"
+                        android:layout_width="112px"
+                        android:layout_height="112px"
+                        android:onClick="gradientBack"
+                        android:src="@drawable/gclose_unpress" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1.5" />
+
+                    <ImageView
+                        android:id="@+id/ivfirst"
+                        android:layout_width="411px"
+                        android:layout_height="112px"
+                        android:onClick="startColor"
+                        android:src="@drawable/first_color_unpress" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/ivsecond"
+                        android:layout_width="458px"
+                        android:layout_height="112px"
+                        android:onClick="endColor"
+                        android:src="@drawable/second_color_unpress" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvfilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25px"
+                    android:layout_marginBottom="25px"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearbottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="35px">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/ivspiral"
+                    android:layout_width="150px"
+                    android:layout_height="200px"
+                    android:onClick="spiral"
+                    android:src="@drawable/spiral_unpress" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/ivtext"
+                    android:layout_width="150px"
+                    android:layout_height="200px"
+                    android:onClick="text"
+                    android:src="@drawable/text_unpress" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/ivbg"
+                    android:layout_width="150px"
+                    android:layout_height="200px"
+                    android:onClick="background"
+                    android:src="@drawable/background_unpress" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/ivfilter"
+                    android:layout_width="150px"
+                    android:layout_height="200px"
+                    android:onClick="filter"
+                    android:src="@drawable/filter_unpress" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relpbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:onClick="nothing"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
