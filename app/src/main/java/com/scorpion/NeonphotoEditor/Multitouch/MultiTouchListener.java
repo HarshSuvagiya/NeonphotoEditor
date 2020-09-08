@@ -14,6 +14,7 @@ public class MultiTouchListener implements View.OnTouchListener {
     private int mActivePointerId = -1;
     private float mPrevX;
     private float mPrevY;
+    //cmdlcdsnvn
     private ScaleGestureDetector mScaleGestureDetector = new ScaleGestureDetector(new ScaleGestureListener());
     public float maximumScale = 10.0f;
     public float minimumScale = 0.5f;
