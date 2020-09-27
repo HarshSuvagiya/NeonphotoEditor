@@ -12,11 +12,11 @@ public class DefaultMediaPlayer extends MediaPlayer implements IMediaPlayer {
                         private final IMediaPlayer.OnPreparedListener f$1;
 
             {
-                this.f$1 = onPreparedListener;
+                f$1 = onPreparedListener;
             }
 
             public final void onPrepared(MediaPlayer mediaPlayer) {
-                this.f$1.onPrepared(DefaultMediaPlayer.this);
+                f$1.onPrepared(DefaultMediaPlayer.this);
             }
 
         });
@@ -28,11 +28,11 @@ public class DefaultMediaPlayer extends MediaPlayer implements IMediaPlayer {
             private final IMediaPlayer.OnCompletionListener f$1;
 
             {
-                this.f$1 = onCompletionListener;
+                f$1 = onCompletionListener;
             }
 
             public final void onCompletion(MediaPlayer mediaPlayer) {
-                this.f$1.onCompletion(DefaultMediaPlayer.this);
+                f$1.onCompletion(DefaultMediaPlayer.this);
             }
         });
     }

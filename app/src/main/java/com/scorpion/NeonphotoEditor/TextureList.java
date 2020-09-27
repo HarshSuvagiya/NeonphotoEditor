@@ -32,25 +32,25 @@ public class TextureList extends Activity {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_texture_list);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
+        context = this;
 
 
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.rcv = (GridRecyclerView) findViewById(R.id.rcvtexture);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        header = (TextView) findViewById(R.id.my_header_text);
+        rcv = (GridRecyclerView) findViewById(R.id.rcvtexture);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
     }
 
     private void init() {
-        this.header.setText(R.string.textures);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.rcv.setLayoutManager(new GridLayoutManager(this.context, 2));
-        this.rcv.addItemDecoration(new RVGridSpacing(2, getWidth(37), true));
-        this.adapter = new TextureAdapter(this.context);
-        this.rcv.setAdapter(this.adapter);
-        this.rcv.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcv, new RecyclerTouchListener.ClickListener() {
+        header.setText(R.string.textures);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        rcv.setLayoutManager(new GridLayoutManager(context, 2));
+        rcv.addItemDecoration(new RVGridSpacing(2, getWidth(37), true));
+        adapter = new TextureAdapter(context);
+        rcv.setAdapter(adapter);
+        rcv.addOnItemTouchListener(new RecyclerTouchListener(context, rcv, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
@@ -58,18 +58,18 @@ public class TextureList extends Activity {
                 String texture = Path.TEXTURES.texture(i);
                 Intent intent = new Intent();
                 intent.putExtra("texture", texture);
-                TextureList.this.setResult(-1, intent);
-                TextureList.this.finish();
+                setResult(-1, intent);
+                finish();
             }
         }));
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {

@@ -29,16 +29,16 @@ public class AmbilWarnaSquare extends View {
     @SuppressLint({"DrawAllocation"})
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (this.paint == null) {
-            this.paint = new Paint();
-            this.luar = new LinearGradient(0.0f, 0.0f, 0.0f, (float) getMeasuredHeight(), -1, ViewCompat.MEASURED_STATE_MASK, Shader.TileMode.CLAMP);
+        if (paint == null) {
+            paint = new Paint();
+            luar = new LinearGradient(0.0f, 0.0f, 0.0f, (float) getMeasuredHeight(), -1, ViewCompat.MEASURED_STATE_MASK, Shader.TileMode.CLAMP);
         }
-        this.paint.setShader(new ComposeShader(this.luar, new LinearGradient(0.0f, 0.0f, (float) getMeasuredWidth(), 0.0f, -1, Color.HSVToColor(this.color), Shader.TileMode.CLAMP), PorterDuff.Mode.MULTIPLY));
-        canvas.drawRect(0.0f, 0.0f, (float) getMeasuredWidth(), (float) getMeasuredHeight(), this.paint);
+        paint.setShader(new ComposeShader(luar, new LinearGradient(0.0f, 0.0f, (float) getMeasuredWidth(), 0.0f, -1, Color.HSVToColor(color), Shader.TileMode.CLAMP), PorterDuff.Mode.MULTIPLY));
+        canvas.drawRect(0.0f, 0.0f, (float) getMeasuredWidth(), (float) getMeasuredHeight(), paint);
     }
 
     public void setHue(float f) {
-        this.color[0] = f;
+        color[0] = f;
         invalidate();
     }
 }

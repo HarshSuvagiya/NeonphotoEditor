@@ -146,153 +146,153 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
         super.onCreate(bundle);
         setContentView((int) R.layout.imagespiral_edit);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.ivdone = (ImageView) findViewById(R.id.ivoption);
-        this.releditor = (RelativeLayout) findViewById(R.id.releditor);
-        this.relpbar = (RelativeLayout) findViewById(R.id.relpbar);
-        this.ivblur = (ImageView) findViewById(R.id.ivblur);
-        this.ivoriginal = (ImageView) findViewById(R.id.ivoriginal);
-        this.ivcut = (ImageView) findViewById(R.id.ivcut);
-        this.ivbspiral = (ImageView) findViewById(R.id.ivbspiral);
-        this.ivfspiral = (ImageView) findViewById(R.id.ivfspiral);
-        this.rcvspiral = (RecyclerView) findViewById(R.id.rcvspiral);
-        this.ltext = (LinearLayout) findViewById(R.id.lineartext);
-        this.reledit = (RelativeLayout) findViewById(R.id.reledit);
-        this.ettext = (EditText) findViewById(R.id.ettext);
-        this.ivcolor = (ImageView) findViewById(R.id.ivcolor);
-        this.ivfont = (ImageView) findViewById(R.id.ivfont);
-        this.ivtdone = (ImageView) findViewById(R.id.ivdone);
-        this.relTextLayout = (RelativeLayout) findViewById(R.id.relTextLayout);
-        this.lbg = (LinearLayout) findViewById(R.id.linearbg);
-        this.lgradient = (LinearLayout) findViewById(R.id.lineargradient);
-        this.rcvfilter = (RecyclerView) findViewById(R.id.rcvfilter);
-        this.ivspiral = (ImageView) findViewById(R.id.ivspiral);
-        this.ivfilter = (ImageView) findViewById(R.id.ivfilter);
-        this.ivtext = (ImageView) findViewById(R.id.ivtext);
-        this.ivbg = (ImageView) findViewById(R.id.ivbg);
-        this.lbottom = (LinearLayout) findViewById(R.id.linearbottom);
-        this.hsvbg = (HorizontalScrollView) findViewById(R.id.hsbg);
-        this.ivgallery = (ImageView) findViewById(R.id.ivgallery);
-        this.ivbgcolor = (ImageView) findViewById(R.id.ivbgcolor);
-        this.ivgradient = (ImageView) findViewById(R.id.ivgradient);
-        this.ivtexture = (ImageView) findViewById(R.id.ivtexture);
-        this.ivgback = (ImageView) findViewById(R.id.ivgback);
-        this.ivfirst = (ImageView) findViewById(R.id.ivfirst);
-        this.ivsecond = (ImageView) findViewById(R.id.ivsecond);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = this;
+        header = (TextView) findViewById(R.id.my_header_text);
+        ivdone = (ImageView) findViewById(R.id.ivoption);
+        releditor = (RelativeLayout) findViewById(R.id.releditor);
+        relpbar = (RelativeLayout) findViewById(R.id.relpbar);
+        ivblur = (ImageView) findViewById(R.id.ivblur);
+        ivoriginal = (ImageView) findViewById(R.id.ivoriginal);
+        ivcut = (ImageView) findViewById(R.id.ivcut);
+        ivbspiral = (ImageView) findViewById(R.id.ivbspiral);
+        ivfspiral = (ImageView) findViewById(R.id.ivfspiral);
+        rcvspiral = (RecyclerView) findViewById(R.id.rcvspiral);
+        ltext = (LinearLayout) findViewById(R.id.lineartext);
+        reledit = (RelativeLayout) findViewById(R.id.reledit);
+        ettext = (EditText) findViewById(R.id.ettext);
+        ivcolor = (ImageView) findViewById(R.id.ivcolor);
+        ivfont = (ImageView) findViewById(R.id.ivfont);
+        ivtdone = (ImageView) findViewById(R.id.ivdone);
+        relTextLayout = (RelativeLayout) findViewById(R.id.relTextLayout);
+        lbg = (LinearLayout) findViewById(R.id.linearbg);
+        lgradient = (LinearLayout) findViewById(R.id.lineargradient);
+        rcvfilter = (RecyclerView) findViewById(R.id.rcvfilter);
+        ivspiral = (ImageView) findViewById(R.id.ivspiral);
+        ivfilter = (ImageView) findViewById(R.id.ivfilter);
+        ivtext = (ImageView) findViewById(R.id.ivtext);
+        ivbg = (ImageView) findViewById(R.id.ivbg);
+        lbottom = (LinearLayout) findViewById(R.id.linearbottom);
+        hsvbg = (HorizontalScrollView) findViewById(R.id.hsbg);
+        ivgallery = (ImageView) findViewById(R.id.ivgallery);
+        ivbgcolor = (ImageView) findViewById(R.id.ivbgcolor);
+        ivgradient = (ImageView) findViewById(R.id.ivgradient);
+        ivtexture = (ImageView) findViewById(R.id.ivtexture);
+        ivgback = (ImageView) findViewById(R.id.ivgback);
+        ivfirst = (ImageView) findViewById(R.id.ivfirst);
+        ivsecond = (ImageView) findViewById(R.id.ivsecond);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
     }
 
     private void forUI() {
-        SetLayparam.setWidthAsBoth(this.context, this.releditor, 1080);
-        SetLayparam.setMarginTop(this.context, this.releditor, 50);
-        SetLayparam.setPadding(this.context, this.ltext, 0, 20, 0, 20);
-        SetLayparam.setHeightWidth(this.context, this.reledit, 821, 110);
-        SetLayparam.setPadding(this.context, this.ettext, 50, 0, 120, 0);
-        SetLayparam.setHeightAsWidth(this.context, this.ivcolor, 100, 120);
-        SetLayparam.setHeightAsWidth(this.context, this.ivfont, 100, 120);
-        SetLayparam.setHeightAsWidth(this.context, this.ivtdone, 100, 120);
-        SetLayparam.setMargins(this.context, this.ivtdone, 0, 0, 10, 0);
-        SetLayparam.setMargins(this.context, this.rcvspiral, 0, 25, 0, 25);
-        SetLayparam.setMargins(this.context, this.rcvfilter, 0, 25, 0, 25);
-        SetLayparam.setPadding(this.context, this.lbg, 0, 15, 0, 15);
-        SetLayparam.setPadding(this.context, this.lgradient, 0, 15, 0, 15);
-        SetLayparam.setPaddingTop(this.context, this.lbottom, 35);
-        SetLayparam.setHeightAsWidth(this.context, this.ivspiral, 150, 200);
-        SetLayparam.setHeightAsWidth(this.context, this.ivfilter, 150, 200);
-        SetLayparam.setHeightAsWidth(this.context, this.ivtext, 150, 200);
-        SetLayparam.setHeightAsWidth(this.context, this.ivbg, 150, 200);
-        SetLayparam.setHeightWidth(this.context, this.ivgallery, 302, 112);
-        SetLayparam.setHeightWidth(this.context, this.ivbgcolor, 302, 112);
-        SetLayparam.setHeightWidth(this.context, this.ivgradient, 302, 112);
-        SetLayparam.setHeightWidth(this.context, this.ivtexture, 302, 112);
-        SetLayparam.setMarginLeft(this.context, this.ivgallery, 15);
-        SetLayparam.setMarginLeft(this.context, this.ivbgcolor, 15);
-        SetLayparam.setMarginLeft(this.context, this.ivgradient, 15);
-        SetLayparam.setMarginLeft(this.context, this.ivtexture, 15);
-        SetLayparam.setHeightAsWidth(this.context, this.ivgback, 112, 112);
-        SetLayparam.setHeightAsWidth(this.context, this.ivfirst, 411, 112);
-        SetLayparam.setHeightAsWidth(this.context, this.ivsecond, 458, 112);
+        SetLayparam.setWidthAsBoth(context, releditor, 1080);
+        SetLayparam.setMarginTop(context, releditor, 50);
+        SetLayparam.setPadding(context, ltext, 0, 20, 0, 20);
+        SetLayparam.setHeightWidth(context, reledit, 821, 110);
+        SetLayparam.setPadding(context, ettext, 50, 0, 120, 0);
+        SetLayparam.setHeightAsWidth(context, ivcolor, 100, 120);
+        SetLayparam.setHeightAsWidth(context, ivfont, 100, 120);
+        SetLayparam.setHeightAsWidth(context, ivtdone, 100, 120);
+        SetLayparam.setMargins(context, ivtdone, 0, 0, 10, 0);
+        SetLayparam.setMargins(context, rcvspiral, 0, 25, 0, 25);
+        SetLayparam.setMargins(context, rcvfilter, 0, 25, 0, 25);
+        SetLayparam.setPadding(context, lbg, 0, 15, 0, 15);
+        SetLayparam.setPadding(context, lgradient, 0, 15, 0, 15);
+        SetLayparam.setPaddingTop(context, lbottom, 35);
+        SetLayparam.setHeightAsWidth(context, ivspiral, 150, 200);
+        SetLayparam.setHeightAsWidth(context, ivfilter, 150, 200);
+        SetLayparam.setHeightAsWidth(context, ivtext, 150, 200);
+        SetLayparam.setHeightAsWidth(context, ivbg, 150, 200);
+        SetLayparam.setHeightWidth(context, ivgallery, 302, 112);
+        SetLayparam.setHeightWidth(context, ivbgcolor, 302, 112);
+        SetLayparam.setHeightWidth(context, ivgradient, 302, 112);
+        SetLayparam.setHeightWidth(context, ivtexture, 302, 112);
+        SetLayparam.setMarginLeft(context, ivgallery, 15);
+        SetLayparam.setMarginLeft(context, ivbgcolor, 15);
+        SetLayparam.setMarginLeft(context, ivgradient, 15);
+        SetLayparam.setMarginLeft(context, ivtexture, 15);
+        SetLayparam.setHeightAsWidth(context, ivgback, 112, 112);
+        SetLayparam.setHeightAsWidth(context, ivfirst, 411, 112);
+        SetLayparam.setHeightAsWidth(context, ivsecond, 458, 112);
     }
 
     private void init() {
-        this.header.setText(R.string.edit);
-        this.ivdone.setVisibility(View.VISIBLE);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.imgPath = getIntent().getStringExtra("crop");
-        this.gcolor = new int[]{ViewCompat.MEASURED_STATE_MASK, -1};
+        header.setText(R.string.edit);
+        ivdone.setVisibility(View.VISIBLE);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        imgPath = getIntent().getStringExtra("crop");
+        gcolor = new int[]{ViewCompat.MEASURED_STATE_MASK, -1};
         loadImages();
         initRecycler();
     }
 
     private void loadImages() {
-        ((RequestBuilder) ((RequestBuilder) Glide.with(this.context).asBitmap().load(this.imgPath).centerCrop()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).addListener(new RequestListener<Bitmap>() {
+        ((RequestBuilder) ((RequestBuilder) Glide.with(context).asBitmap().load(imgPath).centerCrop()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).addListener(new RequestListener<Bitmap>() {
             public boolean onLoadFailed(@Nullable GlideException glideException, Object obj, Target<Bitmap> target, boolean z) {
                 return false;
             }
 
             public boolean onResourceReady(Bitmap bitmap, Object obj, Target<Bitmap> target, DataSource dataSource, boolean z) {
-                PhotoEffectEditor.this.backBitmap = Bitmap.createBitmap(bitmap);
-                Blurry.with(PhotoEffectEditor.this.context).from(bitmap).into(PhotoEffectEditor.this.ivblur);
+                backBitmap = Bitmap.createBitmap(bitmap);
+                Blurry.with(context).from(bitmap).into(ivblur);
                 return true;
             }
-        }).into(this.ivblur);
-        ((RequestBuilder) Glide.with(this.context).load(this.imgPath).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).transition(DrawableTransitionOptions.withCrossFade()).into(this.ivoriginal);
-        ((RequestBuilder) Glide.with(this.context).asBitmap().load(this.imgPath).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).into(new CustomTarget<Bitmap>() {
+        }).into(ivblur);
+        ((RequestBuilder) Glide.with(context).load(imgPath).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).transition(DrawableTransitionOptions.withCrossFade()).into(ivoriginal);
+        ((RequestBuilder) Glide.with(context).asBitmap().load(imgPath).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).into(new CustomTarget<Bitmap>() {
             public void onLoadCleared(@Nullable Drawable drawable) {
             }
 
             public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                PhotoEffectEditor.this.mainBitmap = Bitmap.createBitmap(bitmap);
-                PhotoEffectEditor.this.initializeCropping();
+                mainBitmap = Bitmap.createBitmap(bitmap);
+                initializeCropping();
             }
         });
     }
 
     private void initRecycler() {
-        this.rcvspiral.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false));
-        this.rcvfilter.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false));
-        this.adapter = new ImageSpiralAdapter(this.context, new ImageSpiralAdapter.OnSpiralListener() {
+        rcvspiral.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        rcvfilter.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        adapter = new ImageSpiralAdapter(context, new ImageSpiralAdapter.OnSpiralListener() {
             public void onSpiralClicked(int i) {
-                PhotoEffectEditor.this.setSpiral(i);
+                setSpiral(i);
             }
         });
-        this.rcvspiral.setAdapter(this.adapter);
+        rcvspiral.setAdapter(adapter);
     }
 
     public void onFilterClicked(int i) {
-        this.relpbar.setVisibility(View.VISIBLE);
-        Bitmap filter = setFilter(i, this.backBitmap);
-        Bitmap filter2 = setFilter(i, this.mainBitmap);
-        Bitmap filter3 = setFilter(i, this.cropBitmap);
-        this.ivblur.setImageBitmap(filter);
-        this.ivoriginal.setImageBitmap(filter2);
-        this.ivcut.setImageBitmap(filter3);
-        this.relpbar.setVisibility(View.GONE);
+        relpbar.setVisibility(View.VISIBLE);
+        Bitmap filter = setFilter(i, backBitmap);
+        Bitmap filter2 = setFilter(i, mainBitmap);
+        Bitmap filter3 = setFilter(i, cropBitmap);
+        ivblur.setImageBitmap(filter);
+        ivoriginal.setImageBitmap(filter2);
+        ivcut.setImageBitmap(filter3);
+        relpbar.setVisibility(View.GONE);
     }
 
     @SuppressLint({"ClickableViewAccessibility"})
     public void onCropDone(Bitmap bitmap) {
-        this.cropBitmap = Bitmap.createBitmap(bitmap);
-        this.ivcut.setImageBitmap(this.cropBitmap);
+        cropBitmap = Bitmap.createBitmap(bitmap);
+        ivcut.setImageBitmap(cropBitmap);
         MultiTouchListener MultiTouchListener = new MultiTouchListener();
-        MultiTouchListener.addSimultaneousView(this.ivbspiral);
-        this.ivfspiral.setOnTouchListener(MultiTouchListener);
+        MultiTouchListener.addSimultaneousView(ivbspiral);
+        ivfspiral.setOnTouchListener(MultiTouchListener);
         setSpiral(0);
         new LoadFilter().execute(new Void[0]);
-        this.backBitmap = getBitmapFromView(this.ivblur);
+        backBitmap = getBitmapFromView(ivblur);
     }
 
     public void spiral(View view) {
-        selectElement(this.celement == 0 ? -1 : 0);
+        selectElement(celement == 0 ? -1 : 0);
     }
 
     public void text(View view) {
         int i = 1;
-        if (this.celement == 1) {
+        if (celement == 1) {
             i = -1;
         }
         selectElement(i);
@@ -300,7 +300,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
     public void background(View view) {
         int i = 2;
-        if (this.celement == 2) {
+        if (celement == 2) {
             i = -1;
         }
         selectElement(i);
@@ -308,7 +308,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
     public void filter(View view) {
         int i = 3;
-        if (this.celement == 3) {
+        if (celement == 3) {
             i = -1;
         }
         selectElement(i);
@@ -323,7 +323,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
     public void bgcolor(View view) {
         selectElement(-1);
-        showColor(false, 1, this.bgcolor);
+        showColor(false, 1, bgcolor);
     }
 
     public void gradient(View view) {
@@ -335,16 +335,16 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void startColor(View view) {
-        showColor(false, 2, this.gcolor[0]);
+        showColor(false, 2, gcolor[0]);
     }
 
     public void endColor(View view) {
-        showColor(false, 3, this.gcolor[1]);
+        showColor(false, 3, gcolor[1]);
     }
 
     public void texture(View view) {
         selectElement(-1);
-        startActivityForResult(new Intent(this.context, TextureList.class), 102);
+        startActivityForResult(new Intent(context, TextureList.class), 102);
     }
 
     public void option(View view) {
@@ -352,21 +352,21 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void textColor(View view) {
-        showColor(false, 0, this.textcolor);
+        showColor(false, 0, textcolor);
     }
 
     @SuppressLint({"InflateParams"})
     public void textFont(View view) {
-        View inflate = ((LayoutInflater) this.context.getSystemService("layout_inflater")).inflate(R.layout.font_dialog, (ViewGroup) null, false);
-        final Dialog dialog = new Dialog(this.context);
+        View inflate = ((LayoutInflater) context.getSystemService("layout_inflater")).inflate(R.layout.font_dialog, (ViewGroup) null, false);
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(inflate);
         ListView listView = (ListView) inflate.findViewById(R.id.spinlist);
         ImageView imageView = (ImageView) inflate.findViewById(R.id.ivclose);
-        SetLayparam.setHeightWidth(this.context, (LinearLayout) inflate.findViewById(R.id.lineardialog), 969, 1056);
-        SetLayparam.setHeight(this.context, (RelativeLayout) inflate.findViewById(R.id.reltitle), 150);
-        SetLayparam.setHeightAsBoth(this.context, imageView, 90);
-        SetLayparam.setMarginRight(this.context, imageView, 40);
-        listView.setAdapter(new FontAdapter(this.context, Constant.font));
+        SetLayparam.setHeightWidth(context, (LinearLayout) inflate.findViewById(R.id.lineardialog), 969, 1056);
+        SetLayparam.setHeight(context, (RelativeLayout) inflate.findViewById(R.id.reltitle), 150);
+        SetLayparam.setHeightAsBoth(context, imageView, 90);
+        SetLayparam.setMarginRight(context, imageView, 40);
+        listView.setAdapter(new FontAdapter(context, Constant.font));
         imageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 dialog.dismiss();
@@ -376,9 +376,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long j) {
                 Constant.fontname = Constant.font[i];
                 PhotoEffectEditor PhotoEffectEditor1 = PhotoEffectEditor.this;
-                AssetManager assets = PhotoEffectEditor.this.context.getAssets();
+                AssetManager assets = context.getAssets();
                 PhotoEffectEditor1.externalFont = Typeface.createFromAsset(assets, "fonts/" + Constant.fontname + ".ttf");
-                PhotoEffectEditor.this.ettext.setTypeface(PhotoEffectEditor.this.externalFont);
+                ettext.setTypeface(externalFont);
                 dialog.dismiss();
             }
         });
@@ -395,30 +395,30 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
         if (i2 == -1) {
             switch (i) {
                 case 101:
-                    ((RequestBuilder) ((RequestBuilder) Glide.with(this.context).load(intent.getData()).centerCrop()).transition(DrawableTransitionOptions.withCrossFade()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).listener(new RequestListener<Drawable>() {
+                    ((RequestBuilder) ((RequestBuilder) Glide.with(context).load(intent.getData()).centerCrop()).transition(DrawableTransitionOptions.withCrossFade()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).listener(new RequestListener<Drawable>() {
                         public boolean onLoadFailed(@Nullable GlideException glideException, Object obj, Target<Drawable> target, boolean z) {
                             return false;
                         }
 
                         public boolean onResourceReady(Drawable drawable, Object obj, Target<Drawable> target, DataSource dataSource, boolean z) {
-                            PhotoEffectEditor.this.backBitmap = PhotoEffectEditor.this.drawableToBitmap(drawable);
+                            backBitmap = drawableToBitmap(drawable);
                             return false;
                         }
-                    }).into(this.ivblur);
-                    this.ivblur.setBackground((Drawable) null);
+                    }).into(ivblur);
+                    ivblur.setBackground((Drawable) null);
                     return;
                 case 102:
-                    ((RequestBuilder) ((RequestBuilder) Glide.with(this.context).load(intent.getStringExtra("texture")).centerCrop()).transition(DrawableTransitionOptions.withCrossFade()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).listener(new RequestListener<Drawable>() {
+                    ((RequestBuilder) ((RequestBuilder) Glide.with(context).load(intent.getStringExtra("texture")).centerCrop()).transition(DrawableTransitionOptions.withCrossFade()).signature(new ObjectKey(Long.toString(System.currentTimeMillis())))).listener(new RequestListener<Drawable>() {
                         public boolean onLoadFailed(@Nullable GlideException glideException, Object obj, Target<Drawable> target, boolean z) {
                             return false;
                         }
 
                         public boolean onResourceReady(Drawable drawable, Object obj, Target<Drawable> target, DataSource dataSource, boolean z) {
-                            PhotoEffectEditor.this.backBitmap = PhotoEffectEditor.this.drawableToBitmap(drawable);
+                            backBitmap = drawableToBitmap(drawable);
                             return false;
                         }
-                    }).into(this.ivblur);
-                    this.ivblur.setBackground((Drawable) null);
+                    }).into(ivblur);
+                    ivblur.setBackground((Drawable) null);
                     return;
                 default:
                     return;
@@ -428,40 +428,40 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
     @SuppressLint({"ClickableViewAccessibility"})
     private void addText() {
-        String obj = this.ettext.getText().toString();
+        String obj = ettext.getText().toString();
         if (!TextUtils.isEmpty(obj)) {
-            Bitmap textBitmap = Helper.getTextBitmap(obj, this.externalFont, this.textcolor);
+            Bitmap textBitmap = Helper.getTextBitmap(obj, externalFont, textcolor);
             int height2 = textBitmap.getHeight();
             int width2 = textBitmap.getWidth();
-            ImageView imageView = new ImageView(this.context);
+            ImageView imageView = new ImageView(context);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width2, height2);
             imageView.setImageBitmap(textBitmap);
             imageView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (!PhotoEffectEditor.this.isDoubleClick) {
-                        PhotoEffectEditor.this.isDoubleClick = true;
-                        PhotoEffectEditor.this.touchId = view.getId();
-                    } else if (PhotoEffectEditor.this.touchId == view.getId()) {
-                        PhotoEffectEditor.this.relTextLayout.removeView(view);
-                        PhotoEffectEditor.this.touchId = -1;
+                    if (!isDoubleClick) {
+                        isDoubleClick = true;
+                        touchId = view.getId();
+                    } else if (touchId == view.getId()) {
+                        relTextLayout.removeView(view);
+                        touchId = -1;
                     }
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            PhotoEffectEditor.this.isDoubleClick = false;
+                            isDoubleClick = false;
                         }
                     }, 1000);
                 }
             });
             imageView.setOnTouchListener(new MultiTouchListener());
-            this.relTextLayout.addView(imageView, layoutParams);
-            this.ettext.setText("");
+            relTextLayout.addView(imageView, layoutParams);
+            ettext.setText("");
             return;
         }
-        Helper.show(this.context, "No text to add");
+        Helper.show(context, "No text to add");
     }
 
     public void onSaveComplete(String str) {
-        Intent intent = new Intent(this.context, NeonPhotoPreview.class);
+        Intent intent = new Intent(context, NeonPhotoPreview.class);
         intent.putExtra("from", 0);
         intent.putExtra("path", str);
         startActivity(intent);
@@ -470,8 +470,8 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     public void setSpiral(int i) {
         String back = Path.SPIRAL.back(i);
         String front = Path.SPIRAL.front(i);
-        Glide.with(this.context).load(back).transition(DrawableTransitionOptions.withCrossFade()).into(this.ivbspiral);
-        Glide.with(this.context).load(front).transition(DrawableTransitionOptions.withCrossFade()).into(this.ivfspiral);
+        Glide.with(context).load(back).transition(DrawableTransitionOptions.withCrossFade()).into(ivbspiral);
+        Glide.with(context).load(front).transition(DrawableTransitionOptions.withCrossFade()).into(ivfspiral);
     }
 
     public Bitmap setFilter(int i, Bitmap bitmap) {
@@ -506,7 +506,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
                 filter.addSubFilter(new BrightnessSubFilter(60));
                 break;
             case 9:
-                filter.addSubFilter(new VignetteSubFilter(this.context, 100));
+                filter.addSubFilter(new VignetteSubFilter(context, 100));
                 break;
             case 10:
                 filter.addSubFilter(new ColorOverlaySubFilter(100, 0.2f, 0.0f, 0.0f));
@@ -516,84 +516,84 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void selectElement(int i) {
-        this.celement = i;
+        celement = i;
         if (i != 23) {
             switch (i) {
                 case -1:
-//                    this.ivspiral.setImageResource(R.drawable.btn_spiral);
-//                    this.ivtext.setImageResource(R.drawable.btn_text);
-//                    this.ivbg.setImageResource(R.drawable.btn_background);
-//                    this.ivfilter.setImageResource(R.drawable.btn_filter);
-                    this.rcvspiral.setVisibility(View.GONE);
-                    this.rcvfilter.setVisibility(View.GONE);
-                    this.ltext.setVisibility(View.GONE);
-                    this.hsvbg.setVisibility(View.GONE);
-                    this.lgradient.setVisibility(View.GONE);
+//                    ivspiral.setImageResource(R.drawable.btn_spiral);
+//                    ivtext.setImageResource(R.drawable.btn_text);
+//                    ivbg.setImageResource(R.drawable.btn_background);
+//                    ivfilter.setImageResource(R.drawable.btn_filter);
+                    rcvspiral.setVisibility(View.GONE);
+                    rcvfilter.setVisibility(View.GONE);
+                    ltext.setVisibility(View.GONE);
+                    hsvbg.setVisibility(View.GONE);
+                    lgradient.setVisibility(View.GONE);
                     return;
                 case 0:
-//                    this.ivspiral.setImageResource(R.drawable.spiral_press);
-//                    this.ivtext.setImageResource(R.drawable.btn_text);
-//                    this.ivbg.setImageResource(R.drawable.btn_background);
-//                    this.ivfilter.setImageResource(R.drawable.btn_filter);
-                    this.ltext.setVisibility(View.GONE);
-                    this.hsvbg.setVisibility(View.GONE);
-                    this.lgradient.setVisibility(View.GONE);
-                    this.rcvfilter.setVisibility(View.GONE);
-                    this.rcvspiral.setVisibility(View.VISIBLE);
+//                    ivspiral.setImageResource(R.drawable.spiral_press);
+//                    ivtext.setImageResource(R.drawable.btn_text);
+//                    ivbg.setImageResource(R.drawable.btn_background);
+//                    ivfilter.setImageResource(R.drawable.btn_filter);
+                    ltext.setVisibility(View.GONE);
+                    hsvbg.setVisibility(View.GONE);
+                    lgradient.setVisibility(View.GONE);
+                    rcvfilter.setVisibility(View.GONE);
+                    rcvspiral.setVisibility(View.VISIBLE);
                     return;
                 case 1:
-//                    this.ivspiral.setImageResource(R.drawable.btn_spiral);
-//                    this.ivtext.setImageResource(R.drawable.text_press);
-//                    this.ivbg.setImageResource(R.drawable.btn_background);
-//                    this.ivfilter.setImageResource(R.drawable.btn_filter);
-                    this.externalFont = null;
-                    this.ettext.setTextColor(-1);
-                    this.ettext.setTypeface((Typeface) null);
-                    this.rcvspiral.setVisibility(View.GONE);
-                    this.rcvfilter.setVisibility(View.GONE);
-                    this.hsvbg.setVisibility(View.GONE);
-                    this.lgradient.setVisibility(View.GONE);
-                    this.ltext.setVisibility(View.VISIBLE);
+//                    ivspiral.setImageResource(R.drawable.btn_spiral);
+//                    ivtext.setImageResource(R.drawable.text_press);
+//                    ivbg.setImageResource(R.drawable.btn_background);
+//                    ivfilter.setImageResource(R.drawable.btn_filter);
+                    externalFont = null;
+                    ettext.setTextColor(-1);
+                    ettext.setTypeface((Typeface) null);
+                    rcvspiral.setVisibility(View.GONE);
+                    rcvfilter.setVisibility(View.GONE);
+                    hsvbg.setVisibility(View.GONE);
+                    lgradient.setVisibility(View.GONE);
+                    ltext.setVisibility(View.VISIBLE);
                     return;
                 case 2:
-//                    this.ivspiral.setImageResource(R.drawable.btn_spiral);
-//                    this.ivtext.setImageResource(R.drawable.btn_text);
-//                    this.ivbg.setImageResource(R.drawable.background_press);
-//                    this.ivfilter.setImageResource(R.drawable.btn_filter);
-                    this.rcvspiral.setVisibility(View.GONE);
-                    this.rcvfilter.setVisibility(View.GONE);
-                    this.ltext.setVisibility(View.GONE);
-                    this.lgradient.setVisibility(View.GONE);
-                    this.hsvbg.setVisibility(View.VISIBLE);
+//                    ivspiral.setImageResource(R.drawable.btn_spiral);
+//                    ivtext.setImageResource(R.drawable.btn_text);
+//                    ivbg.setImageResource(R.drawable.background_press);
+//                    ivfilter.setImageResource(R.drawable.btn_filter);
+                    rcvspiral.setVisibility(View.GONE);
+                    rcvfilter.setVisibility(View.GONE);
+                    ltext.setVisibility(View.GONE);
+                    lgradient.setVisibility(View.GONE);
+                    hsvbg.setVisibility(View.VISIBLE);
                     return;
                 case 3:
-//                    this.ivspiral.setImageResource(R.drawable.btn_spiral);
-//                    this.ivtext.setImageResource(R.drawable.btn_text);
-//                    this.ivbg.setImageResource(R.drawable.btn_background);
-//                    this.ivfilter.setImageResource(R.drawable.filter_press);
-                    this.rcvspiral.setVisibility(View.GONE);
-                    this.ltext.setVisibility(View.GONE);
-                    this.lgradient.setVisibility(View.GONE);
-                    this.hsvbg.setVisibility(View.GONE);
-                    this.rcvfilter.setVisibility(View.VISIBLE);
+//                    ivspiral.setImageResource(R.drawable.btn_spiral);
+//                    ivtext.setImageResource(R.drawable.btn_text);
+//                    ivbg.setImageResource(R.drawable.btn_background);
+//                    ivfilter.setImageResource(R.drawable.filter_press);
+                    rcvspiral.setVisibility(View.GONE);
+                    ltext.setVisibility(View.GONE);
+                    lgradient.setVisibility(View.GONE);
+                    hsvbg.setVisibility(View.GONE);
+                    rcvfilter.setVisibility(View.VISIBLE);
                     return;
                 default:
                     return;
             }
         } else {
-            this.hsvbg.setVisibility(View.GONE);
-            this.lgradient.setVisibility(View.VISIBLE);
+            hsvbg.setVisibility(View.GONE);
+            lgradient.setVisibility(View.VISIBLE);
         }
     }
 
     public void initializeCropping() {
-        this.allredpath.clear();
-        this.imageCutter = new ImageCutter();
-        startProcessingAsyncBlur(this.mainBitmap, new HashSet());
+        allredpath.clear();
+        imageCutter = new ImageCutter();
+        startProcessingAsyncBlur(mainBitmap, new HashSet());
     }
 
     public void startProcessingAsyncBlur(Bitmap bitmap, Set<PointF> set) {
-        this.croptask = new AutoCrop(bitmap, set).execute(new Bitmap[]{bitmap});
+        croptask = new AutoCrop(bitmap, set).execute(new Bitmap[]{bitmap});
     }
 
     public Bitmap getBitmapFromView(View view) {
@@ -605,9 +605,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void showColor(boolean z, final int i1, int i2) {
-        new AmbilWarnaDialog(this.context, Boolean.valueOf(z), i2, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        new AmbilWarnaDialog(context, Boolean.valueOf(z), i2, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             public void onOk(AmbilWarnaDialog AmbilWarnaDialog1, int i) {
-                PhotoEffectEditor.this.applyToType(i1, i);
+                applyToType(i1, i);
                 AmbilWarnaDialog1.getDialog().dismiss();
             }
 
@@ -620,21 +620,21 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     public void applyToType(int i, int i2) {
         switch (i) {
             case 0:
-                this.textcolor = i2;
-                this.ettext.setTextColor(this.textcolor);
+                textcolor = i2;
+                ettext.setTextColor(textcolor);
                 return;
             case 1:
-                this.bgcolor = i2;
-                this.ivblur.setImageBitmap((Bitmap) null);
-                this.ivblur.setBackgroundColor(this.bgcolor);
-                this.backBitmap = getBitmapFromView(this.ivblur);
+                bgcolor = i2;
+                ivblur.setImageBitmap((Bitmap) null);
+                ivblur.setBackgroundColor(bgcolor);
+                backBitmap = getBitmapFromView(ivblur);
                 return;
             case 2:
-                this.gcolor[0] = i2;
+                gcolor[0] = i2;
                 gapply();
                 return;
             case 3:
-                this.gcolor[1] = i2;
+                gcolor[1] = i2;
                 gapply();
                 return;
             default:
@@ -662,23 +662,23 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void gapply() {
-        if (this.gcolor.length < 2) {
-            Helper.show(this.context, "Please select both color");
+        if (gcolor.length < 2) {
+            Helper.show(context, "Please select both color");
             return;
         }
-        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, this.gcolor);
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, gcolor);
         gradientDrawable.setGradientType(0);
-        this.ivblur.setImageBitmap((Bitmap) null);
-        this.ivblur.setBackground(gradientDrawable);
-        this.backBitmap = getBitmapFromView(this.ivblur);
+        ivblur.setImageBitmap((Bitmap) null);
+        ivblur.setBackground(gradientDrawable);
+        backBitmap = getBitmapFromView(ivblur);
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {
@@ -686,8 +686,8 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void onBackPressed() {
-        if (!(this.croptask == null || this.croptask.getStatus() == AsyncTask.Status.FINISHED)) {
-            this.croptask.cancel(true);
+        if (!(croptask == null || croptask.getStatus() == AsyncTask.Status.FINISHED)) {
+            croptask.cancel(true);
         }
         super.onBackPressed();
         finish();
@@ -700,46 +700,46 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
         Set<PointF> set;
 
         private AutoCrop(Bitmap bitmap2, Set<PointF> set2) {
-            this.assets = PhotoEffectEditor.this.getAssets();
-            this.bitmap = bitmap2;
-            this.set = set2;
+            assets = getAssets();
+            bitmap = bitmap2;
+            set = set2;
         }
 
         public void onPreExecute() {
             super.onPreExecute();
-            PhotoEffectEditor.this.relpbar.setVisibility(View.VISIBLE);
+            relpbar.setVisibility(View.VISIBLE);
             System.gc();
         }
 
         public Bitmap doInBackground(Bitmap... bitmapArr) {
-            if (!PhotoEffectEditor.this.imageCutter.isInitialized()) {
-                ImageCutter.initialize(this.assets, PhotoEffectEditor.this.context);
+            if (!imageCutter.isInitialized()) {
+                ImageCutter.initialize(assets, context);
             }
-            Bitmap execute = PhotoEffectEditor.this.imageCutter.execute(this.bitmap, this.set);
-            ImageBlurMaker.doBlur(PhotoEffectEditor.this.context, ImageUtils.scaleBitmap(execute, execute.getWidth() - PhotoEffectEditor.this.getWidth(15), execute.getHeight() - PhotoEffectEditor.this.getHeight(15)), 25, true);
-            Bitmap mask = Helper.getMask(PhotoEffectEditor.this.mainBitmap, execute);
-            if (PhotoEffectEditor.this.allredpath.size() <= 0 || PhotoEffectEditor.this.RedCutBit == null) {
-                int bitwidth = PhotoEffectEditor.this.imageCutter.getBitwidth();
-                int bitheight = PhotoEffectEditor.this.imageCutter.getBitheight();
-                PhotoEffectEditor.this.RedCutBit = Bitmap.createBitmap(bitwidth, bitheight, Bitmap.Config.ARGB_8888);
-                PhotoEffectEditor.this.allredpath.clear();
-                PhotoEffectEditor.this.allredpath = new ArrayList<>(PhotoEffectEditor.this.imageCutter.getAllredpath());
-                Iterator<PointF> it = PhotoEffectEditor.this.allredpath.iterator();
+            Bitmap execute = imageCutter.execute(bitmap, set);
+            ImageBlurMaker.doBlur(context, ImageUtils.scaleBitmap(execute, execute.getWidth() - getWidth(15), execute.getHeight() - getHeight(15)), 25, true);
+            Bitmap mask = Helper.getMask(mainBitmap, execute);
+            if (allredpath.size() <= 0 || RedCutBit == null) {
+                int bitwidth = imageCutter.getBitwidth();
+                int bitheight = imageCutter.getBitheight();
+                RedCutBit = Bitmap.createBitmap(bitwidth, bitheight, Bitmap.Config.ARGB_8888);
+                allredpath.clear();
+                allredpath = new ArrayList<>(imageCutter.getAllredpath());
+                Iterator<PointF> it = allredpath.iterator();
                 while (it.hasNext()) {
                     PointF next = it.next();
                     if (!isCancelled()) {
-                        PhotoEffectEditor.this.RedCutBit.setPixel((int) next.x, (int) next.y, 0);
+                        RedCutBit.setPixel((int) next.x, (int) next.y, 0);
                     }
                 }
-                PhotoEffectEditor.this.RedCutBit = ImageUtils.scaleBitmap(PhotoEffectEditor.this.RedCutBit, mask.getWidth(), mask.getHeight());
+                RedCutBit = ImageUtils.scaleBitmap(RedCutBit, mask.getWidth(), mask.getHeight());
             }
-            return Helper.getMask(PhotoEffectEditor.this.mainBitmap, Bitmap.createBitmap(mask));
+            return Helper.getMask(mainBitmap, Bitmap.createBitmap(mask));
         }
 
         public void onPostExecute(Bitmap bitmap2) {
             if (!isCancelled()) {
-                PhotoEffectEditor.this.onCropDone(Helper.getBitmapResize(PhotoEffectEditor.this.context, bitmap2, 1080, 1080));
-                PhotoEffectEditor.this.relpbar.setVisibility(View.GONE);
+                onCropDone(Helper.getBitmapResize(context, bitmap2, 1080, 1080));
+                relpbar.setVisibility(View.GONE);
             }
         }
     }
@@ -753,22 +753,22 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
         public void onPreExecute() {
             super.onPreExecute();
-            PhotoEffectEditor.this.relpbar.setVisibility(View.VISIBLE);
+            relpbar.setVisibility(View.VISIBLE);
         }
 
         public Void doInBackground(Void... voidArr) {
-            this.path = Helper.saveMainBitmap(PhotoEffectEditor.this.context, PhotoEffectEditor.this.getBitmapFromView(PhotoEffectEditor.this.releditor));
+            path = Helper.saveMainBitmap(context, getBitmapFromView(releditor));
             return null;
         }
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            MediaScannerConnection.scanFile(PhotoEffectEditor.this.context, new String[]{this.path}, new String[]{"jpg"}, new MediaScannerConnection.OnScanCompletedListener() {
+            MediaScannerConnection.scanFile(context, new String[]{path}, new String[]{"jpg"}, new MediaScannerConnection.OnScanCompletedListener() {
                 public void onScanCompleted(String str, Uri uri) {
-                    PhotoEffectEditor.this.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         public void run() {
-                            PhotoEffectEditor.this.relpbar.setVisibility(View.GONE);
-                            PhotoEffectEditor.this.onSaveComplete(SaveImage.this.path);
+                            relpbar.setVisibility(View.GONE);
+                            onSaveComplete(SaveImage.this.path);
                         }
                     });
                 }
@@ -783,20 +783,20 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
         public void onPreExecute() {
             super.onPreExecute();
-            PhotoEffectEditor.this.albitmap.clear();
+            albitmap.clear();
         }
 
         public Void doInBackground(Void... voidArr) {
             for (int i = 0; i < 11; i++) {
-                PhotoEffectEditor.this.albitmap.add(PhotoEffectEditor.this.setFilter(i, PhotoEffectEditor.this.mainBitmap));
+                albitmap.add(setFilter(i, mainBitmap));
             }
             return null;
         }
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            PhotoEffectEditor.this.fadapter = new FilterAdapter(PhotoEffectEditor.this.context, PhotoEffectEditor.this.albitmap, PhotoEffectEditor.this);
-            PhotoEffectEditor.this.rcvfilter.setAdapter(PhotoEffectEditor.this.fadapter);
+            fadapter = new FilterAdapter(context, albitmap, PhotoEffectEditor.this);
+            rcvfilter.setAdapter(fadapter);
         }
     }
 }

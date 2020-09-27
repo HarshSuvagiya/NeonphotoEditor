@@ -76,26 +76,26 @@ public class EZFilter {
         }
 
         public Builder addFilter(FilterRender FilterRender1) {
-            if (FilterRender1 != null && !this.mFilterRenders.contains(FilterRender1)) {
+            if (FilterRender1 != null && !mFilterRenders.contains(FilterRender1)) {
                 FilterRender1.setBitmapCache(EZFilter.sBitmapCache);
-                this.mFilterRenders.add(FilterRender1);
+                mFilterRenders.add(FilterRender1);
             }
             return this;
         }
 
         public <T extends FilterRender & IAdjustable> Builder addFilter(T t, float f) {
-            if (t != null && !this.mFilterRenders.contains(t)) {
+            if (t != null && !mFilterRenders.contains(t)) {
                 t.setBitmapCache(EZFilter.sBitmapCache);
                 ((IAdjustable) t).adjust(f);
-                this.mFilterRenders.add(t);
+                mFilterRenders.add(t);
             }
             return this;
         }
 
         public Builder enableRecord(String str, boolean z, boolean z2) {
-            this.mOutputPath = str;
-            this.mEnableRecordVideo = z;
-            this.mEnableRecordAudio = z2;
+            mOutputPath = str;
+            mEnableRecordVideo = z;
+            mEnableRecordAudio = z2;
             return this;
         }
 
@@ -111,16 +111,16 @@ public class EZFilter {
             if (renderPipeline2 != null) {
                 renderPipeline2.clearEndPointRenders();
                 renderPipeline2.addEndPointRender(new GLRender());
-                if (this.mEnableRecordVideo || this.mEnableRecordAudio) {
-                    renderPipeline2.addEndPointRender(new RecordableRender(this.mOutputPath, this.mEnableRecordVideo, this.mEnableRecordAudio));
+                if (mEnableRecordVideo || mEnableRecordAudio) {
+                    renderPipeline2.addEndPointRender(new RecordableRender(mOutputPath, mEnableRecordVideo, mEnableRecordAudio));
                 }
-                for (FilterRender addFilterRender : this.mFilterRenders) {
+                for (FilterRender addFilterRender : mFilterRenders) {
                     renderPipeline2.addFilterRender(addFilterRender);
                 }
                 renderPipeline2.startRender();
             }
             if (aspectRatio) {
-                Handler handler = this.mMainHandler;
+                Handler handler = mMainHandler;
                 IFitView1.getClass();
                 handler.post(new Runnable() {
                     public final void run() {

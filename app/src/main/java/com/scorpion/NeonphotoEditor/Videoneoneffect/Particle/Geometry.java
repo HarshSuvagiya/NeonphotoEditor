@@ -8,9 +8,9 @@ public class Geometry {
         public final float z;
 
         public Point(float f, float f2, float f3) {
-            this.x = f;
-            this.y = f2;
-            this.z = f3;
+            x = f;
+            y = f2;
+            z = f3;
         }
 
     }
@@ -24,13 +24,13 @@ public class Geometry {
         public float z;
 
         public Vector(float f, float f2, float f3) {
-            this.x = f;
-            this.y = f2;
-            this.z = f3;
+            x = f;
+            y = f2;
+            z = f3;
         }
 
         public float length() {
-            return (float) Math.sqrt((double) ((this.x * this.x) + (this.y * this.y) + (this.z * this.z)));
+            return (float) Math.sqrt((double) ((x * x) + (y * y) + (z * z)));
         }
 
     }

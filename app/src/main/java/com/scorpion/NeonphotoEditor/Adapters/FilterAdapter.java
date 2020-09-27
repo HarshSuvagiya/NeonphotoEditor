@@ -34,33 +34,33 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.MyViewHold
     }
 
     public FilterAdapter(Context context2, ArrayList<Bitmap> arrayList, OnFilterListener onFilterListener) {
-        this.context = context2;
-        this.listener = onFilterListener;
-        this.alimage = new ArrayList<>(arrayList);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = context2;
+        listener = onFilterListener;
+        alimage = new ArrayList<>(arrayList);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
     }
 
     public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
-        ((RequestBuilder) Glide.with(this.context).load(this.alimage.get(i)).transition(DrawableTransitionOptions.withCrossFade()).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop(), new RoundedCorners(10)}))).into(myViewHolder.iv);
-        myViewHolder.relselected.setBackgroundResource(this.selected == i ? R.drawable.effect_select : R.drawable.effect_unselect);
+        ((RequestBuilder) Glide.with(context).load(alimage.get(i)).transition(DrawableTransitionOptions.withCrossFade()).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop(), new RoundedCorners(10)}))).into(myViewHolder.iv);
+        myViewHolder.relselected.setBackgroundResource(selected == i ? R.drawable.effect_select : R.drawable.effect_unselect);
         myViewHolder.relselected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                FilterAdapter.this.selected = i;
-                FilterAdapter.this.notifyDataSetChanged();
-                if (FilterAdapter.this.listener != null) {
-                    FilterAdapter.this.listener.onFilterClicked(i);
+                selected = i;
+                notifyDataSetChanged();
+                if (listener != null) {
+                    listener.onFilterClicked(i);
                 }
             }
         });
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new MyViewHolder(((LayoutInflater) this.context.getSystemService("layout_inflater")).inflate(R.layout.item_filter, viewGroup, false));
+        return new MyViewHolder(((LayoutInflater) context.getSystemService("layout_inflater")).inflate(R.layout.item_filter, viewGroup, false));
     }
 
     public int getItemCount() {
-        return this.alimage.size();
+        return alimage.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -70,16 +70,16 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.MyViewHold
 
         public MyViewHolder(View view) {
             super(view);
-            this.iv = (ImageView) view.findViewById(R.id.ivfitem);
-            this.relmain = (RelativeLayout) view.findViewById(R.id.relfitem);
-            this.relselected = (RelativeLayout) view.findViewById(R.id.relselected);
+            iv = (ImageView) view.findViewById(R.id.ivfitem);
+            relmain = (RelativeLayout) view.findViewById(R.id.relfitem);
+            relselected = (RelativeLayout) view.findViewById(R.id.relselected);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setHeightAsBoth(FilterAdapter.this.context, this.relmain, 160);
-            SetLayparam.setMarginLeft(FilterAdapter.this.context, this.relmain, 20);
-            SetLayparam.setMarginsAsHeight(FilterAdapter.this.context, this.iv, 10);
+            SetLayparam.setHeightAsBoth(context, relmain, 160);
+            SetLayparam.setMarginLeft(context, relmain, 20);
+            SetLayparam.setMarginsAsHeight(context, iv, 10);
         }
     }
 }

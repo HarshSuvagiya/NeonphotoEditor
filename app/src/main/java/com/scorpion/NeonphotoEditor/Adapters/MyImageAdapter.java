@@ -22,22 +22,22 @@ public class MyImageAdapter extends RecyclerView.Adapter<MyImageAdapter.MyViewHo
     int width;
 
     public MyImageAdapter(Context context2, ArrayList<String> arrayList) {
-        this.context = context2;
-        this.ad = arrayList;
-        this.width = context2.getResources().getDisplayMetrics().widthPixels;
-        this.height = context2.getResources().getDisplayMetrics().heightPixels;
+        context = context2;
+        ad = arrayList;
+        width = context2.getResources().getDisplayMetrics().widthPixels;
+        height = context2.getResources().getDisplayMetrics().heightPixels;
     }
 
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        ((RequestBuilder) Glide.with(this.context).load(this.ad.get(i)).transition(DrawableTransitionOptions.withCrossFade()).centerCrop()).into(myViewHolder.iv);
+        ((RequestBuilder) Glide.with(context).load(ad.get(i)).transition(DrawableTransitionOptions.withCrossFade()).centerCrop()).into(myViewHolder.iv);
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new MyViewHolder(((LayoutInflater) this.context.getSystemService("layout_inflater")).inflate(R.layout.item_creation_image, viewGroup, false));
+        return new MyViewHolder(((LayoutInflater) context.getSystemService("layout_inflater")).inflate(R.layout.item_creation_image, viewGroup, false));
     }
 
     public int getItemCount() {
-        return this.ad.size();
+        return ad.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -46,14 +46,14 @@ public class MyImageAdapter extends RecyclerView.Adapter<MyImageAdapter.MyViewHo
 
         public MyViewHolder(View view) {
             super(view);
-            this.iv = (ImageView) view.findViewById(R.id.ivcitem);
-            this.lmain = (LinearLayout) view.findViewById(R.id.linearicreation);
+            iv = (ImageView) view.findViewById(R.id.ivcitem);
+            lmain = (LinearLayout) view.findViewById(R.id.linearicreation);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setWidthAsBoth(MyImageAdapter.this.context, this.lmain, 484);
-            SetLayparam.setPadding(MyImageAdapter.this.context, this.lmain, 4);
+            SetLayparam.setWidthAsBoth(context, lmain, 484);
+            SetLayparam.setPadding(context, lmain, 4);
         }
     }
 }

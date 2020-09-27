@@ -35,30 +35,30 @@ class AudioChannel {
     }
 
     public AudioChannel(MediaCodec mediaCodec, MediaCodec mediaCodec2, MediaFormat mediaFormat) {
-        this.mDecoder = mediaCodec;
-        this.mEncoder = mediaCodec2;
-        this.mEncodeFormat = mediaFormat;
+        mDecoder = mediaCodec;
+        mEncoder = mediaCodec2;
+        mEncodeFormat = mediaFormat;
     }
 
     public void setActualDecodedFormat(MediaFormat mediaFormat) {
-        this.mActualDecodedFormat = mediaFormat;
-        this.mInputSampleRate = this.mActualDecodedFormat.getInteger("sample-rate");
-        if (this.mInputSampleRate == this.mEncodeFormat.getInteger("sample-rate")) {
-            this.mInputChannelCount = this.mActualDecodedFormat.getInteger("channel-count");
-            this.mOutputChannelCount = this.mEncodeFormat.getInteger("channel-count");
-            if (this.mInputChannelCount != 1 && this.mInputChannelCount != 2) {
-                throw new UnsupportedOperationException("Input channel count (" + this.mInputChannelCount + ") not supported.");
-            } else if (this.mOutputChannelCount == 1 || this.mOutputChannelCount == 2) {
-                if (this.mInputChannelCount > this.mOutputChannelCount) {
-                    this.mRemixer = AudioRemixer.DOWNMIX;
-                } else if (this.mInputChannelCount < this.mOutputChannelCount) {
-                    this.mRemixer = AudioRemixer.UPMIX;
+        mActualDecodedFormat = mediaFormat;
+        mInputSampleRate = mActualDecodedFormat.getInteger("sample-rate");
+        if (mInputSampleRate == mEncodeFormat.getInteger("sample-rate")) {
+            mInputChannelCount = mActualDecodedFormat.getInteger("channel-count");
+            mOutputChannelCount = mEncodeFormat.getInteger("channel-count");
+            if (mInputChannelCount != 1 && mInputChannelCount != 2) {
+                throw new UnsupportedOperationException("Input channel count (" + mInputChannelCount + ") not supported.");
+            } else if (mOutputChannelCount == 1 || mOutputChannelCount == 2) {
+                if (mInputChannelCount > mOutputChannelCount) {
+                    mRemixer = AudioRemixer.DOWNMIX;
+                } else if (mInputChannelCount < mOutputChannelCount) {
+                    mRemixer = AudioRemixer.UPMIX;
                 } else {
-                    this.mRemixer = AudioRemixer.PASSTHROUGH;
+                    mRemixer = AudioRemixer.PASSTHROUGH;
                 }
-                this.mOverflowBuffer.presentationTimeUs = 0;
+                mOverflowBuffer.presentationTimeUs = 0;
             } else {
-                throw new UnsupportedOperationException("Output channel count (" + this.mOutputChannelCount + ") not supported.");
+                throw new UnsupportedOperationException("Output channel count (" + mOutputChannelCount + ") not supported.");
             }
         } else {
             throw new UnsupportedOperationException("Audio sample rate conversion not supported yet.");
@@ -67,14 +67,14 @@ class AudioChannel {
 
     public void drainDecoderBufferAndQueue(int i, long j) {
         ByteBuffer byteBuffer;
-        if (this.mActualDecodedFormat != null) {
+        if (mActualDecodedFormat != null) {
             ShortBuffer shortBuffer = null;
             if (i == -1) {
                 byteBuffer = null;
             } else {
-                byteBuffer = CodecUtil.getOutputBuffer(this.mDecoder, i);
+                byteBuffer = CodecUtil.getOutputBuffer(mDecoder, i);
             }
-            AudioBuffer poll = this.mEmptyBuffers.poll();
+            AudioBuffer poll = mEmptyBuffers.poll();
             if (poll == null) {
                 poll = new AudioBuffer();
             }
@@ -84,11 +84,11 @@ class AudioChannel {
                 shortBuffer = byteBuffer.asShortBuffer();
             }
             poll.data = shortBuffer;
-            if (this.mOverflowBuffer.data == null) {
-                this.mOverflowBuffer.data = ByteBuffer.allocateDirect(byteBuffer.capacity()).order(ByteOrder.nativeOrder()).asShortBuffer();
-                this.mOverflowBuffer.data.clear().flip();
+            if (mOverflowBuffer.data == null) {
+                mOverflowBuffer.data = ByteBuffer.allocateDirect(byteBuffer.capacity()).order(ByteOrder.nativeOrder()).asShortBuffer();
+                mOverflowBuffer.data.clear().flip();
             }
-            this.mFilledBuffers.add(poll);
+            mFilledBuffers.add(poll);
             return;
         }
         throw new RuntimeException("Buffer received before format!");
@@ -96,23 +96,23 @@ class AudioChannel {
 
     public boolean feedEncoder(long j) {
         int dequeueInputBuffer;
-        boolean z = this.mOverflowBuffer.data != null && this.mOverflowBuffer.data.hasRemaining();
-        if ((this.mFilledBuffers.isEmpty() && !z) || (dequeueInputBuffer = this.mEncoder.dequeueInputBuffer(j)) < 0) {
+        boolean z = mOverflowBuffer.data != null && mOverflowBuffer.data.hasRemaining();
+        if ((mFilledBuffers.isEmpty() && !z) || (dequeueInputBuffer = mEncoder.dequeueInputBuffer(j)) < 0) {
             return false;
         }
-        ShortBuffer asShortBuffer = CodecUtil.getInputBuffer(this.mEncoder, dequeueInputBuffer).asShortBuffer();
+        ShortBuffer asShortBuffer = CodecUtil.getInputBuffer(mEncoder, dequeueInputBuffer).asShortBuffer();
         if (z) {
-            this.mEncoder.queueInputBuffer(dequeueInputBuffer, 0, asShortBuffer.position() * 2, drainOverflow(asShortBuffer), 0);
+            mEncoder.queueInputBuffer(dequeueInputBuffer, 0, asShortBuffer.position() * 2, drainOverflow(asShortBuffer), 0);
             return true;
         }
-        AudioBuffer poll = this.mFilledBuffers.poll();
+        AudioBuffer poll = mFilledBuffers.poll();
         if (poll.bufferIndex == -1) {
-            this.mEncoder.queueInputBuffer(dequeueInputBuffer, 0, 0, 0, 4);
+            mEncoder.queueInputBuffer(dequeueInputBuffer, 0, 0, 0, 4);
             return false;
         }
-        this.mEncoder.queueInputBuffer(dequeueInputBuffer, 0, asShortBuffer.position() * 2, remixAndMaybeFillOverflow(poll, asShortBuffer), 0);
-        this.mDecoder.releaseOutputBuffer(poll.bufferIndex, false);
-        this.mEmptyBuffers.add(poll);
+        mEncoder.queueInputBuffer(dequeueInputBuffer, 0, asShortBuffer.position() * 2, remixAndMaybeFillOverflow(poll, asShortBuffer), 0);
+        mDecoder.releaseOutputBuffer(poll.bufferIndex, false);
+        mEmptyBuffers.add(poll);
         return true;
     }
 
@@ -121,10 +121,10 @@ class AudioChannel {
     }
 
     private long drainOverflow(ShortBuffer shortBuffer) {
-        ShortBuffer shortBuffer2 = this.mOverflowBuffer.data;
+        ShortBuffer shortBuffer2 = mOverflowBuffer.data;
         int limit = shortBuffer2.limit();
         int remaining = shortBuffer2.remaining();
-        long sampleCountToDurationUs = this.mOverflowBuffer.presentationTimeUs + sampleCountToDurationUs(shortBuffer2.position(), this.mInputSampleRate, this.mOutputChannelCount);
+        long sampleCountToDurationUs = mOverflowBuffer.presentationTimeUs + sampleCountToDurationUs(shortBuffer2.position(), mInputSampleRate, mOutputChannelCount);
         shortBuffer.clear();
         shortBuffer2.limit(shortBuffer.capacity());
         shortBuffer.put(shortBuffer2);
@@ -138,19 +138,19 @@ class AudioChannel {
 
     private long remixAndMaybeFillOverflow(AudioBuffer audioBuffer, ShortBuffer shortBuffer) {
         ShortBuffer shortBuffer2 = audioBuffer.data;
-        ShortBuffer shortBuffer3 = this.mOverflowBuffer.data;
+        ShortBuffer shortBuffer3 = mOverflowBuffer.data;
         shortBuffer.clear();
         shortBuffer2.clear();
         if (shortBuffer2.remaining() > shortBuffer.remaining()) {
             shortBuffer2.limit(shortBuffer.capacity());
-            this.mRemixer.remix(shortBuffer2, shortBuffer);
+            mRemixer.remix(shortBuffer2, shortBuffer);
             shortBuffer2.limit(shortBuffer2.capacity());
-            long sampleCountToDurationUs = sampleCountToDurationUs(shortBuffer2.position(), this.mInputSampleRate, this.mInputChannelCount);
-            this.mRemixer.remix(shortBuffer2, shortBuffer3);
+            long sampleCountToDurationUs = sampleCountToDurationUs(shortBuffer2.position(), mInputSampleRate, mInputChannelCount);
+            mRemixer.remix(shortBuffer2, shortBuffer3);
             shortBuffer3.flip();
-            this.mOverflowBuffer.presentationTimeUs = audioBuffer.presentationTimeUs + sampleCountToDurationUs;
+            mOverflowBuffer.presentationTimeUs = audioBuffer.presentationTimeUs + sampleCountToDurationUs;
         } else {
-            this.mRemixer.remix(shortBuffer2, shortBuffer);
+            mRemixer.remix(shortBuffer2, shortBuffer);
         }
         return audioBuffer.presentationTimeUs;
     }

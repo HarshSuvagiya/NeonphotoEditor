@@ -7,9 +7,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -20,7 +23,7 @@ public class HomeActivity extends Activity {
     Context context;
     int height;
     ImageView ivmy;
-    ImageView ivphoto,videoeffect;
+    ImageView ivphoto, videoeffect;
     LinearLayout lmore;
     View vspace;
     int width;
@@ -32,28 +35,34 @@ public class HomeActivity extends Activity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_home);
-        this.context = this;
-            goToMain();
-        this.ivphoto = (ImageView) findViewById(R.id.ivphoto);
-        this.ivmy = (ImageView) findViewById(R.id.mygallery);
-        videoeffect=findViewById(R.id.videoeffect);
+        context = this;
+        goToMain();
+        ivphoto = (ImageView) findViewById(R.id.ivphoto);
+        ivmy = (ImageView) findViewById(R.id.mygallery);
+        videoeffect = findViewById(R.id.videoeffect);
 
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
+
+        TextView textView =(TextView)findViewById(R.id.privacyPolicy);
+        textView.setClickable(true);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='https://sites.google.com/view/super-fx-neon/home'>Privacy Policy</a>";
+        textView.setText(Html.fromHtml(text));
     }
 
     private void forUI() {
 
-        SetLayparam.setHeightWidth(this.context, this.ivphoto, 790, 430);
-        SetLayparam.setHeightWidth(this.context, this.ivmy, 790, 430);
-        SetLayparam.setHeightWidth(this.context, this.videoeffect, 790, 430);
+        SetLayparam.setHeightWidth(context, ivphoto, 760, 400);
+        SetLayparam.setHeightWidth(context, ivmy, 760, 400);
+        SetLayparam.setHeightWidth(context, videoeffect, 760, 400);
 
     }
 
     public void video(View view) {
 
-                    HomeActivity.this.startActivity(new Intent(HomeActivity.this.context, GalleryVideoList.class));
+        startActivity(new Intent(context, GalleryVideoList.class));
 
     }
 
@@ -66,14 +75,14 @@ public class HomeActivity extends Activity {
 
     public void creation(View view) {
 
-        startActivity(new Intent(this.context, MyCreation.class));
+        startActivity(new Intent(context, MyCreation.class));
     }
 
     public void onActivityResult(int i, int i2, Intent intent) {
         super.onActivityResult(i, i2, intent);
         if (i2 == -1) {
             Uri data = intent.getData();
-            Intent intent2 = new Intent(this.context, CropActivity.class);
+            Intent intent2 = new Intent(context, CropActivity.class);
             intent2.putExtra("uri", data + "");
             startActivity(intent2);
         }
@@ -111,11 +120,11 @@ public class HomeActivity extends Activity {
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {
@@ -130,8 +139,6 @@ public class HomeActivity extends Activity {
     public void goToMain() {
         checkPermissions();
     }
-
-
 
 
 }

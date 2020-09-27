@@ -12,18 +12,18 @@ public abstract class BufferOutput<T extends Buffer> extends FBORender {
 
     public void onDraw() {
         super.onDraw();
-        if (this.mOutputBuffer == null || this.mSizeChanged) {
-            this.mOutputBuffer = initBuffer(getWidth(), getHeight());
+        if (mOutputBuffer == null || mSizeChanged) {
+            mOutputBuffer = initBuffer(getWidth(), getHeight());
         }
-        GLES20.glReadPixels(0, 0, getWidth(), getHeight(), 6408, 5121, this.mOutputBuffer);
-        bufferOutput(this.mOutputBuffer);
+        GLES20.glReadPixels(0, 0, getWidth(), getHeight(), 6408, 5121, mOutputBuffer);
+        bufferOutput(mOutputBuffer);
     }
 
     public void destroy() {
         super.destroy();
-        if (this.mOutputBuffer != null) {
-            this.mOutputBuffer.clear();
-            this.mOutputBuffer = null;
+        if (mOutputBuffer != null) {
+            mOutputBuffer.clear();
+            mOutputBuffer = null;
         }
     }
 }

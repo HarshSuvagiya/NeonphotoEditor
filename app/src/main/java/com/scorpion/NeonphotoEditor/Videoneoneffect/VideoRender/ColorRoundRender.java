@@ -45,24 +45,24 @@ public class ColorRoundRender extends StickerRender {
     }
 
     public List<PointF> getPositionHistories() {
-        return this.mPositionHistories;
+        return mPositionHistories;
     }
 
     public void onDraw() {
         super.onDraw();
-        if (!this.mIsPause) {
-            this.mPositionHistories.add(new PointF(this.mScreenAnchor.leftAnchor.x + ((float) (this.mSticker.components.get(0).width / 2)), this.mScreenAnchor.leftAnchor.y));
+        if (!mIsPause) {
+            mPositionHistories.add(new PointF(mScreenAnchor.leftAnchor.x + ((float) (mSticker.components.get(0).width / 2)), mScreenAnchor.leftAnchor.y));
             return;
         }
-        float currentTime = this.mTimeController.getCurrentTime();
-        if (currentTime < this.mStartTime || this.mEndTime <= this.mStartTime || this.mPositionHistories.isEmpty()) {
+        float currentTime = mTimeController.getCurrentTime();
+        if (currentTime < mStartTime || mEndTime <= mStartTime || mPositionHistories.isEmpty()) {
             setPosition(-2000, -2000);
             return;
         }
-        int round = Math.round((((float) (this.mPositionHistories.size() - 1)) * (currentTime - this.mStartTime)) / (this.mEndTime - this.mStartTime));
-        List<PointF> list = this.mPositionHistories;
-        if (round >= this.mPositionHistories.size()) {
-            round = this.mPositionHistories.size() - 1;
+        int round = Math.round((((float) (mPositionHistories.size() - 1)) * (currentTime - mStartTime)) / (mEndTime - mStartTime));
+        List<PointF> list = mPositionHistories;
+        if (round >= mPositionHistories.size()) {
+            round = mPositionHistories.size() - 1;
         }
         PointF pointF = list.get(round);
         setPosition(Math.round(pointF.x), Math.round(pointF.y));

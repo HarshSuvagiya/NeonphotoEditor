@@ -62,72 +62,72 @@ public class GLRender implements OnTextureAcceptableListener {
     public GLRender() {
         initWorldVertices();
         initTextureVertices();
-        this.mRunOnDraw = new LinkedList();
-        this.mRunOnDrawEnd = new LinkedList();
+        mRunOnDraw = new LinkedList();
+        mRunOnDrawEnd = new LinkedList();
     }
 
     public void initWorldVertices() {
         float[] fArr = {-1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f};
-        this.mWorldVertices = ByteBuffer.allocateDirect(fArr.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        this.mWorldVertices.put(fArr).position(0);
+        mWorldVertices = ByteBuffer.allocateDirect(fArr.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mWorldVertices.put(fArr).position(0);
     }
 
     public void setWorldVertices(FloatBuffer floatBuffer) {
-        this.mWorldVertices = floatBuffer;
+        mWorldVertices = floatBuffer;
     }
 
     public void initTextureVertices() {
-        this.mTextureVertices = new FloatBuffer[4];
+        mTextureVertices = new FloatBuffer[4];
         float[] fArr = {0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f};
-        this.mTextureVertices[0] = ByteBuffer.allocateDirect(fArr.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        this.mTextureVertices[0].put(fArr).position(0);
+        mTextureVertices[0] = ByteBuffer.allocateDirect(fArr.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mTextureVertices[0].put(fArr).position(0);
         float[] fArr2 = {1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f};
-        this.mTextureVertices[1] = ByteBuffer.allocateDirect(fArr2.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        this.mTextureVertices[1].put(fArr2).position(0);
+        mTextureVertices[1] = ByteBuffer.allocateDirect(fArr2.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mTextureVertices[1].put(fArr2).position(0);
         float[] fArr3 = {1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f};
-        this.mTextureVertices[2] = ByteBuffer.allocateDirect(fArr3.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        this.mTextureVertices[2].put(fArr3).position(0);
+        mTextureVertices[2] = ByteBuffer.allocateDirect(fArr3.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mTextureVertices[2].put(fArr3).position(0);
         float[] fArr4 = {0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f};
-        this.mTextureVertices[3] = ByteBuffer.allocateDirect(fArr4.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        this.mTextureVertices[3].put(fArr4).position(0);
+        mTextureVertices[3] = ByteBuffer.allocateDirect(fArr4.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mTextureVertices[3].put(fArr4).position(0);
     }
 
     public void setTextureVertices(FloatBuffer[] floatBufferArr) {
-        this.mTextureVertices = floatBufferArr;
+        mTextureVertices = floatBufferArr;
     }
 
     public int getWidth() {
-        return this.mWidth;
+        return mWidth;
     }
 
     public int getHeight() {
-        return this.mHeight;
+        return mHeight;
     }
 
     public void setWidth(int i) {
-        if (!this.mCustomSizeSet && this.mWidth != i) {
-            this.mWidth = i;
-            this.mSizeChanged = true;
+        if (!mCustomSizeSet && mWidth != i) {
+            mWidth = i;
+            mSizeChanged = true;
         }
     }
 
     public void setHeight(int i) {
-        if (!this.mCustomSizeSet && this.mHeight != i) {
-            this.mHeight = i;
-            this.mSizeChanged = true;
+        if (!mCustomSizeSet && mHeight != i) {
+            mHeight = i;
+            mSizeChanged = true;
         }
     }
 
     public int getRotate90Degrees() {
-        return this.mCurrentRotation;
+        return mCurrentRotation;
     }
 
     public boolean resetRotate() {
-        if (this.mCurrentRotation % 2 == 1) {
-            this.mCurrentRotation = 0;
+        if (mCurrentRotation % 2 == 1) {
+            mCurrentRotation = 0;
             return true;
         }
-        this.mCurrentRotation = 0;
+        mCurrentRotation = 0;
         return false;
     }
 
@@ -135,50 +135,50 @@ public class GLRender implements OnTextureAcceptableListener {
         while (i < 0) {
             i += 4;
         }
-        this.mCurrentRotation += i;
-        this.mCurrentRotation %= 4;
+        mCurrentRotation += i;
+        mCurrentRotation %= 4;
     }
 
     public void setRenderSize(int i, int i2) {
-        this.mCustomSizeSet = true;
-        this.mWidth = i;
-        this.mHeight = i2;
-        this.mSizeChanged = true;
+        mCustomSizeSet = true;
+        mWidth = i;
+        mHeight = i2;
+        mSizeChanged = true;
     }
 
     public void swapWidthAndHeight() {
-        int i = this.mWidth;
-        this.mWidth = this.mHeight;
-        this.mHeight = i;
-        this.mSizeChanged = true;
+        int i = mWidth;
+        mWidth = mHeight;
+        mHeight = i;
+        mSizeChanged = true;
     }
 
     public void initShaderHandles() {
-        this.mPositionHandle = GLES20.glGetAttribLocation(this.mProgramHandle, "position");
-        this.mTextureCoordHandle = GLES20.glGetAttribLocation(this.mProgramHandle, "inputTextureCoordinate");
-        this.mTextureHandle = GLES20.glGetUniformLocation(this.mProgramHandle, "inputImageTexture");
-        this.mEffectHandle = GLES20.glGetUniformLocation(this.mProgramHandle, EFFECT_STYLE);
-        this.mPauseHandle = GLES20.glGetUniformLocation(this.mProgramHandle, PAUSE);
-        this.mMsScaleHandle = GLES20.glGetUniformLocation(this.mProgramHandle, MS_SCALE);
-        this.mReverseHandle = GLES20.glGetUniformLocation(this.mProgramHandle, REVERSE);
-        this.mEUTimeLocation = GLES20.glGetUniformLocation(this.mProgramHandle, EU_TIME);
-        this.mEBirthTimeHandle = GLES20.glGetAttribLocation(this.mProgramHandle, EBIRTH_TIME);
-        this.mEDurationHandle = GLES20.glGetAttribLocation(this.mProgramHandle, EDURATION);
+        mPositionHandle = GLES20.glGetAttribLocation(mProgramHandle, "position");
+        mTextureCoordHandle = GLES20.glGetAttribLocation(mProgramHandle, "inputTextureCoordinate");
+        mTextureHandle = GLES20.glGetUniformLocation(mProgramHandle, "inputImageTexture");
+        mEffectHandle = GLES20.glGetUniformLocation(mProgramHandle, EFFECT_STYLE);
+        mPauseHandle = GLES20.glGetUniformLocation(mProgramHandle, PAUSE);
+        mMsScaleHandle = GLES20.glGetUniformLocation(mProgramHandle, MS_SCALE);
+        mReverseHandle = GLES20.glGetUniformLocation(mProgramHandle, REVERSE);
+        mEUTimeLocation = GLES20.glGetUniformLocation(mProgramHandle, EU_TIME);
+        mEBirthTimeHandle = GLES20.glGetAttribLocation(mProgramHandle, EBIRTH_TIME);
+        mEDurationHandle = GLES20.glGetAttribLocation(mProgramHandle, EDURATION);
     }
 
     public void bindShaderVertices() {
-        this.mWorldVertices.position(0);
-        GLES20.glVertexAttribPointer(this.mPositionHandle, 2, 5126, false, 8, this.mWorldVertices);
-        GLES20.glEnableVertexAttribArray(this.mPositionHandle);
-        this.mTextureVertices[this.mCurrentRotation].position(0);
-        GLES20.glVertexAttribPointer(this.mTextureCoordHandle, 2, 5126, false, 8, this.mTextureVertices[this.mCurrentRotation]);
-        GLES20.glEnableVertexAttribArray(this.mTextureCoordHandle);
+        mWorldVertices.position(0);
+        GLES20.glVertexAttribPointer(mPositionHandle, 2, 5126, false, 8, mWorldVertices);
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
+        mTextureVertices[mCurrentRotation].position(0);
+        GLES20.glVertexAttribPointer(mTextureCoordHandle, 2, 5126, false, 8, mTextureVertices[mCurrentRotation]);
+        GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
     }
 
     public void bindShaderTextures() {
         GLES20.glActiveTexture(33984);
-        GLES20.glBindTexture(3553, this.mTextureIn);
-        GLES20.glUniform1i(this.mTextureHandle, 0);
+        GLES20.glBindTexture(3553, mTextureIn);
+        GLES20.glUniform1i(mTextureHandle, 0);
     }
 
     public void bindShaderValues() {
@@ -187,29 +187,29 @@ public class GLRender implements OnTextureAcceptableListener {
     }
 
     public void reInit() {
-        this.mInitialized = false;
+        mInitialized = false;
     }
 
     public void logDraw() {
-        Log.e("RenderDraw", toString() + " Fps:" + this.mFps);
+        Log.e("RenderDraw", toString() + " Fps:" + mFps);
     }
 
     public String toString() {
-        return super.toString() + "[" + this.mWidth + "x" + this.mHeight + "]";
+        return super.toString() + "[" + mWidth + "x" + mHeight + "]";
     }
 
     public void onDrawFrame() {
-        if (!this.mInitialized) {
+        if (!mInitialized) {
             initGLContext();
-            this.mInitialized = true;
+            mInitialized = true;
         }
-        if (this.mSizeChanged) {
+        if (mSizeChanged) {
             onRenderSizeChanged();
         }
-        runAll(this.mRunOnDraw);
+        runAll(mRunOnDraw);
         drawFrame();
-        runAll(this.mRunOnDrawEnd);
-        this.mSizeChanged = false;
+        runAll(mRunOnDrawEnd);
+        mSizeChanged = false;
         if (L.LOG_RENDER_DRAW) {
             logDraw();
         }
@@ -217,28 +217,28 @@ public class GLRender implements OnTextureAcceptableListener {
     }
 
     private void calculateFps() {
-        if (this.mLastTime == 0) {
-            this.mLastTime = System.currentTimeMillis();
+        if (mLastTime == 0) {
+            mLastTime = System.currentTimeMillis();
         }
-        this.mFrameCount++;
-        if (System.currentTimeMillis() - this.mLastTime >= 1000) {
-            this.mLastTime = System.currentTimeMillis();
-            this.mFps = this.mFrameCount;
-            this.mFrameCount = 0;
+        mFrameCount++;
+        if (System.currentTimeMillis() - mLastTime >= 1000) {
+            mLastTime = System.currentTimeMillis();
+            mFps = mFrameCount;
+            mFrameCount = 0;
         }
     }
 
     public int getFps() {
-        return this.mFps;
+        return mFps;
     }
 
 
     public void drawFrame() {
-        if (this.mTextureIn != 0) {
-            if (!(this.mWidth == 0 || this.mHeight == 0)) {
-                GLES20.glViewport(0, 0, this.mWidth, this.mHeight);
+        if (mTextureIn != 0) {
+            if (!(mWidth == 0 || mHeight == 0)) {
+                GLES20.glViewport(0, 0, mWidth, mHeight);
             }
-            GLES20.glUseProgram(this.mProgramHandle);
+            GLES20.glUseProgram(mProgramHandle);
             GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             GLES20.glClear(16640);
             bindShaderValues();
@@ -256,29 +256,29 @@ public class GLRender implements OnTextureAcceptableListener {
         String vertexShader = getVertexShader();
         String fragmentShader = getFragmentShader();
         if (!TextUtils.isEmpty(vertexShader) && !TextUtils.isEmpty(fragmentShader)) {
-            this.mVertexShaderHandle = ShaderHelper.compileShader(vertexShader, 35633);
-            this.mFragmentShaderHandle = ShaderHelper.compileShader(fragmentShader, 35632);
-            this.mProgramHandle = ShaderHelper.linkProgram(this.mVertexShaderHandle, this.mFragmentShaderHandle, getShaderAttributes());
+            mVertexShaderHandle = ShaderHelper.compileShader(vertexShader, 35633);
+            mFragmentShaderHandle = ShaderHelper.compileShader(fragmentShader, 35632);
+            mProgramHandle = ShaderHelper.linkProgram(mVertexShaderHandle, mFragmentShaderHandle, getShaderAttributes());
         }
         initShaderHandles();
     }
 
 
     public String getVertexShader() {
-        return this.mVertexShader;
+        return mVertexShader;
     }
 
 
     public String getFragmentShader() {
-        return this.mFragmentShader;
+        return mFragmentShader;
     }
 
     public void setVertexShader(String str) {
-        this.mVertexShader = str;
+        mVertexShader = str;
     }
 
     public void setFragmentShader(String str) {
-        this.mFragmentShader = str;
+        mFragmentShader = str;
     }
 
 
@@ -287,18 +287,18 @@ public class GLRender implements OnTextureAcceptableListener {
     }
 
     public void destroy() {
-        this.mInitialized = false;
-        if (this.mProgramHandle != 0) {
-            GLES20.glDeleteProgram(this.mProgramHandle);
-            this.mProgramHandle = 0;
+        mInitialized = false;
+        if (mProgramHandle != 0) {
+            GLES20.glDeleteProgram(mProgramHandle);
+            mProgramHandle = 0;
         }
-        if (this.mVertexShaderHandle != 0) {
-            GLES20.glDeleteShader(this.mVertexShaderHandle);
-            this.mVertexShaderHandle = 0;
+        if (mVertexShaderHandle != 0) {
+            GLES20.glDeleteShader(mVertexShaderHandle);
+            mVertexShaderHandle = 0;
         }
-        if (this.mFragmentShaderHandle != 0) {
-            GLES20.glDeleteShader(this.mFragmentShaderHandle);
-            this.mFragmentShaderHandle = 0;
+        if (mFragmentShaderHandle != 0) {
+            GLES20.glDeleteShader(mFragmentShaderHandle);
+            mFragmentShaderHandle = 0;
         }
         if (L.LOG_RENDER_DESTROY) {
             logDestroy();
@@ -315,19 +315,19 @@ public class GLRender implements OnTextureAcceptableListener {
     }
 
     public void runOnDraw(Runnable runnable) {
-        synchronized (this.mRunOnDraw) {
-            this.mRunOnDraw.add(runnable);
+        synchronized (mRunOnDraw) {
+            mRunOnDraw.add(runnable);
         }
     }
 
     public void runOnDrawEnd(Runnable runnable) {
-        synchronized (this.mRunOnDrawEnd) {
-            this.mRunOnDrawEnd.add(runnable);
+        synchronized (mRunOnDrawEnd) {
+            mRunOnDrawEnd.add(runnable);
         }
     }
 
     public void onTextureAcceptable(int i, GLRender GLRender1) {
-        this.mTextureIn = i;
+        mTextureIn = i;
         setWidth(GLRender1.getWidth());
         setHeight(GLRender1.getHeight());
         onDrawFrame();

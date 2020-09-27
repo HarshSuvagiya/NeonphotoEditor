@@ -134,7 +134,7 @@ public class MediaUtil {
         public int width;
 
         public String toString() {
-            return "Metadata{mimeType='" + this.mimeType + '\'' + ", width=" + this.width + ", height=" + this.height + ", duration=" + this.duration + ", rotation=" + this.rotation + ", tracks=" + this.tracks + ", bitrate=" + this.bitrate + '}';
+            return "Metadata{mimeType='" + mimeType + '\'' + ", width=" + width + ", height=" + height + ", duration=" + duration + ", rotation=" + rotation + ", tracks=" + tracks + ", bitrate=" + bitrate + '}';
         }
     }
 }

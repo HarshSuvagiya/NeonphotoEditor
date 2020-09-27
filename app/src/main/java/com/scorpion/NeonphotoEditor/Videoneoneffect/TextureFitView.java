@@ -22,61 +22,61 @@ public class TextureFitView extends GLTextureView implements IFitView {
     private void init() {
         setDebugFlags(3);
         setEGLContextClientVersion(2);
-        this.mHelper = new FitViewHelper();
-        this.mPipeline = new RenderPipeline();
-        setRenderer(this.mPipeline);
+        mHelper = new FitViewHelper();
+        mPipeline = new RenderPipeline();
+        setRenderer(mPipeline);
         setRenderMode(0);
     }
 
     public void initRenderPipeline(FBORender FBORender1) {
         if (FBORender1 != null) {
-            this.mPipeline.setStartPointRender(FBORender1);
+            mPipeline.setStartPointRender(FBORender1);
         }
     }
 
     public RenderPipeline getRenderPipeline() {
-        return this.mPipeline;
+        return mPipeline;
     }
 
     public void setScaleType(FitViewHelper.ScaleType scaleType) {
-        this.mHelper.setScaleType(scaleType);
+        mHelper.setScaleType(scaleType);
     }
 
     public boolean setAspectRatio(float f, int i, int i2) {
-        boolean aspectRatio = this.mHelper.setAspectRatio(f, i, i2);
-        if (this.mPipeline != null) {
-            this.mPipeline.setRenderSize(getPreviewWidth(), getPreviewHeight());
+        boolean aspectRatio = mHelper.setAspectRatio(f, i, i2);
+        if (mPipeline != null) {
+            mPipeline.setRenderSize(getPreviewWidth(), getPreviewHeight());
         }
         return aspectRatio;
     }
 
     public boolean setRotate90Degrees(int i) {
-        boolean rotate90Degrees = this.mHelper.setRotate90Degrees(i);
-        if (this.mPipeline != null) {
-            this.mPipeline.setRotate90Degrees(this.mHelper.getRotation90Degrees());
-            this.mPipeline.setRenderSize(getPreviewWidth(), getPreviewHeight());
+        boolean rotate90Degrees = mHelper.setRotate90Degrees(i);
+        if (mPipeline != null) {
+            mPipeline.setRotate90Degrees(mHelper.getRotation90Degrees());
+            mPipeline.setRenderSize(getPreviewWidth(), getPreviewHeight());
         }
         return rotate90Degrees;
     }
 
     public float getAspectRatio() {
-        return this.mHelper.getAspectRatio();
+        return mHelper.getAspectRatio();
     }
 
     public int getRotation90Degrees() {
-        return this.mHelper.getRotation90Degrees();
+        return mHelper.getRotation90Degrees();
     }
 
     public int getPreviewWidth() {
-        return this.mHelper.getPreviewWidth();
+        return mHelper.getPreviewWidth();
     }
 
     public int getPreviewHeight() {
-        return this.mHelper.getPreviewHeight();
+        return mHelper.getPreviewHeight();
     }
 
     public void onMeasure(int i, int i2) {
-        this.mHelper.calculatePreviewSize(View.MeasureSpec.getSize(i), View.MeasureSpec.getSize(i2));
-        super.onMeasure(View.MeasureSpec.makeMeasureSpec(this.mHelper.getPreviewWidth(), 1073741824), View.MeasureSpec.makeMeasureSpec(this.mHelper.getPreviewHeight(), 1073741824));
+        mHelper.calculatePreviewSize(View.MeasureSpec.getSize(i), View.MeasureSpec.getSize(i2));
+        super.onMeasure(View.MeasureSpec.makeMeasureSpec(mHelper.getPreviewWidth(), 1073741824), View.MeasureSpec.makeMeasureSpec(mHelper.getPreviewHeight(), 1073741824));
     }
 }

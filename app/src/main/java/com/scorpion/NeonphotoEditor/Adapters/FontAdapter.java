@@ -23,28 +23,28 @@ public class FontAdapter extends BaseAdapter {
     }
 
     public FontAdapter(Context context, String[] strArr) {
-        this.con = context;
-        this.arr = strArr;
-        this.width = context.getResources().getDisplayMetrics().widthPixels;
-        this.height = context.getResources().getDisplayMetrics().heightPixels;
+        con = context;
+        arr = strArr;
+        width = context.getResources().getDisplayMetrics().widthPixels;
+        height = context.getResources().getDisplayMetrics().heightPixels;
     }
 
     public int getCount() {
-        return this.arr.length;
+        return arr.length;
     }
 
     public Object getItem(int i) {
-        return this.arr[i];
+        return arr[i];
     }
 
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View inflate = ((LayoutInflater) this.con.getSystemService("layout_inflater")).inflate(R.layout.item_font, viewGroup, false);
+        View inflate = ((LayoutInflater) con.getSystemService("layout_inflater")).inflate(R.layout.item_font, viewGroup, false);
         TextView textView = (TextView) inflate.findViewById(R.id.tvitem);
         View findViewById = inflate.findViewById(R.id.vline);
-        SetLayparam.setHeight(this.con, textView, 135);
-        SetLayparam.setHeightWidth(this.con, findViewById, 900, 4);
-        AssetManager assets = this.con.getAssets();
-        textView.setTypeface(Typeface.createFromAsset(assets, "fonts/" + this.arr[i] + ".ttf"));
+        SetLayparam.setHeight(con, textView, 135);
+        SetLayparam.setHeightWidth(con, findViewById, 900, 4);
+        AssetManager assets = con.getAssets();
+        textView.setTypeface(Typeface.createFromAsset(assets, "fonts/" + arr[i] + ".ttf"));
         textView.setText(R.string.app_name);
         return inflate;
     }

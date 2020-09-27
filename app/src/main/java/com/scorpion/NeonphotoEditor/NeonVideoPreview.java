@@ -40,40 +40,40 @@ public class NeonVideoPreview extends Activity {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_play);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.vv = (VideoView) findViewById(R.id.videoview);
-        this.ivshare = (ImageView) findViewById(R.id.ivshare);
-        this.ivdelete = (ImageView) findViewById(R.id.ivdelete);
-        this.lbottom = (LinearLayout) findViewById(R.id.linearbottom);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = this;
+        header = (TextView) findViewById(R.id.my_header_text);
+        vv = (VideoView) findViewById(R.id.videoview);
+        ivshare = (ImageView) findViewById(R.id.ivshare);
+        ivdelete = (ImageView) findViewById(R.id.ivdelete);
+        lbottom = (LinearLayout) findViewById(R.id.linearbottom);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
     }
 
     private void forUI() {
-        SetLayparam.setMargins(this.context, this.vv, 60, 60, 60, 0);
-        SetLayparam.setMargins(this.context, this.lbottom, 0, 85, 0, 80);
-        SetLayparam.setHeightWidth(this.context, this.ivshare, 392, 156);
-        SetLayparam.setHeightWidth(this.context, this.ivdelete, 392, 156);
+        SetLayparam.setMargins(context, vv, 60, 60, 60, 0);
+        SetLayparam.setMargins(context, lbottom, 0, 85, 0, 80);
+        SetLayparam.setHeightWidth(context, ivshare, 392, 156);
+        SetLayparam.setHeightWidth(context, ivdelete, 392, 156);
     }
 
     private void init() {
-        this.header.setText(R.string.preview);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.vpath = getIntent().getStringExtra("vpath");
-        this.fromEdit = getIntent().getBooleanExtra("fromedit", false);
-        this.vv.setVideoPath(this.vpath);
+        header.setText(R.string.preview);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        vpath = getIntent().getStringExtra("vpath");
+        fromEdit = getIntent().getBooleanExtra("fromedit", false);
+        vv.setVideoPath(vpath);
         MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(this.vv);
-        this.vv.setMediaController(mediaController);
-        this.vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        mediaController.setAnchorView(vv);
+        vv.setMediaController(mediaController);
+        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.start();
             }
         });
-        this.vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.start();
             }
@@ -81,15 +81,15 @@ public class NeonVideoPreview extends Activity {
     }
 
     public void delete(View view) {
-        if (this.vv.isPlaying()) {
-            this.vv.stopPlayback();
+        if (vv.isPlaying()) {
+            vv.stopPlayback();
         }
-        Helper.deleteFolder(new File(this.vpath));
-        MediaScannerConnection.scanFile(this.context, new String[]{this.vpath}, (String[]) null, new MediaScannerConnection.OnScanCompletedListener() {
+        Helper.deleteFolder(new File(vpath));
+        MediaScannerConnection.scanFile(context, new String[]{vpath}, (String[]) null, new MediaScannerConnection.OnScanCompletedListener() {
             public void onScanCompleted(String str, Uri uri) {
-                NeonVideoPreview.this.runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     public void run() {
-                        NeonVideoPreview.this.finish();
+                        finish();
                     }
                 });
             }
@@ -97,12 +97,12 @@ public class NeonVideoPreview extends Activity {
     }
 
     public void share(View view) {
-        if (this.vv.isPlaying()) {
-            this.vv.pause();
+        if (vv.isPlaying()) {
+            vv.pause();
         }
-        File file = new File(this.vpath);
+        File file = new File(vpath);
         Intent intent = new Intent("android.intent.action.SEND");
-        Uri uriForFile = FileProvider.getUriForFile(this, this.context.getPackageName(), file);
+        Uri uriForFile = FileProvider.getUriForFile(this, context.getPackageName(), file);
         intent.addFlags(1);
         intent.setType(URLConnection.guessContentTypeFromName(file.getName()));
         intent.putExtra("android.intent.extra.STREAM", uriForFile);
@@ -110,18 +110,18 @@ public class NeonVideoPreview extends Activity {
     }
 
     public void onPause() {
-        if (this.vv != null && this.vv.isPlaying()) {
-            this.vv.pause();
+        if (vv != null && vv.isPlaying()) {
+            vv.pause();
         }
         super.onPause();
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {
@@ -129,9 +129,9 @@ public class NeonVideoPreview extends Activity {
     }
 
     public void onBackPressed() {
-        this.vv.pause();
-         if (this.fromEdit) {
-            Intent intent = new Intent(this.context, HomeActivity.class);
+        vv.pause();
+         if (fromEdit) {
+            Intent intent = new Intent(context, HomeActivity.class);
             intent.setFlags(268435456);
             startActivity(intent);
         } else {

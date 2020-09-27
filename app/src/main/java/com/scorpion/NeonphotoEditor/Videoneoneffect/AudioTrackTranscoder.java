@@ -30,24 +30,24 @@ public class AudioTrackTranscoder implements TrackTranscoder {
     private final int mTrackIndex;
 
     public AudioTrackTranscoder(MediaExtractor mediaExtractor, int i, MediaFormat mediaFormat, QueuedMuxer queuedMuxer) {
-        this.mExtractor = mediaExtractor;
-        this.mTrackIndex = i;
-        this.mOutputFormat = mediaFormat;
-        this.mMuxer = queuedMuxer;
+        mExtractor = mediaExtractor;
+        mTrackIndex = i;
+        mOutputFormat = mediaFormat;
+        mMuxer = queuedMuxer;
     }
 
     public void setup() throws IOException {
-        this.mExtractor.selectTrack(this.mTrackIndex);
-        this.mEncoder = MediaCodec.createEncoderByType(this.mOutputFormat.getString("mime"));
-        this.mEncoder.configure(this.mOutputFormat, (Surface) null, (MediaCrypto) null, 1);
-        this.mEncoder.start();
-        this.mEncoderStarted = true;
-        MediaFormat trackFormat = this.mExtractor.getTrackFormat(this.mTrackIndex);
-        this.mDecoder = MediaCodec.createDecoderByType(trackFormat.getString("mime"));
-        this.mDecoder.configure(trackFormat, (Surface) null, (MediaCrypto) null, 0);
-        this.mDecoder.start();
-        this.mDecoderStarted = true;
-        this.mAudioChannel = new AudioChannel(this.mDecoder, this.mEncoder, this.mOutputFormat);
+        mExtractor.selectTrack(mTrackIndex);
+        mEncoder = MediaCodec.createEncoderByType(mOutputFormat.getString("mime"));
+        mEncoder.configure(mOutputFormat, (Surface) null, (MediaCrypto) null, 1);
+        mEncoder.start();
+        mEncoderStarted = true;
+        MediaFormat trackFormat = mExtractor.getTrackFormat(mTrackIndex);
+        mDecoder = MediaCodec.createDecoderByType(trackFormat.getString("mime"));
+        mDecoder.configure(trackFormat, (Surface) null, (MediaCrypto) null, 0);
+        mDecoder.start();
+        mDecoderStarted = true;
+        mAudioChannel = new AudioChannel(mDecoder, mEncoder, mOutputFormat);
     }
 
     public boolean stepPipeline() {
@@ -63,7 +63,7 @@ public class AudioTrackTranscoder implements TrackTranscoder {
                 continue;
             }
         } while (drainDecoder == 1);
-        while (this.mAudioChannel.feedEncoder(0)) {
+        while (mAudioChannel.feedEncoder(0)) {
             z = true;
         }
         while (drainExtractor(0) != 0) {
@@ -73,67 +73,67 @@ public class AudioTrackTranscoder implements TrackTranscoder {
     }
 
     public boolean isFinished() {
-        return this.mIsEncoderEOS;
+        return mIsEncoderEOS;
     }
 
     public void release() {
-        if (this.mDecoder != null) {
-            if (this.mDecoderStarted) {
-                this.mDecoder.stop();
+        if (mDecoder != null) {
+            if (mDecoderStarted) {
+                mDecoder.stop();
             }
-            this.mDecoder.release();
-            this.mDecoder = null;
+            mDecoder.release();
+            mDecoder = null;
         }
-        if (this.mEncoder != null) {
-            if (this.mEncoderStarted) {
-                this.mEncoder.stop();
+        if (mEncoder != null) {
+            if (mEncoderStarted) {
+                mEncoder.stop();
             }
-            this.mEncoder.release();
-            this.mEncoder = null;
+            mEncoder.release();
+            mEncoder = null;
         }
     }
 
     private int drainExtractor(long j) {
         int dequeueInputBuffer;
-        if (this.mIsExtractorEOS) {
+        if (mIsExtractorEOS) {
             return 0;
         }
-        int sampleTrackIndex = this.mExtractor.getSampleTrackIndex();
-        if ((sampleTrackIndex >= 0 && sampleTrackIndex != this.mTrackIndex) || (dequeueInputBuffer = this.mDecoder.dequeueInputBuffer(j)) < 0) {
+        int sampleTrackIndex = mExtractor.getSampleTrackIndex();
+        if ((sampleTrackIndex >= 0 && sampleTrackIndex != mTrackIndex) || (dequeueInputBuffer = mDecoder.dequeueInputBuffer(j)) < 0) {
             return 0;
         }
         if (sampleTrackIndex < 0) {
-            this.mIsExtractorEOS = true;
-            this.mDecoder.queueInputBuffer(dequeueInputBuffer, 0, 0, 0, 4);
+            mIsExtractorEOS = true;
+            mDecoder.queueInputBuffer(dequeueInputBuffer, 0, 0, 0, 4);
             return 0;
         }
-        this.mDecoder.queueInputBuffer(dequeueInputBuffer, 0, this.mExtractor.readSampleData(CodecUtil.getInputBuffer(this.mDecoder, dequeueInputBuffer), 0), this.mExtractor.getSampleTime(), (this.mExtractor.getSampleFlags() & 1) != 0 ? 1 : 0);
-        this.mExtractor.advance();
+        mDecoder.queueInputBuffer(dequeueInputBuffer, 0, mExtractor.readSampleData(CodecUtil.getInputBuffer(mDecoder, dequeueInputBuffer), 0), mExtractor.getSampleTime(), (mExtractor.getSampleFlags() & 1) != 0 ? 1 : 0);
+        mExtractor.advance();
         return 2;
     }
 
     private int drainDecoder(long j) {
-        if (this.mIsDecoderEOS) {
+        if (mIsDecoderEOS) {
             return 0;
         }
-        int dequeueOutputBuffer = this.mDecoder.dequeueOutputBuffer(this.mBufferInfo, j);
+        int dequeueOutputBuffer = mDecoder.dequeueOutputBuffer(mBufferInfo, j);
         switch (dequeueOutputBuffer) {
             case -3:
                 break;
             case -2:
-                this.mAudioChannel.setActualDecodedFormat(this.mDecoder.getOutputFormat());
+                mAudioChannel.setActualDecodedFormat(mDecoder.getOutputFormat());
                 break;
             case -1:
                 return 0;
             default:
-                if ((this.mBufferInfo.flags & 4) != 0) {
-                    this.mIsDecoderEOS = true;
-                    this.mAudioChannel.drainDecoderBufferAndQueue(-1, 0);
+                if ((mBufferInfo.flags & 4) != 0) {
+                    mIsDecoderEOS = true;
+                    mAudioChannel.drainDecoderBufferAndQueue(-1, 0);
                     return 2;
-                } else if (this.mBufferInfo.size <= 0) {
+                } else if (mBufferInfo.size <= 0) {
                     return 2;
                 } else {
-                    this.mAudioChannel.drainDecoderBufferAndQueue(dequeueOutputBuffer, this.mBufferInfo.presentationTimeUs);
+                    mAudioChannel.drainDecoderBufferAndQueue(dequeueOutputBuffer, mBufferInfo.presentationTimeUs);
                     return 2;
                 }
         }
@@ -141,34 +141,34 @@ public class AudioTrackTranscoder implements TrackTranscoder {
     }
 
     private int drainEncoder(long j) {
-        if (this.mIsEncoderEOS) {
+        if (mIsEncoderEOS) {
             return 0;
         }
-        int dequeueOutputBuffer = this.mEncoder.dequeueOutputBuffer(this.mBufferInfo, j);
+        int dequeueOutputBuffer = mEncoder.dequeueOutputBuffer(mBufferInfo, j);
         switch (dequeueOutputBuffer) {
             case -3:
                 return 1;
             case -2:
-                if (this.mActualOutputFormat == null) {
-                    this.mActualOutputFormat = this.mEncoder.getOutputFormat();
-                    this.mMuxer.setOutputFormat(QueuedMuxer.SampleType.AUDIO, this.mActualOutputFormat);
+                if (mActualOutputFormat == null) {
+                    mActualOutputFormat = mEncoder.getOutputFormat();
+                    mMuxer.setOutputFormat(QueuedMuxer.SampleType.AUDIO, mActualOutputFormat);
                     return 1;
                 }
                 throw new RuntimeException("Audio output format changed twice.");
             case -1:
                 return 0;
             default:
-                if (this.mActualOutputFormat != null) {
-                    if ((this.mBufferInfo.flags & 4) != 0) {
-                        this.mIsEncoderEOS = true;
-                        this.mBufferInfo.set(0, 0, 0, this.mBufferInfo.flags);
+                if (mActualOutputFormat != null) {
+                    if ((mBufferInfo.flags & 4) != 0) {
+                        mIsEncoderEOS = true;
+                        mBufferInfo.set(0, 0, 0, mBufferInfo.flags);
                     }
-                    if ((this.mBufferInfo.flags & 2) != 0) {
-                        this.mEncoder.releaseOutputBuffer(dequeueOutputBuffer, false);
+                    if ((mBufferInfo.flags & 2) != 0) {
+                        mEncoder.releaseOutputBuffer(dequeueOutputBuffer, false);
                         return 1;
                     }
-                    this.mMuxer.writeSampleData(QueuedMuxer.SampleType.AUDIO, CodecUtil.getOutputBuffer(this.mEncoder, dequeueOutputBuffer), this.mBufferInfo);
-                    this.mEncoder.releaseOutputBuffer(dequeueOutputBuffer, false);
+                    mMuxer.writeSampleData(QueuedMuxer.SampleType.AUDIO, CodecUtil.getOutputBuffer(mEncoder, dequeueOutputBuffer), mBufferInfo);
+                    mEncoder.releaseOutputBuffer(dequeueOutputBuffer, false);
                     return 2;
                 }
                 throw new RuntimeException("Could not determine actual output format.");

@@ -10,7 +10,7 @@ public class CropRender extends FBORender {
 
     public void setCropRegion(RectF rectF) {
         RectF rectF2 = rectF;
-        this.mRegion = rectF2;
+        mRegion = rectF2;
         FloatBuffer[] floatBufferArr = new FloatBuffer[4];
         float f = rectF2.left;
         float f2 = rectF2.right;
@@ -32,9 +32,9 @@ public class CropRender extends FBORender {
     }
 
     public void onTextureAcceptable(int i, GLRender fX_GLRender) {
-        this.mTextureIn = i;
-        setWidth(Math.round(((float) fX_GLRender.getWidth()) * this.mRegion.width()));
-        setHeight(Math.round(((float) fX_GLRender.getHeight()) * this.mRegion.height()));
+        mTextureIn = i;
+        setWidth(Math.round(((float) fX_GLRender.getWidth()) * mRegion.width()));
+        setHeight(Math.round(((float) fX_GLRender.getHeight()) * mRegion.height()));
         onDrawFrame();
     }
 }

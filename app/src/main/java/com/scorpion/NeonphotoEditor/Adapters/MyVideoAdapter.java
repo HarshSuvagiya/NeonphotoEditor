@@ -31,16 +31,16 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.MyViewHo
     int width;
 
     public MyVideoAdapter(Context context2, ArrayList<Vdata> arrayList) {
-        this.context = context2;
-        this.al = arrayList;
-        this.width = Helper.getWidth(context2);
-        this.height = Helper.getHeight(context2);
+        context = context2;
+        al = arrayList;
+        width = Helper.getWidth(context2);
+        height = Helper.getHeight(context2);
     }
 
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Vdata Vdata1 = this.al.get(i);
+        Vdata Vdata1 = al.get(i);
         String path = Vdata1.getPath();
-        String date = Helper.getDate(Long.parseLong(Vdata1.getDate_taken()), this.dateFormat);
+        String date = Helper.getDate(Long.parseLong(Vdata1.getDate_taken()), dateFormat);
         TextView textView = myViewHolder.tvdate;
         textView.setText(date + "");
         String title = Vdata1.getTitle();
@@ -49,25 +49,25 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.MyViewHo
         String formatTime = Helper.getFormatTime(Long.parseLong(Vdata1.getDuration()));
         TextView textView3 = myViewHolder.tvtime;
         textView3.setText(formatTime + "");
-        ((RequestBuilder) Glide.with(this.context).load(path).transform((Transformation<Bitmap>)
+        ((RequestBuilder) Glide.with(context).load(path).transform((Transformation<Bitmap>)
                 new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop(), new RoundedCorners(getWidth(20))}))).into(myViewHolder.iv);
     }
 
     public int getItemCount() {
-        return this.al.size();
+        return al.size();
     }
 
     @NonNull
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.item_creation_video, viewGroup, false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_creation_video, viewGroup, false));
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -81,23 +81,23 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.MyViewHo
 
         public MyViewHolder(View view) {
             super(view);
-            this.lmain = (LinearLayout) view.findViewById(R.id.linearvideolist);
-            this.iv = (ImageView) view.findViewById(R.id.ivthumb);
-            this.linside = (LinearLayout) view.findViewById(R.id.linearin);
-            this.tvname = (TextView) view.findViewById(R.id.tvname);
-            this.tvdate = (TextView) view.findViewById(R.id.tvdate);
-            this.tvtime = (TextView) view.findViewById(R.id.tvtime);
-            this.vline = view.findViewById(R.id.vline);
+            lmain = (LinearLayout) view.findViewById(R.id.linearvideolist);
+            iv = (ImageView) view.findViewById(R.id.ivthumb);
+            linside = (LinearLayout) view.findViewById(R.id.linearin);
+            tvname = (TextView) view.findViewById(R.id.tvname);
+            tvdate = (TextView) view.findViewById(R.id.tvdate);
+            tvtime = (TextView) view.findViewById(R.id.tvtime);
+            vline = view.findViewById(R.id.vline);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setPadding(MyVideoAdapter.this.context, this.linside, 60, 45, 60, 45);
-            SetLayparam.setHeightWidth(MyVideoAdapter.this.context, this.iv, 280, 258);
-            SetLayparam.setMarginRight(MyVideoAdapter.this.context, this.iv, 45);
-            SetLayparam.setPadding(MyVideoAdapter.this.context, this.tvdate, 0, 20, 0, 20);
-            SetLayparam.setPadding(MyVideoAdapter.this.context, this.tvtime, 10, 0, 10, 0);
-            SetLayparam.setHeightWidth(MyVideoAdapter.this.context, this.vline, 1000, 4);
+            SetLayparam.setPadding(context, linside, 60, 45, 60, 45);
+            SetLayparam.setHeightWidth(context, iv, 280, 258);
+            SetLayparam.setMarginRight(context, iv, 45);
+            SetLayparam.setPadding(context, tvdate, 0, 20, 0, 20);
+            SetLayparam.setPadding(context, tvtime, 10, 0, 10, 0);
+            SetLayparam.setHeightWidth(context, vline, 1000, 4);
         }
     }
 }

@@ -12,24 +12,24 @@ public class FilterRender extends FBORender {
     public ParticleShooter mParticleShooter;
 
     public void setBitmapCache(IBitmapCache iBitmapCache) {
-        this.mBitmapCache = iBitmapCache;
+        mBitmapCache = iBitmapCache;
     }
 
     public IBitmapCache getBitmapCache() {
-        return this.mBitmapCache;
+        return mBitmapCache;
     }
 
     public void setPosition(Geometry.Point point) {
-        if (this.mParticleShooter != null) {
-            this.mParticleShooter.setPosition(point);
+        if (mParticleShooter != null) {
+            mParticleShooter.setPosition(point);
         }
     }
 
     public void start() {
-        this.mIsPause = false;
+        mIsPause = false;
     }
 
     public void pause() {
-        this.mIsPause = true;
+        mIsPause = true;
     }
 }

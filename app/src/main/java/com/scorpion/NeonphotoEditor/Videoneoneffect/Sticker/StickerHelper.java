@@ -20,36 +20,36 @@ public class StickerHelper {
     IStickerTimeController iStickerTimeController;
 
     public StickerHelper(Context context2, IStickerTimeController IStickerTimeController1) {
-        this.context = context2;
-        this.iStickerTimeController = IStickerTimeController1;
+        context = context2;
+        iStickerTimeController = IStickerTimeController1;
     }
 
     public StickerRender getParticleRenderer(int i) {
         switch (i) {
             case 0:
-                return new AnnasRender(this.context, this.iStickerTimeController);
+                return new AnnasRender(context, iStickerTimeController);
             case 1:
-                return new BeatingRender(this.context, this.iStickerTimeController);
+                return new BeatingRender(context, iStickerTimeController);
             case 2:
-                return new ColorRoundRender(this.context, this.iStickerTimeController);
+                return new ColorRoundRender(context, iStickerTimeController);
             case 3:
-                return new FlamingoRender(this.context, this.iStickerTimeController);
+                return new FlamingoRender(context, iStickerTimeController);
             case 4:
-                return new HalfRoundRender(this.context, this.iStickerTimeController);
+                return new HalfRoundRender(context, iStickerTimeController);
             case 5:
-                return new HeartsRender(this.context, this.iStickerTimeController);
+                return new HeartsRender(context, iStickerTimeController);
             case 6:
-                return new NimbuzzRender(this.context, this.iStickerTimeController);
+                return new NimbuzzRender(context, iStickerTimeController);
             case 7:
-                return new RoundRender(this.context, this.iStickerTimeController);
+                return new RoundRender(context, iStickerTimeController);
             case 8:
-                return new SquareRender(this.context, this.iStickerTimeController);
+                return new SquareRender(context, iStickerTimeController);
             case 9:
-                return new TreeRender(this.context, this.iStickerTimeController);
+                return new TreeRender(context, iStickerTimeController);
             case 10:
-                return new MusicRender(this.context, this.iStickerTimeController);
+                return new MusicRender(context, iStickerTimeController);
             default:
-                return new AnnasRender(this.context, this.iStickerTimeController);
+                return new AnnasRender(context, iStickerTimeController);
         }
     }
 }

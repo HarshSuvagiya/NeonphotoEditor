@@ -8,20 +8,20 @@ public class MultiBuilder extends EZFilter.Builder {
     private MultiInput mMultiInput;
 
     public MultiBuilder(List<EZFilter.Builder> list, MultiInput fX_MultiInput) {
-        this.mBuilders = list;
-        this.mMultiInput = fX_MultiInput;
+        mBuilders = list;
+        mMultiInput = fX_MultiInput;
     }
 
     public FBORender getStartPointRender(IFitView fX_IFitView) {
-        this.mMultiInput.clearRegisteredFilters();
-        for (EZFilter.Builder startPointRender : this.mBuilders) {
-            this.mMultiInput.registerFilter(startPointRender.getStartPointRender(fX_IFitView));
+        mMultiInput.clearRegisteredFilters();
+        for (EZFilter.Builder startPointRender : mBuilders) {
+            mMultiInput.registerFilter(startPointRender.getStartPointRender(fX_IFitView));
         }
-        return this.mMultiInput;
+        return mMultiInput;
     }
 
     public float getAspectRatio(IFitView fX_IFitView) {
-        return (((float) this.mMultiInput.getWidth()) * 1.0f) / ((float) this.mMultiInput.getHeight());
+        return (((float) mMultiInput.getWidth()) * 1.0f) / ((float) mMultiInput.getHeight());
     }
 
     public MultiBuilder addFilter(FilterRender fX_FilterRender) {

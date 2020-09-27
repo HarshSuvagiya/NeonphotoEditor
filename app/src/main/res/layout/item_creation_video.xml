@@ -44,7 +44,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="@string/app_name"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:textSize="16sp" />
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:paddingBottom="20px"
                     android:singleLine="true"
                     android:text="@string/app_name"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:textSize="14sp" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:padding="10px"
                     android:singleLine="true"
                     android:text="@string/app_name"
-                    android:textColor="#000000"
+                    android:textColor="#fff"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>

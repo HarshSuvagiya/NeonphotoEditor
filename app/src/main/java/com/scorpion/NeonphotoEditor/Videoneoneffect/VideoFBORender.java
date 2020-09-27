@@ -21,14 +21,14 @@ public class VideoFBORender extends FBORender implements IVideoRender {
 
     public void initShaderHandles() {
         super.initShaderHandles();
-        this.mMatrixHandle = GLES20.glGetUniformLocation(this.mProgramHandle, UNIFORM_CAM_MATRIX);
+        mMatrixHandle = GLES20.glGetUniformLocation(mProgramHandle, UNIFORM_CAM_MATRIX);
     }
 
     public void initGLContext() {
         super.initGLContext();
-        if (this.mTextureIn != 0) {
-            GLES20.glDeleteTextures(1, new int[]{this.mTextureIn}, 0);
-            this.mTextureIn = 0;
+        if (mTextureIn != 0) {
+            GLES20.glDeleteTextures(1, new int[]{mTextureIn}, 0);
+            mTextureIn = 0;
         }
         int[] iArr = new int[1];
         GLES20.glGenTextures(1, iArr, 0);
@@ -37,37 +37,37 @@ public class VideoFBORender extends FBORender implements IVideoRender {
         GLES20.glTexParameterf(36197, 10240, 9729.0f);
         GLES20.glTexParameteri(36197, 10242, 33071);
         GLES20.glTexParameteri(36197, 10243, 33071);
-        this.mTextureIn = iArr[0];
-        if (this.mSurfaceTexture != null) {
-            this.mSurfaceTexture.release();
-            this.mSurfaceTexture = null;
+        mTextureIn = iArr[0];
+        if (mSurfaceTexture != null) {
+            mSurfaceTexture.release();
+            mSurfaceTexture = null;
         }
-        this.mSurfaceTexture = new SurfaceTexture(this.mTextureIn);
+        mSurfaceTexture = new SurfaceTexture(mTextureIn);
     }
 
     public void bindShaderValues() {
         super.bindShaderVertices();
         GLES20.glActiveTexture(33984);
-        GLES20.glBindTexture(36197, this.mTextureIn);
-        GLES20.glUniform1i(this.mTextureHandle, 0);
-        this.mSurfaceTexture.getTransformMatrix(this.mMatrix);
-        GLES20.glUniformMatrix4fv(this.mMatrixHandle, 1, false, this.mMatrix, 0);
+        GLES20.glBindTexture(36197, mTextureIn);
+        GLES20.glUniform1i(mTextureHandle, 0);
+        mSurfaceTexture.getTransformMatrix(mMatrix);
+        GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mMatrix, 0);
     }
 
     public SurfaceTexture getSurfaceTexture() {
         onDrawFrame();
-        return this.mSurfaceTexture;
+        return mSurfaceTexture;
     }
 
     public void destroy() {
         super.destroy();
-        if (this.mSurfaceTexture != null) {
-            this.mSurfaceTexture.release();
-            this.mSurfaceTexture = null;
+        if (mSurfaceTexture != null) {
+            mSurfaceTexture.release();
+            mSurfaceTexture = null;
         }
-        if (this.mTextureIn != 0) {
-            GLES20.glDeleteTextures(1, new int[]{this.mTextureIn}, 0);
-            this.mTextureIn = 0;
+        if (mTextureIn != 0) {
+            GLES20.glDeleteTextures(1, new int[]{mTextureIn}, 0);
+            mTextureIn = 0;
         }
     }
 }

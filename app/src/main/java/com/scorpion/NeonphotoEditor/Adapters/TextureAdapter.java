@@ -28,27 +28,27 @@ public class TextureAdapter extends RecyclerView.Adapter<TextureAdapter.MyViewHo
     int width;
 
     public TextureAdapter(Context context2) {
-        this.context = context2;
+        context = context2;
         try {
-            this.images = this.context.getAssets().list(this.folder);
+            images = context.getAssets().list(folder);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.listImages = new ArrayList<>(Arrays.asList(this.images));
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        listImages = new ArrayList<>(Arrays.asList(images));
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
     }
 
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        ((RequestBuilder) Glide.with(this.context).load(Path.TEXTURES.texture(i)).transition(DrawableTransitionOptions.withCrossFade()).centerCrop()).into(myViewHolder.iv);
+        ((RequestBuilder) Glide.with(context).load(Path.TEXTURES.texture(i)).transition(DrawableTransitionOptions.withCrossFade()).centerCrop()).into(myViewHolder.iv);
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new MyViewHolder(((LayoutInflater) this.context.getSystemService("layout_inflater")).inflate(R.layout.item_texture, viewGroup, false));
+        return new MyViewHolder(((LayoutInflater) context.getSystemService("layout_inflater")).inflate(R.layout.item_texture, viewGroup, false));
     }
 
     public int getItemCount() {
-        return this.listImages.size();
+        return listImages.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,14 +57,14 @@ public class TextureAdapter extends RecyclerView.Adapter<TextureAdapter.MyViewHo
 
         public MyViewHolder(View view) {
             super(view);
-            this.iv = (ImageView) view.findViewById(R.id.ivtitem);
-            this.lmain = (LinearLayout) view.findViewById(R.id.linearitexture);
+            iv = (ImageView) view.findViewById(R.id.ivtitem);
+            lmain = (LinearLayout) view.findViewById(R.id.linearitexture);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setWidthAsBoth(TextureAdapter.this.context, this.lmain, 484);
-            SetLayparam.setPadding(TextureAdapter.this.context, this.lmain, 4);
+            SetLayparam.setWidthAsBoth(context, lmain, 484);
+            SetLayparam.setPadding(context, lmain, 4);
         }
     }
 }

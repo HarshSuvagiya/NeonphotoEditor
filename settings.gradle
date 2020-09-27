@@ -1,3 +1,3 @@
-include ':ffmpeg29'
+//include ':ffmpeg29'
 include ':app'
 rootProject.name = "NeonphotoEditor"

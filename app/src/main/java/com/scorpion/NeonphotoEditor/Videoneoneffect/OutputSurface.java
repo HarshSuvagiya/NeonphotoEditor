@@ -12,53 +12,53 @@ public class OutputSurface implements SurfaceTexture.OnFrameAvailableListener {
     private IVideoRender mTextureRender;
 
     public OutputSurface(IVideoRender iVideoRender) {
-        this.mTextureRender = iVideoRender;
+        mTextureRender = iVideoRender;
         setup();
     }
 
     private void setup() {
-        this.mSurfaceTexture = this.mTextureRender.getSurfaceTexture();
-        this.mSurfaceTexture.setOnFrameAvailableListener(this);
-        this.mSurface = new Surface(this.mSurfaceTexture);
+        mSurfaceTexture = mTextureRender.getSurfaceTexture();
+        mSurfaceTexture.setOnFrameAvailableListener(this);
+        mSurface = new Surface(mSurfaceTexture);
     }
 
     public void release() {
-        this.mSurface.release();
-        this.mTextureRender = null;
-        this.mSurface = null;
-        this.mSurfaceTexture = null;
+        mSurface.release();
+        mTextureRender = null;
+        mSurface = null;
+        mSurfaceTexture = null;
     }
 
     public Surface getSurface() {
-        return this.mSurface;
+        return mSurface;
     }
 
     public void awaitNewImage() {
-        synchronized (this.mFrameSyncObject) {
-            while (!this.mFrameAvailable) {
+        synchronized (mFrameSyncObject) {
+            while (!mFrameAvailable) {
                 try {
-                    this.mFrameSyncObject.wait(10000);
-                    if (!this.mFrameAvailable) {
+                    mFrameSyncObject.wait(10000);
+                    if (!mFrameAvailable) {
                         throw new RuntimeException("Surface frame wait timed out");
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-            this.mFrameAvailable = false;
+            mFrameAvailable = false;
         }
-        this.mSurfaceTexture.updateTexImage();
+        mSurfaceTexture.updateTexImage();
     }
 
     public void drawImage(long j) {
-        this.mTextureRender.drawFrame(j);
+        mTextureRender.drawFrame(j);
     }
 
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {
-        synchronized (this.mFrameSyncObject) {
-            if (!this.mFrameAvailable) {
-                this.mFrameAvailable = true;
-                this.mFrameSyncObject.notifyAll();
+        synchronized (mFrameSyncObject) {
+            if (!mFrameAvailable) {
+                mFrameAvailable = true;
+                mFrameSyncObject.notifyAll();
             } else {
                 throw new RuntimeException("mFrameAvailable already set, frame could be dropped");
             }

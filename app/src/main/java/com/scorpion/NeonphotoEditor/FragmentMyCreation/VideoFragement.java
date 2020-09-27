@@ -46,29 +46,29 @@ public class VideoFragement extends Fragment {
     @Nullable
     public View onCreateView(@NonNull LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.myvideo_fragement, viewGroup, false);
-        this.context = getActivity();
-        this.rcv = (RecyclerView) inflate.findViewById(R.id.rcvmy);
-        this.pbar = (ProgressBar) inflate.findViewById(R.id.pbar);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = getActivity();
+        rcv = (RecyclerView) inflate.findViewById(R.id.rcvmy);
+        pbar = (ProgressBar) inflate.findViewById(R.id.pbar);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
         return inflate;
     }
 
     private void init() {
-        this.rcv.setLayoutManager(new LinearLayoutManager(this.context));
-        this.rcv.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcv, new RecyclerTouchListener.ClickListener() {
+        rcv.setLayoutManager(new LinearLayoutManager(context));
+        rcv.addOnItemTouchListener(new RecyclerTouchListener(context, rcv, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
             public void onClick(View view, int i) {
-                if (!VideoFragement.this.isClicked) {
-                    VideoFragement.this.isClicked = true;
-                    Intent intent = new Intent(VideoFragement.this.context, NeonVideoPreview.class);
-                    intent.putExtra("vpath", VideoFragement.this.aldata.get(i).getPath());
+                if (!isClicked) {
+                    isClicked = true;
+                    Intent intent = new Intent(context, NeonVideoPreview.class);
+                    intent.putExtra("vpath", aldata.get(i).getPath());
                     intent.putExtra("fromedit", false);
-                    VideoFragement.this.startActivity(intent);
+                    startActivity(intent);
                 }
             }
         }));
@@ -76,10 +76,10 @@ public class VideoFragement extends Fragment {
     }
 
     public void loadData() {
-        this.aldata.clear();
-        this.alcheck.clear();
+        aldata.clear();
+        alcheck.clear();
         String[] strArr = {"%" + getResources().getString(R.string.app_name) + "_%.mp4"};
-        ContentResolver contentResolver = this.context.getContentResolver();
+        ContentResolver contentResolver = context.getContentResolver();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         Cursor query = contentResolver.query(uri, new String[]{"_id", "_data", "title", "_display_name", "duration", "date_added", "datetaken"}, "_data" + " like ? ", strArr, "datetaken DESC");
         if (query != null) {
@@ -92,8 +92,8 @@ public class VideoFragement extends Fragment {
                     Helper.showLog("NNN", "Not Found : " + string);
                 } else if (file.length() <= 0) {
                     Helper.showLog("NNN", "Size zero : " + string);
-                } else if (!this.alcheck.contains(string)) {
-                    this.alcheck.add(string);
+                } else if (!alcheck.contains(string)) {
+                    alcheck.add(string);
                     Vdata fX_Vdata = new Vdata();
                     fX_Vdata.setID((long) query.getInt(query.getColumnIndexOrThrow("_id")));
                     fX_Vdata.setPath(query.getString(query.getColumnIndexOrThrow("_data")));
@@ -102,7 +102,7 @@ public class VideoFragement extends Fragment {
                     fX_Vdata.setDate_taken(query.getString(query.getColumnIndexOrThrow("datetaken")));
                     fX_Vdata.setDate_added(query.getString(query.getColumnIndexOrThrow("date_added")));
                     fX_Vdata.setDuration(query.getString(query.getColumnIndexOrThrow("duration")));
-                    this.aldata.add(fX_Vdata);
+                    aldata.add(fX_Vdata);
                 }
             }
         }
@@ -110,20 +110,20 @@ public class VideoFragement extends Fragment {
 
     public void onResume() {
         super.onResume();
-        this.isClicked = false;
+        isClicked = false;
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        this.isClicked = false;
+        isClicked = false;
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     @SuppressLint({"StaticFieldLeak"})
@@ -133,24 +133,24 @@ public class VideoFragement extends Fragment {
 
         public void onPreExecute() {
             super.onPreExecute();
-            VideoFragement.this.rcv.setVisibility(View.GONE);
-            VideoFragement.this.pbar.setVisibility(View.VISIBLE);
-            VideoFragement.this.isClicked = false;
+            rcv.setVisibility(View.GONE);
+            pbar.setVisibility(View.VISIBLE);
+            isClicked = false;
         }
 
         public Void doInBackground(Void... voidArr) {
-            VideoFragement.this.loadData();
+            loadData();
             return null;
         }
 
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            VideoFragement.this.adapter = new MyVideoAdapter(VideoFragement.this.context, VideoFragement.this.aldata);
-            VideoFragement.this.rcv.setAdapter(VideoFragement.this.adapter);
-            VideoFragement.this.rcv.setLayoutManager(new LinearLayoutManager(VideoFragement.this.context));
-            VideoFragement.this.rcv.setVisibility(View.VISIBLE);
-            VideoFragement.this.pbar.setVisibility(View.GONE);
+            adapter = new MyVideoAdapter(context, aldata);
+            rcv.setAdapter(adapter);
+            rcv.setLayoutManager(new LinearLayoutManager(context));
+            rcv.setVisibility(View.VISIBLE);
+            pbar.setVisibility(View.GONE);
         }
     }
 }

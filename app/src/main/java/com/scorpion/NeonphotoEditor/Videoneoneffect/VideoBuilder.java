@@ -23,61 +23,61 @@ public class VideoBuilder extends EZFilter.Builder {
     private VideoEffectTimeBar videoEffectTimeBar;
 
     public VideoBuilder(Uri uri) {
-        this.mVideo = uri;
+        mVideo = uri;
     }
 
     public VideoBuilder setMediaPlayer(IMediaPlayer IMediaPlayer1) {
-        this.mMediaPlayer = IMediaPlayer1;
+        mMediaPlayer = IMediaPlayer1;
         return this;
     }
 
     public VideoBuilder setLoop(boolean z) {
-        this.mVideoLoop = z;
+        mVideoLoop = z;
         return this;
     }
 
     public VideoBuilder setVolume(float f) {
-        this.mVideoVolume = f;
+        mVideoVolume = f;
         return this;
     }
 
     public VideoBuilder setStartWhenReady(boolean z) {
-        this.mStartWhenReady = z;
+        mStartWhenReady = z;
         return this;
     }
 
     public VideoBuilder setPreparedListener(IMediaPlayer.OnPreparedListener onPreparedListener) {
-        this.mPreparedListener = onPreparedListener;
+        mPreparedListener = onPreparedListener;
         return this;
     }
 
     public VideoBuilder setCompletionListener(IMediaPlayer.OnCompletionListener onCompletionListener) {
-        this.mCompletionListener = onCompletionListener;
+        mCompletionListener = onCompletionListener;
         return this;
     }
 
     public VideoBuilder setErrorListener(IMediaPlayer.OnErrorListener onErrorListener) {
-        this.mErrorListener = onErrorListener;
+        mErrorListener = onErrorListener;
         return this;
     }
 
     public VideoBuilder setVideoEffectTimeBar(VideoEffectTimeBar VideoEffectTimeBar1) {
-        this.videoEffectTimeBar = VideoEffectTimeBar1;
+        videoEffectTimeBar = VideoEffectTimeBar1;
         return this;
     }
 
     public void output(String str) {
         try {
-            new OffscreenVideo(this.mVideo.getPath()).save(str);
+            new OffscreenVideo(mVideo.getPath()).save(str);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void output(String str, int i, int i2) throws IOException {
-        OffscreenVideo OffscreenVideo1 = new OffscreenVideo(this.mVideo.getPath());
+        OffscreenVideo OffscreenVideo1 = new OffscreenVideo(mVideo.getPath());
         try {
-            for (FilterRender addFilterRender : this.mFilterRenders) {
+            for (FilterRender addFilterRender : mFilterRenders) {
                 OffscreenVideo1.addFilterRender(addFilterRender);
             }
             OffscreenVideo1.save(str, i, i2);
@@ -87,27 +87,27 @@ public class VideoBuilder extends EZFilter.Builder {
     }
 
     public FBORender getStartPointRender(IFitView IFitView1) {
-        if (this.mVideoInput == null) {
-            this.mVideoInput = new VideoInput(IFitView1.getContext(), IFitView1, this.mVideo, this.mMediaPlayer);
-            this.mVideoInput.setStartWhenReady(this.mStartWhenReady);
-            this.mVideoInput.setLoop(this.mVideoLoop);
-            this.mVideoInput.setVolume(this.mVideoVolume, this.mVideoVolume);
-            this.mVideoInput.setOnPreparedListener(this.mPreparedListener);
-            this.mVideoInput.setOnCompletionListener(this.mCompletionListener);
-            this.mVideoInput.setOnErrorListener(this.mErrorListener);
-            this.mVideoInput.setVideoEffectTimeBar(this.videoEffectTimeBar);
+        if (mVideoInput == null) {
+            mVideoInput = new VideoInput(IFitView1.getContext(), IFitView1, mVideo, mMediaPlayer);
+            mVideoInput.setStartWhenReady(mStartWhenReady);
+            mVideoInput.setLoop(mVideoLoop);
+            mVideoInput.setVolume(mVideoVolume, mVideoVolume);
+            mVideoInput.setOnPreparedListener(mPreparedListener);
+            mVideoInput.setOnCompletionListener(mCompletionListener);
+            mVideoInput.setOnErrorListener(mErrorListener);
+            mVideoInput.setVideoEffectTimeBar(videoEffectTimeBar);
         }
-        return this.mVideoInput;
+        return mVideoInput;
     }
 
     public float getAspectRatio(IFitView IFitView1) {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         try {
-            String scheme = this.mVideo.getScheme();
+            String scheme = mVideo.getScheme();
             if (scheme == null || (!scheme.equals("http") && !scheme.equals("https"))) {
-                mediaMetadataRetriever.setDataSource(IFitView1.getContext(), this.mVideo);
+                mediaMetadataRetriever.setDataSource(IFitView1.getContext(), mVideo);
             } else {
-                mediaMetadataRetriever.setDataSource(this.mVideo.toString(), new HashMap());
+                mediaMetadataRetriever.setDataSource(mVideo.toString(), new HashMap());
             }
             String extractMetadata = mediaMetadataRetriever.extractMetadata(18);
             String extractMetadata2 = mediaMetadataRetriever.extractMetadata(19);

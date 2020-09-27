@@ -39,38 +39,38 @@ public class ImageSpiralAdapter extends RecyclerView.Adapter<ImageSpiralAdapter.
     }
 
     public ImageSpiralAdapter(Context context2, OnSpiralListener onSpiralListener) {
-        this.context = context2;
-        this.listener = onSpiralListener;
+        context = context2;
+        listener = onSpiralListener;
         try {
-            this.images = this.context.getAssets().list(this.folder);
+            images = context.getAssets().list(folder);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.listImages = new ArrayList<>(Arrays.asList(this.images));
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        listImages = new ArrayList<>(Arrays.asList(images));
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
     }
 
     public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
-        ((RequestBuilder) Glide.with(this.context).load(Path.SPIRAL.thumb(i)).transition(DrawableTransitionOptions.withCrossFade()).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop(), new RoundedCorners(10)}))).into(myViewHolder.iv);
-        myViewHolder.relselected.setBackgroundResource(this.selected == i ? R.drawable.effect_select : R.drawable.effect_unselect);
+        ((RequestBuilder) Glide.with(context).load(Path.SPIRAL.thumb(i)).transition(DrawableTransitionOptions.withCrossFade()).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop(), new RoundedCorners(10)}))).into(myViewHolder.iv);
+        myViewHolder.relselected.setBackgroundResource(selected == i ? R.drawable.effect_select : R.drawable.effect_unselect);
         myViewHolder.relselected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ImageSpiralAdapter.this.selected = i;
-                ImageSpiralAdapter.this.notifyDataSetChanged();
-                if (ImageSpiralAdapter.this.listener != null) {
-                    ImageSpiralAdapter.this.listener.onSpiralClicked(i);
+                selected = i;
+                notifyDataSetChanged();
+                if (listener != null) {
+                    listener.onSpiralClicked(i);
                 }
             }
         });
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new MyViewHolder(((LayoutInflater) this.context.getSystemService("layout_inflater")).inflate(R.layout.item_spiral, viewGroup, false));
+        return new MyViewHolder(((LayoutInflater) context.getSystemService("layout_inflater")).inflate(R.layout.item_spiral, viewGroup, false));
     }
 
     public int getItemCount() {
-        return this.listImages.size();
+        return listImages.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -80,16 +80,16 @@ public class ImageSpiralAdapter extends RecyclerView.Adapter<ImageSpiralAdapter.
 
         public MyViewHolder(View view) {
             super(view);
-            this.iv = (ImageView) view.findViewById(R.id.ivspiral);
-            this.relmain = (RelativeLayout) view.findViewById(R.id.relsitem);
-            this.relselected = (RelativeLayout) view.findViewById(R.id.relselected);
+            iv = (ImageView) view.findViewById(R.id.ivspiral);
+            relmain = (RelativeLayout) view.findViewById(R.id.relsitem);
+            relselected = (RelativeLayout) view.findViewById(R.id.relselected);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setHeightAsBoth(ImageSpiralAdapter.this.context, this.relmain, 160);
-            SetLayparam.setMarginLeft(ImageSpiralAdapter.this.context, this.relmain, 38);
-            SetLayparam.setMarginsAsHeight(ImageSpiralAdapter.this.context, this.iv, 10);
+            SetLayparam.setHeightAsBoth(context, relmain, 160);
+            SetLayparam.setMarginLeft(context, relmain, 38);
+            SetLayparam.setMarginsAsHeight(context, iv, 10);
         }
     }
 }

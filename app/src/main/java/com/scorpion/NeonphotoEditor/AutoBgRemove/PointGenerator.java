@@ -10,21 +10,21 @@ public class PointGenerator implements Callable<Set<PointF>> {
     private final int radius;
 
     public PointGenerator(Set<PointF> set, int i) {
-        this.partition = set;
-        this.radius = i;
+        partition = set;
+        radius = i;
     }
 
     public Set<PointF> call() {
         HashSet hashSet = new HashSet();
-        for (PointF next : this.partition) {
+        for (PointF next : partition) {
             float f = next.x;
             float f2 = next.y;
-            for (float f3 = f - ((float) this.radius); f3 <= f; f3 += 1.0f) {
-                for (float f4 = f2 - ((float) this.radius); f4 <= f2; f4 += 1.0f) {
+            for (float f3 = f - ((float) radius); f3 <= f; f3 += 1.0f) {
+                for (float f4 = f2 - ((float) radius); f4 <= f2; f4 += 1.0f) {
                     float f5 = f3 - f;
                     float f6 = f4 - f2;
                     float f7 = (f5 * f5) + (f6 * f6);
-                    int i = this.radius;
+                    int i = radius;
                     if (f7 <= ((float) (i * i))) {
                         float f8 = f - f5;
                         float f9 = f2 - f6;

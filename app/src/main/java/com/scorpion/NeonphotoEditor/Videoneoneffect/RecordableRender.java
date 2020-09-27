@@ -15,13 +15,13 @@ public class RecordableRender extends FBORender implements ISupportRecord {
     private final MediaEncoder.MediaEncoderListener mMediaEncoderListener = new MediaEncoder.MediaEncoderListener() {
         public void onPrepared(MediaEncoder mediaEncoder) {
             if (mediaEncoder instanceof MediaVideoEncoder) {
-                RecordableRender.this.setVideoEncoder((MediaVideoEncoder) mediaEncoder);
+                setVideoEncoder((MediaVideoEncoder) mediaEncoder);
             }
         }
 
         public void onStopped(MediaEncoder mediaEncoder) {
             if (mediaEncoder instanceof MediaVideoEncoder) {
-                RecordableRender.this.setVideoEncoder((MediaVideoEncoder) null);
+                setVideoEncoder((MediaVideoEncoder) null);
             }
         }
 
@@ -40,16 +40,16 @@ public class RecordableRender extends FBORender implements ISupportRecord {
     private MediaVideoEncoder mVideoEncoder;
 
     public RecordableRender(String str, boolean z, boolean z2) {
-        this.mOutputPath = str;
-        this.mRecordVideo = z;
-        this.mRecordAudio = z2;
+        mOutputPath = str;
+        mRecordVideo = z;
+        mRecordAudio = z2;
     }
 
     public void onTextureAcceptable(int i, GLRender GLRender1) {
         super.onTextureAcceptable(i, GLRender1);
         try {
-            if (this.mVideoEncoder != null && i != this.mVideoEncoder.getInputTextureId()) {
-                this.mVideoEncoder.setInputTextureId(i);
+            if (mVideoEncoder != null && i != mVideoEncoder.getInputTextureId()) {
+                mVideoEncoder.setInputTextureId(i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,50 +57,50 @@ public class RecordableRender extends FBORender implements ISupportRecord {
     }
 
     public void setRecordListener(IRecordListener iRecordListener) {
-        this.mRecordListener = iRecordListener;
+        mRecordListener = iRecordListener;
     }
 
     public void setAudioExtraEncoder(IAudioExtraEncoder iAudioExtraEncoder) {
-        this.mAudioExtraEncoder = iAudioExtraEncoder;
+        mAudioExtraEncoder = iAudioExtraEncoder;
     }
 
     public void setVideoEncoder(MediaVideoEncoder mediaVideoEncoder) {
-        this.mVideoEncoder = mediaVideoEncoder;
+        mVideoEncoder = mediaVideoEncoder;
     }
 
     public void setRecordOutputPath(String str) {
-        this.mOutputPath = str;
+        mOutputPath = str;
     }
 
     public void enableRecordAudio(boolean z) {
-        this.mRecordAudio = z;
+        mRecordAudio = z;
     }
 
     public void enableRecordVideo(boolean z) {
-        this.mRecordVideo = z;
+        mRecordVideo = z;
     }
 
     public void setRecordSize(int i, int i2) {
-        this.mRecordWidth = i;
-        this.mRecordHeight = i2;
+        mRecordWidth = i;
+        mRecordHeight = i2;
     }
 
     public boolean isRecording() {
-        return this.mMuxerWrapper != null && this.mMuxerWrapper.isStarted();
+        return mMuxerWrapper != null && mMuxerWrapper.isStarted();
     }
 
     public boolean startRecording() {
         try {
-            this.mMuxerWrapper = new MediaMuxerWrapper(this.mOutputPath);
-            if (this.mRecordVideo) {
-                new MediaVideoEncoder(this.mMuxerWrapper, this.mMediaEncoderListener, this.mRecordWidth <= 0 ? getWidth() : this.mRecordWidth, this.mRecordHeight <= 0 ? getHeight() : this.mRecordHeight);
+            mMuxerWrapper = new MediaMuxerWrapper(mOutputPath);
+            if (mRecordVideo) {
+                new MediaVideoEncoder(mMuxerWrapper, mMediaEncoderListener, mRecordWidth <= 0 ? getWidth() : mRecordWidth, mRecordHeight <= 0 ? getHeight() : mRecordHeight);
             }
-            if (this.mRecordAudio) {
-                new MediaAudioEncoder(this.mMuxerWrapper, this.mMediaEncoderListener).setAudioExtraEncoder(this.mAudioExtraEncoder);
+            if (mRecordAudio) {
+                new MediaAudioEncoder(mMuxerWrapper, mMediaEncoderListener).setAudioExtraEncoder(mAudioExtraEncoder);
             }
-            this.mMuxerWrapper.setRecordListener(this.mRecordListener);
-            this.mMuxerWrapper.prepare();
-            this.mMuxerWrapper.startRecording();
+            mMuxerWrapper.setRecordListener(mRecordListener);
+            mMuxerWrapper.prepare();
+            mMuxerWrapper.startRecording();
         } catch (Exception e) {
             e.printStackTrace();
             Helper.showLog("EEE", "startRecording : " + e.toString());
@@ -109,9 +109,9 @@ public class RecordableRender extends FBORender implements ISupportRecord {
     }
 
     public void stopRecording() {
-        if (this.mMuxerWrapper != null) {
-            this.mMuxerWrapper.stopRecording();
-            this.mMuxerWrapper = null;
+        if (mMuxerWrapper != null) {
+            mMuxerWrapper.stopRecording();
+            mMuxerWrapper = null;
         }
     }
 
@@ -119,8 +119,8 @@ public class RecordableRender extends FBORender implements ISupportRecord {
     public void drawFrame() {
         super.drawFrame();
         try {
-            if (this.mVideoEncoder != null) {
-                this.mVideoEncoder.frameAvailableSoon();
+            if (mVideoEncoder != null) {
+                mVideoEncoder.frameAvailableSoon();
             }
         } catch (Exception e) {
             e.printStackTrace();

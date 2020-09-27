@@ -31,19 +31,19 @@ public class ExtraUsedAdapter extends RecyclerView.Adapter<ExtraUsedAdapter.MyVi
     int width;
 
     public ExtraUsedAdapter(Context context, ArrayList<String> arrayList) {
-        this.con = context;
-        this.al = arrayList;
-        this.width = Helper.getWidth(context);
-        this.height = Helper.getHeight(context);
+        con = context;
+        al = arrayList;
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
     }
 
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
         Path path = Path.ASSETS;
-        ((RequestBuilder) Glide.with(this.con).load(path.wrap(Constant.THUMB_FOLDER + "/" + this.al.get(i) + ".png"))
+        ((RequestBuilder) Glide.with(con).load(path.wrap(Constant.THUMB_FOLDER + "/" + al.get(i) + ".png"))
                 .transform((Transformation<Bitmap>) new MultiTransformation((Transformation[])
                         new Transformation[]{new CenterCrop(), new RoundedCorners(getWidth(9))})))
                 .transition(DrawableTransitionOptions.withCrossFade()).into(myViewHolder.iv);
-        if (this.selected == i) {
+        if (selected == i) {
             myViewHolder.relSelect.setVisibility(View.VISIBLE);
         } else {
             myViewHolder.relSelect.setVisibility(View.GONE);
@@ -51,16 +51,16 @@ public class ExtraUsedAdapter extends RecyclerView.Adapter<ExtraUsedAdapter.MyVi
     }
 
     public void setSelected(int i) {
-        this.selected = i;
+        selected = i;
         notifyDataSetChanged();
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new MyViewHolder(((LayoutInflater) this.con.getSystemService("layout_inflater")).inflate(R.layout.item_used, viewGroup, false));
+        return new MyViewHolder(((LayoutInflater) con.getSystemService("layout_inflater")).inflate(R.layout.item_used, viewGroup, false));
     }
 
     public int getItemCount() {
-        return this.al.size();
+        return al.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -71,27 +71,27 @@ public class ExtraUsedAdapter extends RecyclerView.Adapter<ExtraUsedAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
-            this.iv = (ImageView) view.findViewById(R.id.ivparticle);
-            this.ivtick = (ImageView) view.findViewById(R.id.ivtick);
-            this.relmain = (RelativeLayout) view.findViewById(R.id.relpitem);
-            this.relSelect = (RelativeLayout) view.findViewById(R.id.relselected);
+            iv = (ImageView) view.findViewById(R.id.ivparticle);
+            ivtick = (ImageView) view.findViewById(R.id.ivtick);
+            relmain = (RelativeLayout) view.findViewById(R.id.relpitem);
+            relSelect = (RelativeLayout) view.findViewById(R.id.relselected);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setHeightWidth(ExtraUsedAdapter.this.con, this.relmain, 180, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
-            SetLayparam.setMarginLeft(ExtraUsedAdapter.this.con, this.relmain, 33);
-            SetLayparam.setHeight(ExtraUsedAdapter.this.con, this.iv, 164);
-            SetLayparam.setHeight(ExtraUsedAdapter.this.con, this.relSelect, 164);
-            SetLayparam.setHeightAsBoth(ExtraUsedAdapter.this.con, this.ivtick, 90);
+            SetLayparam.setHeightWidth(con, relmain, 180, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
+            SetLayparam.setMarginLeft(con, relmain, 33);
+            SetLayparam.setHeight(con, iv, 164);
+            SetLayparam.setHeight(con, relSelect, 164);
+            SetLayparam.setHeightAsBoth(con, ivtick, 90);
         }
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 }

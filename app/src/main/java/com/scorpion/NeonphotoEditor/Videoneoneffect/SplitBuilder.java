@@ -7,17 +7,17 @@ public class SplitBuilder extends EZFilter.Builder {
     private SplitInput mSplitInput;
 
     public SplitBuilder(EZFilter.Builder builder, SplitInput fX_SplitInput) {
-        this.mOriginalBuilder = builder;
-        this.mSplitInput = fX_SplitInput;
+        mOriginalBuilder = builder;
+        mSplitInput = fX_SplitInput;
     }
 
     public FBORender getStartPointRender(IFitView fX_IFitView) {
-        this.mSplitInput.setRootRender(this.mOriginalBuilder.getStartPointRender(fX_IFitView));
-        return this.mSplitInput;
+        mSplitInput.setRootRender(mOriginalBuilder.getStartPointRender(fX_IFitView));
+        return mSplitInput;
     }
 
     public float getAspectRatio(IFitView fX_IFitView) {
-        return this.mOriginalBuilder.getAspectRatio(fX_IFitView);
+        return mOriginalBuilder.getAspectRatio(fX_IFitView);
     }
 
     public SplitBuilder addFilter(FilterRender fX_FilterRender) {

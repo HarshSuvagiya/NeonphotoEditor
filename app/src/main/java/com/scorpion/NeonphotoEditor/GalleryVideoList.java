@@ -49,41 +49,41 @@ public class GalleryVideoList extends Activity {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_video_list);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
+        context = this;
 
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.ivmore = (ImageView) findViewById(R.id.ivoption);
-        this.relpbar = (RelativeLayout) findViewById(R.id.relpbar);
-        this.tvnothing = (TextView) findViewById(R.id.tvnothing);
-        this.rcv = (RecyclerView) findViewById(R.id.rcvvideo);
-        this.width = getResources().getDisplayMetrics().widthPixels;
-        this.height = getResources().getDisplayMetrics().heightPixels;
+        header = (TextView) findViewById(R.id.my_header_text);
+        ivmore = (ImageView) findViewById(R.id.ivoption);
+        relpbar = (RelativeLayout) findViewById(R.id.relpbar);
+        tvnothing = (TextView) findViewById(R.id.tvnothing);
+        rcv = (RecyclerView) findViewById(R.id.rcvvideo);
+        width = getResources().getDisplayMetrics().widthPixels;
+        height = getResources().getDisplayMetrics().heightPixels;
         forUI();
         init();
     }
 
     private void init() {
-        this.header.setText(R.string.app_name);
-        this.ivmore.setVisibility(View.INVISIBLE);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.task = new LoadTask();
-        this.task.execute(new Void[0]);
-        this.rcv.setLayoutManager(new GridLayoutManager(this.context, 2));
-        this.rcv.addItemDecoration(new RVGridSpacing(2, getWidth(45), true));
-        this.rcv.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcv, new RecyclerTouchListener.ClickListener() {
+        header.setText(R.string.app_name);
+        ivmore.setVisibility(View.INVISIBLE);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        task = new LoadTask();
+        task.execute(new Void[0]);
+        rcv.setLayoutManager(new GridLayoutManager(context, 2));
+        rcv.addItemDecoration(new RVGridSpacing(2, getWidth(45), true));
+        rcv.addOnItemTouchListener(new RecyclerTouchListener(context, rcv, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
             public void onClick(View view, int i) {
-                if (!GalleryVideoList.this.isClicked) {
-                    GalleryVideoList.this.isClicked = true;
-                    String path = GalleryVideoList.this.vl.get(i).getPath();
-                    String duration = GalleryVideoList.this.vl.get(i).getDuration();
+                if (!isClicked) {
+                    isClicked = true;
+                    String path = vl.get(i).getPath();
+                    String duration = vl.get(i).getDuration();
                     Uri.parse(path);
-                    Intent intent = new Intent(GalleryVideoList.this.context, NeonVideoEffectEditor.class);
+                    Intent intent = new Intent(context, NeonVideoEffectEditor.class);
                     intent.putExtra("path", path + "");
                     intent.putExtra("duration", duration);
-                    GalleryVideoList.this.startActivity(intent);
+                    startActivity(intent);
                 }
             }
         }));
@@ -91,7 +91,7 @@ public class GalleryVideoList extends Activity {
 
     public void onResume() {
         super.onResume();
-        this.isClicked = false;
+        isClicked = false;
     }
 
     public void back(View view) {
@@ -99,11 +99,11 @@ public class GalleryVideoList extends Activity {
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void onBackPressed() {
@@ -117,27 +117,27 @@ public class GalleryVideoList extends Activity {
 
         public void onPreExecute() {
             super.onPreExecute();
-            GalleryVideoList.this.vl.clear();
-            GalleryVideoList.this.relpbar.setVisibility(View.VISIBLE);
-            GalleryVideoList.this.tvnothing.setVisibility(View.GONE);
-            GalleryVideoList.this.rcv.setVisibility(View.GONE);
+            vl.clear();
+            relpbar.setVisibility(View.VISIBLE);
+            tvnothing.setVisibility(View.GONE);
+            rcv.setVisibility(View.GONE);
         }
 
         public Void doInBackground(Void... voidArr) {
-            GalleryVideoList.this.vl = Helper.getAllVideo(GalleryVideoList.this.context);
+            vl = Helper.getAllVideo(context);
             return null;
         }
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            GalleryVideoList.this.relpbar.setVisibility(View.GONE);
-            if (GalleryVideoList.this.vl.size() > 0) {
-                GalleryVideoList.this.adapter = new VideoGalleryAdapter(GalleryVideoList.this.context, GalleryVideoList.this.vl);
-                GalleryVideoList.this.rcv.setAdapter(GalleryVideoList.this.adapter);
-                GalleryVideoList.this.rcv.setVisibility(View.VISIBLE);
+            relpbar.setVisibility(View.GONE);
+            if (vl.size() > 0) {
+                adapter = new VideoGalleryAdapter(context, vl);
+                rcv.setAdapter(adapter);
+                rcv.setVisibility(View.VISIBLE);
                 return;
             }
-            GalleryVideoList.this.tvnothing.setVisibility(View.VISIBLE);
+            tvnothing.setVisibility(View.VISIBLE);
         }
     }
 

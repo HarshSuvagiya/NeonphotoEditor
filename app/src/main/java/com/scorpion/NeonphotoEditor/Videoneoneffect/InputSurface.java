@@ -11,27 +11,27 @@ class InputSurface {
 
     public InputSurface(Surface surface) {
         if (surface != null) {
-            this.mSurface = surface;
-            this.mEgl = new EGLEnvironment(EGL14.eglGetCurrentContext(), false);
-            this.mInputSurface = this.mEgl.createFromSurface(surface);
-            this.mInputSurface.makeCurrent();
+            mSurface = surface;
+            mEgl = new EGLEnvironment(EGL14.eglGetCurrentContext(), false);
+            mInputSurface = mEgl.createFromSurface(surface);
+            mInputSurface.makeCurrent();
             return;
         }
         throw new NullPointerException();
     }
 
     public void swapBuffers() {
-        this.mInputSurface.swap();
+        mInputSurface.swap();
     }
 
     public void setPresentationTime(long j) {
-        this.mEgl.setPresentationTime(j, this.mInputSurface);
+        mEgl.setPresentationTime(j, mInputSurface);
     }
 
     public void release() {
-        this.mInputSurface.release();
-        this.mEgl.release();
-        this.mSurface.release();
-        this.mSurface = null;
+        mInputSurface.release();
+        mEgl.release();
+        mSurface.release();
+        mSurface = null;
     }
 }

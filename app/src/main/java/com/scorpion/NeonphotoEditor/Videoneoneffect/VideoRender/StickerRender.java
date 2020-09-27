@@ -31,77 +31,77 @@ public class StickerRender extends FilterRender {
     int originalSize = Constant.NORMAL_STICKER_SIZE;
 
     public StickerRender(Context context, IStickerTimeController IStickerTimeController1) {
-        this.mContext = context;
-        this.mTimeController = IStickerTimeController1;
+        mContext = context;
+        mTimeController = IStickerTimeController1;
     }
 
     public Sticker getSticker() {
-        return this.mSticker;
+        return mSticker;
     }
 
     public void setSticker(Sticker sticker) {
-        this.mSticker = sticker;
-        this.mComponentRenders.clear();
-        for (Component Component1 : this.mSticker.components) {
-            this.mComponentRenders.add(new ComponentRender(this.mContext, Component1));
+        mSticker = sticker;
+        mComponentRenders.clear();
+        for (Component Component1 : mSticker.components) {
+            mComponentRenders.add(new ComponentRender(mContext, Component1));
         }
     }
 
     public void setScreenAnchor(ScreenAnchor screenAnchor) {
-        this.mScreenAnchor = screenAnchor;
+        mScreenAnchor = screenAnchor;
     }
 
     public void destroy() {
         super.destroy();
-        for (ComponentRender destroy : this.mComponentRenders) {
+        for (ComponentRender destroy : mComponentRenders) {
             destroy.destroy();
         }
     }
 
     public void setBitmapCache(IBitmapCache iBitmapCache) {
         super.setBitmapCache(iBitmapCache);
-        for (ComponentRender bitmapCache : this.mComponentRenders) {
+        for (ComponentRender bitmapCache : mComponentRenders) {
             bitmapCache.setBitmapCache(iBitmapCache);
         }
     }
 
     public void onRenderSizeChanged() {
         super.onRenderSizeChanged();
-        if (this.mScreenAnchor != null) {
-            this.mScreenAnchor.width = this.mWidth;
-            this.mScreenAnchor.height = this.mHeight;
+        if (mScreenAnchor != null) {
+            mScreenAnchor.width = mWidth;
+            mScreenAnchor.height = mHeight;
         }
     }
 
     public void start() {
-        this.mIsPause = false;
-        this.mIsTouch = true;
-        this.mStartTime = this.mTimeController.getCurrentTime();
+        mIsPause = false;
+        mIsTouch = true;
+        mStartTime = mTimeController.getCurrentTime();
     }
 
     public void pause() {
-        this.mIsPause = true;
-        this.mIsTouch = false;
-        this.mEndTime = this.mTimeController.getCurrentTime();
+        mIsPause = true;
+        mIsTouch = false;
+        mEndTime = mTimeController.getCurrentTime();
     }
 
     public void setPosition(int i, int i2) {
         Helper.showLog("X : " + i + " : Y : " + i2);
-        if (!this.mSticker.components.isEmpty()) {
-            this.mScreenAnchor.leftAnchor.x = (float) (i - (this.mSticker.components.get(0).width / 2));
+        if (!mSticker.components.isEmpty()) {
+            mScreenAnchor.leftAnchor.x = (float) (i - (mSticker.components.get(0).width / 2));
             float f = (float) i2;
-            this.mScreenAnchor.leftAnchor.y = f;
-            this.mScreenAnchor.rightAnchor.x = (float) (i + (this.mSticker.components.get(0).width / 2));
-            this.mScreenAnchor.rightAnchor.y = f;
+            mScreenAnchor.leftAnchor.y = f;
+            mScreenAnchor.rightAnchor.x = (float) (i + (mSticker.components.get(0).width / 2));
+            mScreenAnchor.rightAnchor.y = f;
         }
     }
 
     public void setEffectTimeBar(VideoEffectTimeBar VideoEffectTimeBar1) {
-        this.effectTimeBar = VideoEffectTimeBar1;
+        effectTimeBar = VideoEffectTimeBar1;
     }
 
     public void setSize(int i) {
-        for (Component next : this.mSticker.components) {
+        for (Component next : mSticker.components) {
             next.width = i;
             next.height = i;
         }
@@ -109,31 +109,31 @@ public class StickerRender extends FilterRender {
 
     public int getSize() {
         int i = 0;
-        for (Component component : this.mSticker.components) {
+        for (Component component : mSticker.components) {
             i = component.width;
         }
         return i;
     }
 
     public int getOriginalSize() {
-        return this.originalSize;
+        return originalSize;
     }
 
     public void setOriginalSize(int i) {
-        this.originalSize = i;
+        originalSize = i;
     }
 
     public void onDraw() {
         super.onDraw();
         GLES20.glEnable(3042);
         GLES20.glBlendFunc(1, 771);
-        for (ComponentRender next : this.mComponentRenders) {
-            next.setmIsPause(this.mIsPause);
-            next.setTouch(this.mIsTouch);
-            next.setEffectTimeBar(this.effectTimeBar);
-            next.setScreenAnchor(this.mScreenAnchor);
+        for (ComponentRender next : mComponentRenders) {
+            next.setmIsPause(mIsPause);
+            next.setTouch(mIsTouch);
+            next.setEffectTimeBar(effectTimeBar);
+            next.setScreenAnchor(mScreenAnchor);
             next.updateRenderVertices(getWidth(), getHeight());
-            next.onDraw(this.mTextureHandle, this.mPositionHandle, this.mTextureCoordHandle, this.mTextureVertices[2]);
+            next.onDraw(mTextureHandle, mPositionHandle, mTextureCoordHandle, mTextureVertices[2]);
         }
         GLES20.glDisable(3042);
     }

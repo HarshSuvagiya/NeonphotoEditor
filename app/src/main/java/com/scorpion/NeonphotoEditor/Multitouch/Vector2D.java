@@ -17,8 +17,8 @@ public class Vector2D extends PointF {
     }
 
     public void normalize() {
-        float sqrt = (float) Math.sqrt((double) ((this.x * this.x) + (this.y * this.y)));
-        this.x /= sqrt;
-        this.y /= sqrt;
+        float sqrt = (float) Math.sqrt((double) ((x * x) + (y * y)));
+        x /= sqrt;
+        y /= sqrt;
     }
 }

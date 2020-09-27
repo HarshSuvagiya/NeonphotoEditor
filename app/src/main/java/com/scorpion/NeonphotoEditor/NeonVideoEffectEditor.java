@@ -17,29 +17,24 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import cn.ezandroid.ezfilter.media.record.ISupportRecord;
 import com.airbnb.lottie.LottieAnimationView;
-import com.netcompss.ffmpeg4android.CommandExecutor;
-import com.netcompss.ffmpeg4android.FfResponse;
-import com.netcompss.ffmpeg4android.GeneralUtils;
-import com.scorpion.NeonphotoEditor.Adapters.VideoStickerAdapter;
+import com.arthenica.mobileffmpeg.FFmpeg;
 import com.scorpion.NeonphotoEditor.Adapters.ExtraUsedAdapter;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.EZFilter;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.GLRender;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.IMediaPlayer;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.RenderPipeline;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.TextureFitView;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.VideoInput;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.VideoRender.StickerRender;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.Sticker.IStickerTimeController;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.Sticker.StickerHelper;
+import com.scorpion.NeonphotoEditor.Adapters.VideoStickerAdapter;
 import com.scorpion.NeonphotoEditor.Util.Constant;
 import com.scorpion.NeonphotoEditor.Util.Helper;
 import com.scorpion.NeonphotoEditor.Util.RecyclerTouchListener;
 import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 import com.scorpion.NeonphotoEditor.Util.VideoEffectTimeBar;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.EZFilter;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.GLRender;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.IMediaPlayer;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.RenderPipeline;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.Sticker.IStickerTimeController;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.Sticker.StickerHelper;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.TextureFitView;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.VideoInput;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.VideoRender.StickerRender;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -47,6 +42,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import cn.ezandroid.ezfilter.media.record.ISupportRecord;
+
+import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_CANCEL;
+import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_SUCCESS;
 
 public class NeonVideoEffectEditor extends Activity {
     ArrayList<StickerRender> alrender = new ArrayList<>();
@@ -99,96 +101,96 @@ public class NeonVideoEffectEditor extends Activity {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_sticker_preview);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
+        context = this;
 
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.ivdone = (ImageView) findViewById(R.id.ivoption);
-        this.ivback = (ImageView) findViewById(R.id.ivback);
-        this.ivplay = (ImageView) findViewById(R.id.ivplay);
-        this.mRenderView = (TextureFitView) findViewById(R.id.render_view);
-        this.lpbar = (LinearLayout) findViewById(R.id.lpbar);
-        this.leffectbar = (LinearLayout) findViewById(R.id.leffectbar);
-        this.vseek = (VideoEffectTimeBar) findViewById(R.id.vseek);
-        this.rcvs = (RecyclerView) findViewById(R.id.rcvsticker);
-        this.lsize = (LinearLayout) findViewById(R.id.linearSize);
-        this.rcvu = (RecyclerView) findViewById(R.id.rcvused);
-        this.sbsize = (SeekBar) findViewById(R.id.seeksize);
-        this.lop = (LinearLayout) findViewById(R.id.linearop);
-        this.ivedit = (ImageView) findViewById(R.id.ivedit);
-        this.ivsicon = (ImageView) findViewById(R.id.ivsicon);
-        this.ivdelete = (ImageView) findViewById(R.id.ivdelete);
-        this.lav = (LottieAnimationView) findViewById(R.id.animfront);
-        this.lcontainer = (LinearLayout) findViewById(R.id.lcontainer);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        header = (TextView) findViewById(R.id.my_header_text);
+        ivdone = (ImageView) findViewById(R.id.ivoption);
+        ivback = (ImageView) findViewById(R.id.ivback);
+        ivplay = (ImageView) findViewById(R.id.ivplay);
+        mRenderView = (TextureFitView) findViewById(R.id.render_view);
+        lpbar = (LinearLayout) findViewById(R.id.lpbar);
+        leffectbar = (LinearLayout) findViewById(R.id.leffectbar);
+        vseek = (VideoEffectTimeBar) findViewById(R.id.vseek);
+        rcvs = (RecyclerView) findViewById(R.id.rcvsticker);
+        lsize = (LinearLayout) findViewById(R.id.linearSize);
+        rcvu = (RecyclerView) findViewById(R.id.rcvused);
+        sbsize = (SeekBar) findViewById(R.id.seeksize);
+        lop = (LinearLayout) findViewById(R.id.linearop);
+        ivedit = (ImageView) findViewById(R.id.ivedit);
+        ivsicon = (ImageView) findViewById(R.id.ivsicon);
+        ivdelete = (ImageView) findViewById(R.id.ivdelete);
+        lav = (LottieAnimationView) findViewById(R.id.animfront);
+        lcontainer = (LinearLayout) findViewById(R.id.lcontainer);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
     }
 
     private void forUI() {
-        SetLayparam.setMargins(this.context, this.lcontainer, 60, 60, 60, 0);
-        SetLayparam.setMargins(this.context, this.lop, 60, 45, 60, 45);
-        SetLayparam.setHeightAsBoth(this.context, this.ivplay, 120);
-        SetLayparam.setHeightWidth(this.context, this.leffectbar, 808, 184);
-        SetLayparam.setPadding(this.context, this.leffectbar, 20);
-        SetLayparam.setHeightWidth(this.context, this.ivedit, 226, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
-        SetLayparam.setHeight(this.context, this.rcvs, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
-        SetLayparam.setHeight(this.context, this.rcvu, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
-        SetLayparam.setHeight(this.context, this.lsize, 92);
-        SetLayparam.setPadding(this.context, this.lsize, 30, 0, 23, 0);
-        SetLayparam.setMargins(this.context, this.lsize, 0, 23, 0, 20);
-        SetLayparam.setHeightAsBoth(this.context, this.ivsicon, 90);
-        SetLayparam.setHeightAsBoth(this.context, this.ivdelete, 90);
+        SetLayparam.setMargins(context, lcontainer, 60, 60, 60, 0);
+        SetLayparam.setMargins(context, lop, 60, 45, 60, 45);
+        SetLayparam.setHeightAsBoth(context, ivplay, 120);
+        SetLayparam.setHeightWidth(context, leffectbar, 808, 184);
+        SetLayparam.setPadding(context, leffectbar, 20);
+        SetLayparam.setHeightWidth(context, ivedit, 226, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
+        SetLayparam.setHeight(context, rcvs, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
+        SetLayparam.setHeight(context, rcvu, CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE);
+        SetLayparam.setHeight(context, lsize, 92);
+        SetLayparam.setPadding(context, lsize, 30, 0, 23, 0);
+        SetLayparam.setMargins(context, lsize, 0, 23, 0, 20);
+        SetLayparam.setHeightAsBoth(context, ivsicon, 90);
+        SetLayparam.setHeightAsBoth(context, ivdelete, 90);
     }
 
     private void init() {
-        this.header.setText(R.string.app_name);
-        this.ivdone.setVisibility(0);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.alused.clear();
+        header.setText(R.string.app_name);
+        ivdone.setVisibility(View.VISIBLE);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        alused.clear();
         setAdapter();
         setListeners();
-        this.sTimeControl = new IStickerTimeController() {
+        sTimeControl = new IStickerTimeController() {
             public float getCurrentTime() {
-                return ((float) NeonVideoEffectEditor.this.mVideoInput.getMediaPlayer().getCurrentPosition()) / 1000.0f;
+                return ((float) mVideoInput.getMediaPlayer().getCurrentPosition()) / 1000.0f;
             }
         };
-        this.inputpath = getIntent().getStringExtra("path");
-        this.duration = Long.parseLong(getIntent().getStringExtra("duration"));
-        this.vseek.setMaxValue(this.duration);
-        this.vseek.beginPreView(this.inputpath);
-        this.vseek.setCanSeek(true);
-        this.outfile = new File(Helper.getTempFolder(this.context), "woa.mp4");
-        if (this.outfile.exists()) {
-            this.outfile.delete();
+        inputpath = getIntent().getStringExtra("path");
+        duration = Long.parseLong(getIntent().getStringExtra("duration"));
+        vseek.setMaxValue(duration);
+        vseek.beginPreView(inputpath);
+        vseek.setCanSeek(true);
+        outfile = new File(Helper.getTempFolder(context), "woa.mp4");
+        if (outfile.exists()) {
+            outfile.delete();
         }
         new Thread() {
             public void run() {
-                NeonVideoEffectEditor.this.mRenderPipeline = EZFilter.input(Uri.parse(NeonVideoEffectEditor.this.inputpath)).setLoop(false).enableRecord(NeonVideoEffectEditor.this.outfile.getAbsolutePath(), true, false).setPreparedListener(new IMediaPlayer.OnPreparedListener() {
+                mRenderPipeline = EZFilter.input(Uri.parse(inputpath)).setLoop(false).enableRecord(outfile.getAbsolutePath(), true, false).setPreparedListener(new IMediaPlayer.OnPreparedListener() {
                     public void onPrepared(IMediaPlayer IMediaPlayer1) {
-                        NeonVideoEffectEditor.this.mVideoInput.seekTo(1);
-                        NeonVideoEffectEditor.this.pauseVideo();
+                        mVideoInput.seekTo(1);
+                        pauseVideo();
                     }
                 }).setCompletionListener(new IMediaPlayer.OnCompletionListener() {
                     public void onCompletion(IMediaPlayer IMediaPlayer1) {
-                        if (!NeonVideoEffectEditor.this.mTouchingSeekBar && !NeonVideoEffectEditor.this.mTouchingTextureView) {
-                            NeonVideoEffectEditor.this.mVideoInput.seekTo(0);
-                            NeonVideoEffectEditor.this.ivplay.setImageResource(R.drawable.play_edit);
-                            NeonVideoEffectEditor.this.runOnUiThread(new Runnable() {
+                        if (!mTouchingSeekBar && !mTouchingTextureView) {
+                            mVideoInput.seekTo(0);
+                            ivplay.setImageResource(R.drawable.play_edit);
+                            runOnUiThread(new Runnable() {
                                 public void run() {
-                                    if (NeonVideoEffectEditor.this.mSupportRecord.isRecording()) {
+                                    if (mSupportRecord.isRecording()) {
                                         Helper.showLog("SSS", "Saving Stopped");
-                                        NeonVideoEffectEditor.this.stopRecording();
+                                        stopRecording();
                                     }
                                 }
                             });
                         }
                     }
-                }).setVideoEffectTimeBar(NeonVideoEffectEditor.this.vseek).into(NeonVideoEffectEditor.this.mRenderView);
-                NeonVideoEffectEditor.this.mVideoInput = (VideoInput) NeonVideoEffectEditor.this.mRenderPipeline.getStartPointRender();
-                for (GLRender next : NeonVideoEffectEditor.this.mRenderPipeline.getEndPointRenders()) {
+                }).setVideoEffectTimeBar(vseek).into(mRenderView);
+                mVideoInput = (VideoInput) mRenderPipeline.getStartPointRender();
+                for (GLRender next : mRenderPipeline.getEndPointRenders()) {
                     if (next instanceof ISupportRecord) {
-                        NeonVideoEffectEditor.this.mSupportRecord = (ISupportRecord) next;
+                        mSupportRecord = (ISupportRecord) next;
                     }
                 }
             }
@@ -196,69 +198,69 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     private void setAdapter() {
-        this.rcvs.setLayoutManager(new LinearLayoutManager(this.context, 0, false));
-        this.rcvu.setLayoutManager(new LinearLayoutManager(this.context, 0, false));
-        this.sadapter = new VideoStickerAdapter(this.context, Constant.hslist);
-        this.rcvs.setAdapter(this.sadapter);
-        this.uadapter = new ExtraUsedAdapter(this.context, this.alused);
-        this.rcvu.setAdapter(this.uadapter);
-        this.rcvs.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcvs, new RecyclerTouchListener.ClickListener() {
+        rcvs.setLayoutManager(new LinearLayoutManager(context, 0, false));
+        rcvu.setLayoutManager(new LinearLayoutManager(context, 0, false));
+        sadapter = new VideoStickerAdapter(context, Constant.hslist);
+        rcvs.setAdapter(sadapter);
+        uadapter = new ExtraUsedAdapter(context, alused);
+        rcvu.setAdapter(uadapter);
+        rcvs.addOnItemTouchListener(new RecyclerTouchListener(context, rcvs, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
             public void onClick(View view, int i) {
-                NeonVideoEffectEditor.this.setSticker(i);
+                setSticker(i);
             }
         }));
-        this.rcvu.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcvu, new RecyclerTouchListener.ClickListener() {
+        rcvu.addOnItemTouchListener(new RecyclerTouchListener(context, rcvu, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
             public void onClick(View view, int i) {
-                NeonVideoEffectEditor.this.setUsedSticker(i);
+                setUsedSticker(i);
             }
         }));
     }
 
     @SuppressLint({"ClickableViewAccessibility"})
     private void setListeners() {
-        this.mRenderView.setOnTouchListener(new View.OnTouchListener() {
+        mRenderView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case 0:
-                        NeonVideoEffectEditor.this.mTouchingTextureView = true;
-                        NeonVideoEffectEditor.this.preTouchOperation();
-                        NeonVideoEffectEditor.this.mStickerRender = NeonVideoEffectEditor.this.sHelper.getParticleRenderer(NeonVideoEffectEditor.this.sticker);
-                        NeonVideoEffectEditor.this.startVideo();
-                        NeonVideoEffectEditor.this.mStickerRender.setEffectTimeBar(NeonVideoEffectEditor.this.vseek);
-                        NeonVideoEffectEditor.this.mStickerRender.start();
-                        NeonVideoEffectEditor.this.alrender.add(NeonVideoEffectEditor.this.mStickerRender);
-                        NeonVideoEffectEditor.this.mStickerRender.setPosition(Math.round(((motionEvent.getX() * ((float) NeonVideoEffectEditor.this.mStickerRender.getWidth())) * 1.0f) / ((float) NeonVideoEffectEditor.this.mRenderView.getWidth())), Math.round(((motionEvent.getY() * ((float) NeonVideoEffectEditor.this.mStickerRender.getHeight())) * 1.0f) / ((float) NeonVideoEffectEditor.this.mRenderView.getHeight())));
-                        NeonVideoEffectEditor.this.start = (long) NeonVideoEffectEditor.this.mVideoInput.getMediaPlayer().getCurrentPosition();
-                        NeonVideoEffectEditor.this.vseek.setTouch(true, NeonVideoEffectEditor.this.start);
-                        if (!NeonVideoEffectEditor.this.mRenderPipeline.getFilterRenders().contains(NeonVideoEffectEditor.this.mStickerRender)) {
-                            NeonVideoEffectEditor.this.mRenderPipeline.addFilterRender(NeonVideoEffectEditor.this.mStickerRender);
+                        mTouchingTextureView = true;
+                        preTouchOperation();
+                        mStickerRender = sHelper.getParticleRenderer(sticker);
+                        startVideo();
+                        mStickerRender.setEffectTimeBar(vseek);
+                        mStickerRender.start();
+                        alrender.add(mStickerRender);
+                        mStickerRender.setPosition(Math.round(((motionEvent.getX() * ((float) mStickerRender.getWidth())) * 1.0f) / ((float) mRenderView.getWidth())), Math.round(((motionEvent.getY() * ((float) mStickerRender.getHeight())) * 1.0f) / ((float) mRenderView.getHeight())));
+                        start = (long) mVideoInput.getMediaPlayer().getCurrentPosition();
+                        vseek.setTouch(true, start);
+                        if (!mRenderPipeline.getFilterRenders().contains(mStickerRender)) {
+                            mRenderPipeline.addFilterRender(mStickerRender);
                             break;
                         }
                         break;
                     case 1:
                     case 3:
-                        NeonVideoEffectEditor.this.mTouchingTextureView = false;
-                        if (NeonVideoEffectEditor.this.mStickerRender != null) {
-                            NeonVideoEffectEditor.this.mStickerRender.setPosition(-2000, -2000);
+                        mTouchingTextureView = false;
+                        if (mStickerRender != null) {
+                            mStickerRender.setPosition(-2000, -2000);
                             new Handler().postDelayed(new Runnable() {
                                 public void run() {
-                                    NeonVideoEffectEditor.this.mStickerRender.pause();
-                                    NeonVideoEffectEditor.this.mStickerRender = null;
+                                    mStickerRender.pause();
+                                    mStickerRender = null;
                                 }
                             }, 200);
                         }
-                        NeonVideoEffectEditor.this.end = (long) NeonVideoEffectEditor.this.mVideoInput.getMediaPlayer().getCurrentPosition();
-                        NeonVideoEffectEditor.this.vseek.setTouch(false, NeonVideoEffectEditor.this.end);
+                        end = (long) mVideoInput.getMediaPlayer().getCurrentPosition();
+                        vseek.setTouch(false, end);
                         break;
                     case 2:
-                        if (NeonVideoEffectEditor.this.mStickerRender != null) {
-                            NeonVideoEffectEditor.this.mStickerRender.setPosition(Math.round(((motionEvent.getX() * ((float) NeonVideoEffectEditor.this.mStickerRender.getWidth())) * 1.0f) / ((float) NeonVideoEffectEditor.this.mRenderView.getWidth())), Math.round(((motionEvent.getY() * ((float) NeonVideoEffectEditor.this.mStickerRender.getHeight())) * 1.0f) / ((float) NeonVideoEffectEditor.this.mRenderView.getHeight())));
+                        if (mStickerRender != null) {
+                            mStickerRender.setPosition(Math.round(((motionEvent.getX() * ((float) mStickerRender.getWidth())) * 1.0f) / ((float) mRenderView.getWidth())), Math.round(((motionEvent.getY() * ((float) mStickerRender.getHeight())) * 1.0f) / ((float) mRenderView.getHeight())));
                             break;
                         }
                         break;
@@ -266,55 +268,55 @@ public class NeonVideoEffectEditor extends Activity {
                 return true;
             }
         });
-        this.vseek.setSeekBarChangeListener(new VideoEffectTimeBar.SeekBarChangeListener() {
+        vseek.setSeekBarChangeListener(new VideoEffectTimeBar.SeekBarChangeListener() {
             public void seekBarValueChanged(int i) {
-                NeonVideoEffectEditor.this.mVideoInput.getMediaPlayer().seekTo(i);
+                mVideoInput.getMediaPlayer().seekTo(i);
             }
 
             public void onSeeking(boolean z) {
                 if (z) {
-                    NeonVideoEffectEditor.this.pauseVideo();
+                    pauseVideo();
                 } else {
-                    NeonVideoEffectEditor.this.startVideo();
+                    startVideo();
                 }
             }
         });
     }
 
     public void preTouchOperation() {
-        if (this.sHelper == null) {
-            this.sHelper = new StickerHelper(this.context, this.sTimeControl);
+        if (sHelper == null) {
+            sHelper = new StickerHelper(context, sTimeControl);
         }
-        if (this.mStickerRender != null) {
-            this.mStickerRender.pause();
+        if (mStickerRender != null) {
+            mStickerRender.pause();
         }
-        int size = this.alused.size();
-        this.alused.add(size, Constant.hslist.get(Integer.valueOf(this.sticker)));
-        this.uadapter.notifyItemInserted(size);
+        int size = alused.size();
+        alused.add(size, Constant.hslist.get(Integer.valueOf(sticker)));
+        uadapter.notifyItemInserted(size);
     }
 
     public void setSticker(int i) {
-        if (this.mStickerRender != null) {
-            this.mStickerRender.pause();
+        if (mStickerRender != null) {
+            mStickerRender.pause();
         }
         Helper.freeMemory();
-        this.sticker = i;
-        this.sadapter.setSelected(this.sticker);
-        this.sHelper = new StickerHelper(this.context, this.sTimeControl);
+        sticker = i;
+        sadapter.setSelected(sticker);
+        sHelper = new StickerHelper(context, sTimeControl);
     }
 
     public void setUsedSticker(int i) {
         Helper.freeMemory();
-        this.usticker = i;
-        this.uadapter.setSelected(this.usticker);
-        this.usedRender = null;
-        this.usedRender = this.alrender.get(this.usticker);
-        if (this.usedRender != null) {
-            this.sbsize.setMax(this.usedRender.getOriginalSize());
+        usticker = i;
+        uadapter.setSelected(usticker);
+        usedRender = null;
+        usedRender = alrender.get(usticker);
+        if (usedRender != null) {
+            sbsize.setMax(usedRender.getOriginalSize());
         } else {
-            this.sbsize.setMax(Constant.NORMAL_STICKER_SIZE);
+            sbsize.setMax(Constant.NORMAL_STICKER_SIZE);
         }
-        this.sbsize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sbsize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
 
@@ -323,16 +325,16 @@ public class NeonVideoEffectEditor extends Activity {
 
             public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
                 int i2 = i + 200;
-                if (NeonVideoEffectEditor.this.usedRender != null) {
-                    NeonVideoEffectEditor.this.usedRender.setSize(i2);
+                if (usedRender != null) {
+                    usedRender.setSize(i2);
                 }
             }
         });
-        this.sbsize.setProgress(this.usedRender.getSize() - 200);
+        sbsize.setProgress(usedRender.getSize() - 200);
     }
 
     public void play(View view) {
-        if (this.mVideoInput.isPlaying()) {
+        if (mVideoInput.isPlaying()) {
             pauseVideo();
         } else {
             startVideo();
@@ -340,39 +342,39 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     public void size(View view) {
-        if (this.lsize.getVisibility() == View.VISIBLE) {
-            this.ivedit.setImageResource(R.drawable.edit_unpress);
-            this.lsize.setVisibility(View.INVISIBLE);
-            this.rcvu.setVisibility(View.GONE);
-            this.rcvs.setVisibility(View.VISIBLE);
+        if (lsize.getVisibility() == View.VISIBLE) {
+            ivedit.setImageResource(R.drawable.edit_unpress);
+            lsize.setVisibility(View.INVISIBLE);
+            rcvu.setVisibility(View.GONE);
+            rcvs.setVisibility(View.VISIBLE);
             return;
         }
-        this.ivedit.setImageResource(R.drawable.stickers_unpress);
-        this.rcvs.setVisibility(View.GONE);
-        this.lsize.setVisibility(View.VISIBLE);
-        this.rcvu.setVisibility(View.VISIBLE);
+        ivedit.setImageResource(R.drawable.stickers_unpress);
+        rcvs.setVisibility(View.GONE);
+        lsize.setVisibility(View.VISIBLE);
+        rcvu.setVisibility(View.VISIBLE);
     }
 
     public void delete(View view) {
-        if (this.usticker >= 0) {
-            this.mRenderPipeline.removeFilterRender(this.alrender.get(this.usticker));
-            this.alrender.remove(this.usticker);
-            this.vseek.removeEffectRange(this.usticker);
-            this.alused.remove(this.usticker);
-            this.uadapter.notifyItemRemoved(this.usticker);
-            this.usticker = -1;
-            this.usedRender = null;
+        if (usticker >= 0) {
+            mRenderPipeline.removeFilterRender(alrender.get(usticker));
+            alrender.remove(usticker);
+            vseek.removeEffectRange(usticker);
+            alused.remove(usticker);
+            uadapter.notifyItemRemoved(usticker);
+            usticker = -1;
+            usedRender = null;
         }
     }
 
     public void option(View view) {
-         if (!this.mSupportRecord.isRecording()) {
-            this.lpbar.setVisibility(View.VISIBLE);
-            this.ivback.setVisibility(View.INVISIBLE);
-            this.ivdone.setVisibility(View.INVISIBLE);
-            if (this.mSupportRecord != null) {
+         if (!mSupportRecord.isRecording()) {
+            lpbar.setVisibility(View.VISIBLE);
+            ivback.setVisibility(View.INVISIBLE);
+            ivdone.setVisibility(View.INVISIBLE);
+            if (mSupportRecord != null) {
                 Helper.showLog("SSS", "Saving Start");
-                this.mVideoInput.getMediaPlayer().setVolume(0.0f, 0.0f);
+                mVideoInput.getMediaPlayer().setVolume(0.0f, 0.0f);
                 stopVideo();
                 startRecording();
             }
@@ -382,74 +384,93 @@ public class NeonVideoEffectEditor extends Activity {
     public void startRecording() {
         Helper.freeMemory();
         Log.i("RRR", "startRecording:");
-        if (this.mSupportRecord != null) {
-            this.mSupportRecord.startRecording();
+        if (mSupportRecord != null) {
+            mSupportRecord.startRecording();
         }
     }
 
     public void stopRecording() {
         Helper.freeMemory();
         Log.i("RRR", "stopRecording: ");
-        if (this.mSupportRecord != null) {
-            this.mSupportRecord.stopRecording();
+        if (mSupportRecord != null) {
+            mSupportRecord.stopRecording();
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    NeonVideoEffectEditor.this.mixAudio();
+                    mixAudio();
                 }
             }, 2000);
         }
     }
 
     public void mixAudio() {
-        String outputFolder = Helper.getOutputFolder(this.context);
+        String outputFolder = Helper.getOutputFolder(context);
         final File file = new File(outputFolder, new Random().nextInt(1000) + "" + System.currentTimeMillis() + "_" + getResources().getString(R.string.app_name) + ".mp4");
         if (file.exists()) {
             file.delete();
         }
-        GeneralUtils.deleteLicFile(this.context);
-        new CommandExecutor(this.context, new String[]{"ffmpeg", "-i", this.outfile.getAbsolutePath(), "-i", this.inputpath, "-c", "copy", "-map", "0:v:0", "-map", "1:a:0", "-shortest", file.getAbsolutePath()}, new FfResponse() {
-            public void onSuccess() {
-                Helper.showLog("SSS", "Mixing Audio Success");
-                NeonVideoEffectEditor.this.resultReady(file);
-            }
 
-            public void onError(String str) {
-                Helper.showLog("SSS", "Mixing Audio Failed : " + str);
-                try {
-                    Helper.copyFile(NeonVideoEffectEditor.this.outfile.getAbsolutePath(), file.getAbsolutePath());
-                    NeonVideoEffectEditor.this.resultReady(file);
-                } catch (Exception unused) {
-                    Helper.show(NeonVideoEffectEditor.this.context, "Error while saving video !!");
-                    NeonVideoEffectEditor.this.lpbar.setVisibility(View.GONE);
-                    NeonVideoEffectEditor.this.ivback.setVisibility(View.VISIBLE);
-                    NeonVideoEffectEditor.this.ivdone.setVisibility(View.VISIBLE);
-                }
+        int rc = FFmpeg.execute(new String[]{"ffmpeg", "-i", outfile.getAbsolutePath(), "-i", inputpath, "-c", "copy", "-map", "0:v:0", "-map", "1:a:0", "-shortest", file.getAbsolutePath()});
+        if (rc == RETURN_CODE_SUCCESS) {
+            Helper.showLog("SSS", "Mixing Audio Success");
+            resultReady(file);
+        } else if (rc == RETURN_CODE_CANCEL) {
+            Helper.showLog("SSS", "Mixing Audio Stopped");
+        } else {
+            Helper.showLog("SSS", "Mixing Audio Failed : ");
+            try {
+                Helper.copyFile(outfile.getAbsolutePath(), file.getAbsolutePath());
+                resultReady(file);
+            } catch (Exception unused) {
+                Helper.show(context, "Error while saving video !!");
+                lpbar.setVisibility(View.GONE);
+                ivback.setVisibility(View.VISIBLE);
+                ivdone.setVisibility(View.VISIBLE);
             }
-
-            public void onStop() {
-                Helper.showLog("SSS", "Mixing Audio Stopped");
-            }
-
-            public void onStart() {
-                Helper.showLog("SSS", "Mixing Audio Start");
-            }
-        }).execute(new Void[0]);
+        }
+//        GeneralUtils.deleteLicFile(context);
+//        new CommandExecutor(context, new String[]{"ffmpeg", "-i", outfile.getAbsolutePath(), "-i", inputpath, "-c", "copy", "-map", "0:v:0", "-map", "1:a:0", "-shortest", file.getAbsolutePath()}, new FfResponse() {
+//            public void onSuccess() {
+//                Helper.showLog("SSS", "Mixing Audio Success");
+//                resultReady(file);
+//            }
+//
+//            public void onError(String str) {
+//                Helper.showLog("SSS", "Mixing Audio Failed : " + str);
+//                try {
+//                    Helper.copyFile(outfile.getAbsolutePath(), file.getAbsolutePath());
+//                    resultReady(file);
+//                } catch (Exception unused) {
+//                    Helper.show(context, "Error while saving video !!");
+//                    lpbar.setVisibility(View.GONE);
+//                    ivback.setVisibility(View.VISIBLE);
+//                    ivdone.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            public void onStop() {
+//                Helper.showLog("SSS", "Mixing Audio Stopped");
+//            }
+//
+//            public void onStart() {
+//                Helper.showLog("SSS", "Mixing Audio Start");
+//            }
+//        }).execute(new Void[0]);
     }
 
     public void resultReady(final File file) {
-        MediaScannerConnection.scanFile(this.context, new String[]{file.getAbsolutePath()}, new String[]{"mp4"}, new MediaScannerConnection.OnScanCompletedListener() {
+        MediaScannerConnection.scanFile(context, new String[]{file.getAbsolutePath()}, new String[]{"mp4"}, new MediaScannerConnection.OnScanCompletedListener() {
             public void onScanCompleted(String str, Uri uri) {
-                Helper.deleteFolder(new File(Helper.getTempFolder(NeonVideoEffectEditor.this.context)));
-                Helper.deleteFolder(NeonVideoEffectEditor.this.outfile);
-                NeonVideoEffectEditor.this.runOnUiThread(new Runnable() {
+                Helper.deleteFolder(new File(Helper.getTempFolder(context)));
+                Helper.deleteFolder(outfile);
+                runOnUiThread(new Runnable() {
                     public void run() {
-                        NeonVideoEffectEditor.this.lpbar.setVisibility(View.GONE);
-                        NeonVideoEffectEditor.this.ivback.setVisibility(View.VISIBLE);
-                        NeonVideoEffectEditor.this.ivdone.setVisibility(View.VISIBLE);
-                        Intent intent = new Intent(NeonVideoEffectEditor.this.context, NeonVideoPreview.class);
+                        lpbar.setVisibility(View.GONE);
+                        ivback.setVisibility(View.VISIBLE);
+                        ivdone.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(context, NeonVideoPreview.class);
                         intent.putExtra("vpath", file.getAbsolutePath());
                         intent.putExtra("fromedit", true);
-                        NeonVideoEffectEditor.this.startActivity(intent);
+                        startActivity(intent);
                     }
                 });
             }
@@ -457,14 +478,14 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     private void startTimer() {
-        if (this.mTimer != null) {
-            this.mTimer.cancel();
+        if (mTimer != null) {
+            mTimer.cancel();
         }
-        this.mTimer = new Timer();
-        this.mTimer.schedule(new TimerTask() {
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
             public void run() {
                 try {
-                    NeonVideoEffectEditor.this.vseek.videoPlayingProgress(NeonVideoEffectEditor.this.mVideoInput.getMediaPlayer().getCurrentPosition());
+                    vseek.videoPlayingProgress(mVideoInput.getMediaPlayer().getCurrentPosition());
                 } catch (Exception unused) {
                 }
             }
@@ -472,33 +493,33 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     private void cancelTimer() {
-        if (this.mTimer != null) {
-            this.mTimer.cancel();
+        if (mTimer != null) {
+            mTimer.cancel();
         }
-        this.mTimer = null;
+        mTimer = null;
     }
 
     public void startVideo() {
-        this.ivplay.setImageResource(R.drawable.pause_edit);
-        this.mVideoInput.start();
+        ivplay.setImageResource(R.drawable.pause_edit);
+        mVideoInput.start();
         startTimer();
     }
 
     public void pauseVideo() {
-        this.ivplay.setImageResource(R.drawable.play_edit);
-        this.mVideoInput.pause();
+        ivplay.setImageResource(R.drawable.play_edit);
+        mVideoInput.pause();
         cancelTimer();
     }
 
     public void stopVideo() {
         pauseVideo();
-        this.mVideoInput.resetCount();
-        this.mVideoInput.seekTo(0);
+        mVideoInput.resetCount();
+        mVideoInput.seekTo(0);
         startVideo();
     }
 
     private void releaseVideo() {
-        this.mVideoInput.release();
+        mVideoInput.release();
         cancelTimer();
     }
 
@@ -520,11 +541,11 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {
@@ -532,7 +553,7 @@ public class NeonVideoEffectEditor extends Activity {
     }
 
     public void onBackPressed() {
-        if (!this.mSupportRecord.isRecording()) {
+        if (!mSupportRecord.isRecording()) {
             super.onBackPressed();
             finish();
         }

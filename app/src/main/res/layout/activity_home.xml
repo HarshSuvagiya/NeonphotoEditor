@@ -5,67 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@drawable/bg"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/bg"
     android:weightSum="10">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
-    </LinearLayout>
+        android:layout_weight="5"
+        android:gravity="center"></LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
+        android:layout_weight="1"
+        android:gravity="center">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/title"></ImageView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="0.1"
-        android:gravity="center"
+        android:gravity="center"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        >
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.3"
-            android:gravity="center"
+        android:layout_weight="1.1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ivphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            >
+            android:onClick="photo"
+            android:src="@drawable/neonimage" />
 
-            <ImageView
-                android:id="@+id/ivphoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="photo"
-                android:src="@drawable/neonimage" />
-
-        </LinearLayout>
-
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.3"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
+        android:layout_weight="1.1"
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/videoeffect"
             android:layout_width="wrap_content"
@@ -78,10 +75,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.3"
-        android:gravity="center"
         android:layout_gravity="center"
-        >
+        android:layout_weight="1.1"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/mygallery"
@@ -91,6 +87,23 @@
             android:onClick="creation"
             android:src="@drawable/mygalleryfile" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.6"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privacy Policy"
+            android:textSize="15dp"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

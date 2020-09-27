@@ -55,12 +55,12 @@ public class MultiTouchListener implements View.OnTouchListener {
     }
 
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        Iterator<View> it = this.alview.iterator();
+        Iterator<View> it = alview.iterator();
         while (it.hasNext()) {
             onTouch2(it.next(), motionEvent);
         }
-        this.mScaleGestureDetector.onTouchEvent(view, motionEvent);
-        if (!this.isTranslateEnabled) {
+        mScaleGestureDetector.onTouchEvent(view, motionEvent);
+        if (!isTranslateEnabled) {
             return true;
         }
         int action = motionEvent.getAction();
@@ -69,46 +69,46 @@ public class MultiTouchListener implements View.OnTouchListener {
         if (actionMasked != 6) {
             switch (actionMasked) {
                 case 0:
-                    this.mPrevX = motionEvent.getX();
-                    this.mPrevY = motionEvent.getY();
-                    this.mActivePointerId = motionEvent.getPointerId(0);
+                    mPrevX = motionEvent.getX();
+                    mPrevY = motionEvent.getY();
+                    mActivePointerId = motionEvent.getPointerId(0);
                     break;
                 case 1:
-                    this.mActivePointerId = -1;
+                    mActivePointerId = -1;
                     view.performClick();
                     break;
                 case 2:
-                    int findPointerIndex = motionEvent.findPointerIndex(this.mActivePointerId);
+                    int findPointerIndex = motionEvent.findPointerIndex(mActivePointerId);
                     if (findPointerIndex != -1) {
                         float x = motionEvent.getX(findPointerIndex);
                         float y = motionEvent.getY(findPointerIndex);
-                        if (!this.mScaleGestureDetector.isInProgress()) {
-                            adjustTranslation(view, x - this.mPrevX, y - this.mPrevY);
+                        if (!mScaleGestureDetector.isInProgress()) {
+                            adjustTranslation(view, x - mPrevX, y - mPrevY);
                             break;
                         }
                     }
                     break;
                 case 3:
-                    this.mActivePointerId = -1;
+                    mActivePointerId = -1;
                     break;
             }
         } else {
             int i2 = (65280 & action) >> 8;
-            if (motionEvent.getPointerId(i2) == this.mActivePointerId) {
+            if (motionEvent.getPointerId(i2) == mActivePointerId) {
                 if (i2 == 0) {
                     i = 1;
                 }
-                this.mPrevX = motionEvent.getX(i);
-                this.mPrevY = motionEvent.getY(i);
-                this.mActivePointerId = motionEvent.getPointerId(i);
+                mPrevX = motionEvent.getX(i);
+                mPrevY = motionEvent.getY(i);
+                mActivePointerId = motionEvent.getPointerId(i);
             }
         }
         return true;
     }
 
     public boolean onTouch2(View view, MotionEvent motionEvent) {
-        this.mScaleGestureDetector.onTouchEvent(view, motionEvent);
-        if (!this.isTranslateEnabled) {
+        mScaleGestureDetector.onTouchEvent(view, motionEvent);
+        if (!isTranslateEnabled) {
             return true;
         }
         int action = motionEvent.getAction();
@@ -117,48 +117,48 @@ public class MultiTouchListener implements View.OnTouchListener {
         if (actionMasked != 6) {
             switch (actionMasked) {
                 case 0:
-                    this.mPrevX = motionEvent.getX();
-                    this.mPrevY = motionEvent.getY();
-                    this.mActivePointerId = motionEvent.getPointerId(0);
+                    mPrevX = motionEvent.getX();
+                    mPrevY = motionEvent.getY();
+                    mActivePointerId = motionEvent.getPointerId(0);
                     break;
                 case 1:
-                    this.mActivePointerId = -1;
+                    mActivePointerId = -1;
                     break;
                 case 2:
-                    int findPointerIndex = motionEvent.findPointerIndex(this.mActivePointerId);
+                    int findPointerIndex = motionEvent.findPointerIndex(mActivePointerId);
                     if (findPointerIndex != -1) {
                         float x = motionEvent.getX(findPointerIndex);
                         float y = motionEvent.getY(findPointerIndex);
-                        if (!this.mScaleGestureDetector.isInProgress()) {
-                            adjustTranslation(view, x - this.mPrevX, y - this.mPrevY);
+                        if (!mScaleGestureDetector.isInProgress()) {
+                            adjustTranslation(view, x - mPrevX, y - mPrevY);
                             break;
                         }
                     }
                     break;
                 case 3:
-                    this.mActivePointerId = -1;
+                    mActivePointerId = -1;
                     break;
             }
         } else {
             int i2 = (65280 & action) >> 8;
-            if (motionEvent.getPointerId(i2) == this.mActivePointerId) {
+            if (motionEvent.getPointerId(i2) == mActivePointerId) {
                 if (i2 == 0) {
                     i = 1;
                 }
-                this.mPrevX = motionEvent.getX(i);
-                this.mPrevY = motionEvent.getY(i);
-                this.mActivePointerId = motionEvent.getPointerId(i);
+                mPrevX = motionEvent.getX(i);
+                mPrevY = motionEvent.getY(i);
+                mActivePointerId = motionEvent.getPointerId(i);
             }
         }
         return true;
     }
 
     public void addSimultaneousView(View view) {
-        this.alview.add(view);
+        alview.add(view);
     }
 
     public void removeAll() {
-        this.alview.clear();
+        alview.clear();
     }
 
     private class ScaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
@@ -167,30 +167,30 @@ public class MultiTouchListener implements View.OnTouchListener {
         private Vector2D mPrevSpanVector;
 
         private ScaleGestureListener() {
-            this.mPrevSpanVector = new Vector2D();
+            mPrevSpanVector = new Vector2D();
         }
 
         public boolean onScaleBegin(View view, ScaleGestureDetector ScaleGestureDetector1) {
-            this.mPivotX = ScaleGestureDetector1.getFocusX();
-            this.mPivotY = ScaleGestureDetector1.getFocusY();
-            this.mPrevSpanVector.set(ScaleGestureDetector1.getCurrentSpanVector());
+            mPivotX = ScaleGestureDetector1.getFocusX();
+            mPivotY = ScaleGestureDetector1.getFocusY();
+            mPrevSpanVector.set(ScaleGestureDetector1.getCurrentSpanVector());
             return true;
         }
 
         public boolean onScale(View view, ScaleGestureDetector ScaleGestureDetector1) {
             TransformInfo transformInfo = new TransformInfo();
-            transformInfo.deltaScale = MultiTouchListener.this.isScaleEnabled ? ScaleGestureDetector1.getScaleFactor() : 1.0f;
+            transformInfo.deltaScale = isScaleEnabled ? ScaleGestureDetector1.getScaleFactor() : 1.0f;
             float f = 0.0f;
-            transformInfo.deltaAngle = MultiTouchListener.this.isRotateEnabled ? Vector2D.getAngle(this.mPrevSpanVector, ScaleGestureDetector1.getCurrentSpanVector()) : 0.0f;
-            transformInfo.deltaX = MultiTouchListener.this.isTranslateEnabled ? ScaleGestureDetector1.getFocusX() - this.mPivotX : 0.0f;
-            if (MultiTouchListener.this.isTranslateEnabled) {
-                f = ScaleGestureDetector1.getFocusY() - this.mPivotY;
+            transformInfo.deltaAngle = isRotateEnabled ? Vector2D.getAngle(mPrevSpanVector, ScaleGestureDetector1.getCurrentSpanVector()) : 0.0f;
+            transformInfo.deltaX = isTranslateEnabled ? ScaleGestureDetector1.getFocusX() - mPivotX : 0.0f;
+            if (isTranslateEnabled) {
+                f = ScaleGestureDetector1.getFocusY() - mPivotY;
             }
             transformInfo.deltaY = f;
-            transformInfo.pivotX = this.mPivotX;
-            transformInfo.pivotY = this.mPivotY;
-            transformInfo.minimumScale = MultiTouchListener.this.minimumScale;
-            transformInfo.maximumScale = MultiTouchListener.this.maximumScale;
+            transformInfo.pivotX = mPivotX;
+            transformInfo.pivotY = mPivotY;
+            transformInfo.minimumScale = minimumScale;
+            transformInfo.maximumScale = maximumScale;
             MultiTouchListener.move(view, transformInfo);
             return false;
         }

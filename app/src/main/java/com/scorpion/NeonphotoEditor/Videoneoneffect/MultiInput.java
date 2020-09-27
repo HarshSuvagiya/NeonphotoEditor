@@ -15,83 +15,83 @@ public class MultiInput extends FBORender {
     protected List<FBORender> mStartPointRenders;
 
     public MultiInput(int i) {
-        this.mNumOfInputs = i;
+        mNumOfInputs = i;
         int i2 = i - 1;
-        this.mMultiTextureHandle = new int[i2];
-        this.mMultiTexture = new int[i2];
-        this.mStartPointRenders = new ArrayList(i);
-        this.mEndPointRenders = new ArrayList(i);
-        this.mRenderPipelines = new ArrayList(i);
+        mMultiTextureHandle = new int[i2];
+        mMultiTexture = new int[i2];
+        mStartPointRenders = new ArrayList(i);
+        mEndPointRenders = new ArrayList(i);
+        mRenderPipelines = new ArrayList(i);
     }
 
     public synchronized void onTextureAcceptable(int i, GLRender fX_GLRender) {
-        int lastIndexOf = this.mEndPointRenders.lastIndexOf(fX_GLRender);
+        int lastIndexOf = mEndPointRenders.lastIndexOf(fX_GLRender);
         if (lastIndexOf <= 0) {
-            this.mTextureIn = i;
+            mTextureIn = i;
         } else {
-            this.mMultiTexture[lastIndexOf - 1] = i;
+            mMultiTexture[lastIndexOf - 1] = i;
         }
     }
 
     public void initShaderHandles() {
         super.initShaderHandles();
-        for (int i = 0; i < this.mNumOfInputs - 1; i++) {
-            int[] iArr = this.mMultiTextureHandle;
-            int i2 = this.mProgramHandle;
+        for (int i = 0; i < mNumOfInputs - 1; i++) {
+            int[] iArr = mMultiTextureHandle;
+            int i2 = mProgramHandle;
             iArr[i] = GLES20.glGetUniformLocation(i2, "inputImageTexture" + (i + 2));
         }
     }
 
     public void bindShaderValues() {
         super.bindShaderValues();
-        for (int i = 0; i < this.mNumOfInputs - 1; i++) {
-            if (this.mMultiTexture[i] != 0) {
+        for (int i = 0; i < mNumOfInputs - 1; i++) {
+            if (mMultiTexture[i] != 0) {
                 GLES20.glActiveTexture(33985 + i);
-                GLES20.glBindTexture(3553, this.mMultiTexture[i]);
-                GLES20.glUniform1i(this.mMultiTextureHandle[i], i + 1);
+                GLES20.glBindTexture(3553, mMultiTexture[i]);
+                GLES20.glUniform1i(mMultiTextureHandle[i], i + 1);
             }
         }
     }
 
     public void clearRegisteredFilters() {
-        for (FBORender removeTarget : this.mEndPointRenders) {
+        for (FBORender removeTarget : mEndPointRenders) {
             removeTarget.removeTarget(this);
         }
-        this.mStartPointRenders.clear();
-        this.mEndPointRenders.clear();
-        this.mRenderPipelines.clear();
+        mStartPointRenders.clear();
+        mEndPointRenders.clear();
+        mRenderPipelines.clear();
     }
 
     public void registerFilter(FBORender fX_FBORender) {
-        if (!this.mStartPointRenders.contains(fX_FBORender)) {
+        if (!mStartPointRenders.contains(fX_FBORender)) {
             FBORender fX_FBORender2 = new FBORender();
             fX_FBORender2.addTarget(this);
-            this.mStartPointRenders.add(fX_FBORender);
-            this.mEndPointRenders.add(fX_FBORender2);
+            mStartPointRenders.add(fX_FBORender);
+            mEndPointRenders.add(fX_FBORender2);
             RenderPipeline fX_RenderPipeline = new RenderPipeline();
             fX_RenderPipeline.onSurfaceCreated((GL10) null, (EGLConfig) null);
             fX_RenderPipeline.onSurfaceChanged((GL10) null, fX_FBORender.getWidth(), fX_FBORender.getHeight());
             fX_RenderPipeline.setStartPointRender(fX_FBORender);
             fX_RenderPipeline.addEndPointRender(fX_FBORender2);
             fX_RenderPipeline.startRender();
-            this.mRenderPipelines.add(fX_RenderPipeline);
+            mRenderPipelines.add(fX_RenderPipeline);
         }
     }
 
     public List<FBORender> getStartPointRenders() {
-        return this.mStartPointRenders;
+        return mStartPointRenders;
     }
 
     public List<FBORender> getEndPointRenders() {
-        return this.mEndPointRenders;
+        return mEndPointRenders;
     }
 
     public List<RenderPipeline> getRenderPipelines() {
-        return this.mRenderPipelines;
+        return mRenderPipelines;
     }
 
     public void onDrawFrame() {
-        for (RenderPipeline onDrawFrame : this.mRenderPipelines) {
+        for (RenderPipeline onDrawFrame : mRenderPipelines) {
             onDrawFrame.onDrawFrame((GL10) null);
         }
         super.onDrawFrame();
@@ -99,7 +99,7 @@ public class MultiInput extends FBORender {
 
     public void destroy() {
         super.destroy();
-        for (RenderPipeline onSurfaceDestroyed : this.mRenderPipelines) {
+        for (RenderPipeline onSurfaceDestroyed : mRenderPipelines) {
             onSurfaceDestroyed.onSurfaceDestroyed();
         }
     }

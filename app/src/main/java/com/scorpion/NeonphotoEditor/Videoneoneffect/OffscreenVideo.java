@@ -28,27 +28,27 @@ public class OffscreenVideo {
     }
 
     public OffscreenVideo(String str) throws IOException {
-        this.mVideoPath = str;
+        mVideoPath = str;
         initRenderSize();
     }
 
     private void initRenderSize() throws IOException {
-        this.mExtractor = new MediaExtractor();
-        this.mExtractor.setDataSource(this.mVideoPath);
-        this.mTrack = MediaUtil.getFirstTrack(this.mExtractor);
-        if (this.mTrack == null) {
+        mExtractor = new MediaExtractor();
+        mExtractor.setDataSource(mVideoPath);
+        mTrack = MediaUtil.getFirstTrack(mExtractor);
+        if (mTrack == null) {
             return;
         }
-        if (this.mTrack.videoTrackFormat != null) {
-            int integer = this.mTrack.videoTrackFormat.getInteger("width");
-            int integer2 = this.mTrack.videoTrackFormat.getInteger("height");
+        if (mTrack.videoTrackFormat != null) {
+            int integer = mTrack.videoTrackFormat.getInteger("width");
+            int integer2 = mTrack.videoTrackFormat.getInteger("height");
             int i = 0;
-            if (this.mTrack.videoTrackFormat.containsKey("rotation-degrees")) {
-                i = this.mTrack.videoTrackFormat.getInteger("rotation-degrees");
+            if (mTrack.videoTrackFormat.containsKey("rotation-degrees")) {
+                i = mTrack.videoTrackFormat.getInteger("rotation-degrees");
             } else {
                 MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
                 try {
-                    mediaMetadataRetriever.setDataSource(this.mVideoPath);
+                    mediaMetadataRetriever.setDataSource(mVideoPath);
                     int parseInt = Integer.parseInt(mediaMetadataRetriever.extractMetadata(24));
                     mediaMetadataRetriever.release();
                     i = parseInt;
@@ -58,8 +58,8 @@ public class OffscreenVideo {
                     int i2 = integer ^ integer2;
                     integer2 ^= i2;
                     integer = i2 ^ integer2;
-                    this.mWidth = integer;
-                    this.mHeight = integer2;
+                    mWidth = integer;
+                    mHeight = integer2;
                 } catch (RuntimeException e2) {
                     try {
                         e2.printStackTrace();
@@ -67,8 +67,8 @@ public class OffscreenVideo {
                         int i22 = integer ^ integer2;
                         integer2 ^= i22;
                         integer = i22 ^ integer2;
-                        this.mWidth = integer;
-                        this.mHeight = integer2;
+                        mWidth = integer;
+                        mHeight = integer2;
                     } catch (Exception e3) {
                         e3.printStackTrace();
                         return;
@@ -83,79 +83,79 @@ public class OffscreenVideo {
                 integer2 ^= i222;
                 integer = i222 ^ integer2;
             }
-            this.mWidth = integer;
-            this.mHeight = integer2;
+            mWidth = integer;
+            mHeight = integer2;
         }
     }
 
     private void initPipeline() {
-        if (this.mPipeline == null) {
-            this.mOffscreenRender = new VideoFBORender();
-            this.mOffscreenRender.setRenderSize(this.mWidth, this.mHeight);
-            this.mPipeline = new RenderPipeline();
-            this.mPipeline.onSurfaceCreated((GL10) null, (EGLConfig) null);
-            this.mPipeline.setStartPointRender(this.mOffscreenRender);
-            this.mPipeline.addEndPointRender(new GLRender());
+        if (mPipeline == null) {
+            mOffscreenRender = new VideoFBORender();
+            mOffscreenRender.setRenderSize(mWidth, mHeight);
+            mPipeline = new RenderPipeline();
+            mPipeline.onSurfaceCreated((GL10) null, (EGLConfig) null);
+            mPipeline.setStartPointRender(mOffscreenRender);
+            mPipeline.addEndPointRender(new GLRender());
         }
     }
 
     public void setVideoRenderListener(IVideoRenderListener iVideoRenderListener) {
-        this.mVideoRenderListener = iVideoRenderListener;
+        mVideoRenderListener = iVideoRenderListener;
     }
 
     public void addFilterRender(FBORender fX_FBORender) {
         initPipeline();
-        this.mPipeline.addFilterRender(fX_FBORender);
+        mPipeline.addFilterRender(fX_FBORender);
     }
 
     public int getWidth() {
-        return this.mWidth;
+        return mWidth;
     }
 
     public int getHeight() {
-        return this.mHeight;
+        return mHeight;
     }
 
     private int getInteger(String str, int i) {
         try {
-            return this.mTrack.audioTrackFormat.getInteger(str);
+            return mTrack.audioTrackFormat.getInteger(str);
         } catch (Exception unused) {
             return i;
         }
     }
 
     private VideoTrackTranscoder initVideoTrack(MediaFormat mediaFormat, QueuedMuxer queuedMuxer) {
-        return new VideoTrackTranscoder(this.mExtractor, this.mTrack.videoTrackIndex, mediaFormat, queuedMuxer, new IVideoRender() {
+        return new VideoTrackTranscoder(mExtractor, mTrack.videoTrackIndex, mediaFormat, queuedMuxer, new IVideoRender() {
             public void drawFrame(long j) {
-                if (OffscreenVideo.this.mVideoRenderListener != null) {
-                    OffscreenVideo.this.mVideoRenderListener.onFrameDraw(j);
+                if (mVideoRenderListener != null) {
+                    mVideoRenderListener.onFrameDraw(j);
                 }
-                OffscreenVideo.this.mOffscreenRender.drawFrame(j);
+                mOffscreenRender.drawFrame(j);
             }
 
             public SurfaceTexture getSurfaceTexture() {
-                return OffscreenVideo.this.mOffscreenRender.getSurfaceTexture();
+                return mOffscreenRender.getSurfaceTexture();
             }
         });
     }
 
     private AudioTrackTranscoder initAudioTrack(MediaFormat mediaFormat, QueuedMuxer queuedMuxer) {
-        return new AudioTrackTranscoder(this.mExtractor, this.mTrack.audioTrackIndex, mediaFormat, queuedMuxer);
+        return new AudioTrackTranscoder(mExtractor, mTrack.audioTrackIndex, mediaFormat, queuedMuxer);
     }
 
     public void save(String str) throws IOException {
-        save(str, this.mWidth, this.mHeight);
+        save(str, mWidth, mHeight);
     }
 
     public void save(String str, int i, int i2) throws IOException {
-        if (this.mTrack != null && this.mTrack.videoTrackFormat != null) {
+        if (mTrack != null && mTrack.videoTrackFormat != null) {
             initPipeline();
-            this.mPipeline.onSurfaceChanged((GL10) null, i, i2);
-            this.mPipeline.startRender();
-            MediaFormat createVideoFormat = MediaUtil.createVideoFormat(i, i2, MediaUtil.getMetadata(this.mVideoPath).bitrate, 2130708361);
+            mPipeline.onSurfaceChanged((GL10) null, i, i2);
+            mPipeline.startRender();
+            MediaFormat createVideoFormat = MediaUtil.createVideoFormat(i, i2, MediaUtil.getMetadata(mVideoPath).bitrate, 2130708361);
             MediaMuxer mediaMuxer = new MediaMuxer(str, 0);
             QueuedMuxer queuedMuxer = new QueuedMuxer(mediaMuxer);
-            if (this.mTrack.audioTrackFormat != null) {
+            if (mTrack.audioTrackFormat != null) {
                 MediaFormat createAudioFormat = MediaUtil.createAudioFormat(getInteger("sample-rate", 44100), getInteger("channel-mask", 12), getInteger("channel-count", 2));
                 queuedMuxer.setTrackCount(0);
                 VideoTrackTranscoder initVideoTrack = initVideoTrack(createVideoFormat, queuedMuxer);
@@ -173,7 +173,7 @@ public class OffscreenVideo {
                         }
                     }
                 }
-                this.mPipeline.onSurfaceDestroyed();
+                mPipeline.onSurfaceDestroyed();
                 initVideoTrack.release();
                 initAudioTrack.release();
             } else {
@@ -188,12 +188,12 @@ public class OffscreenVideo {
                         }
                     }
                 }
-                this.mPipeline.onSurfaceDestroyed();
+                mPipeline.onSurfaceDestroyed();
                 initVideoTrack2.release();
             }
             mediaMuxer.stop();
             mediaMuxer.release();
-            this.mExtractor.release();
+            mExtractor.release();
         }
     }
 }

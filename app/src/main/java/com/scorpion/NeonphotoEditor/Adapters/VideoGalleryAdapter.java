@@ -31,38 +31,38 @@ public class VideoGalleryAdapter extends RecyclerView.Adapter<VideoGalleryAdapte
     int width;
 
     public VideoGalleryAdapter(Context context2, ArrayList<Vdata> arrayList) {
-        this.context = context2;
-        this.al = arrayList;
-        this.width = Helper.getWidth(context2);
-        this.height = Helper.getHeight(context2);
+        context = context2;
+        al = arrayList;
+        width = Helper.getWidth(context2);
+        height = Helper.getHeight(context2);
     }
 
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Vdata Vdata1 = this.al.get(i);
+        Vdata Vdata1 = al.get(i);
         String path = Vdata1.getPath();
         if (!TextUtils.isEmpty(Vdata1.getDuration())) {
             myViewHolder.tvtime.setText(Helper.milliSecondsToTimer(Long.parseLong(Vdata1.getDuration())));
         } else {
             myViewHolder.tvtime.setText("00:15");
         }
-        ((RequestBuilder) Glide.with(this.context).load(path).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop()}))).transition(DrawableTransitionOptions.withCrossFade()).into(myViewHolder.iv);
+        ((RequestBuilder) Glide.with(context).load(path).transform((Transformation<Bitmap>) new MultiTransformation((Transformation[]) new Transformation[]{new CenterCrop()}))).transition(DrawableTransitionOptions.withCrossFade()).into(myViewHolder.iv);
     }
 
     public int getItemCount() {
-        return this.al.size();
+        return al.size();
     }
 
     @NonNull
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.item_video_list, viewGroup, false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_video_list, viewGroup, false));
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -75,22 +75,22 @@ public class VideoGalleryAdapter extends RecyclerView.Adapter<VideoGalleryAdapte
 
         public MyViewHolder(View view) {
             super(view);
-            this.relmain = (RelativeLayout) view.findViewById(R.id.relvideolist);
-            this.iv = (ImageView) view.findViewById(R.id.ivthumb);
-            this.ivi = (ImageView) view.findViewById(R.id.ivicon);
-            this.ivplay = (ImageView) view.findViewById(R.id.ivplay);
-            this.reltime = (RelativeLayout) view.findViewById(R.id.reltime);
-            this.tvtime = (TextView) view.findViewById(R.id.tvtime);
+            relmain = (RelativeLayout) view.findViewById(R.id.relvideolist);
+            iv = (ImageView) view.findViewById(R.id.ivthumb);
+            ivi = (ImageView) view.findViewById(R.id.ivicon);
+            ivplay = (ImageView) view.findViewById(R.id.ivplay);
+            reltime = (RelativeLayout) view.findViewById(R.id.reltime);
+            tvtime = (TextView) view.findViewById(R.id.tvtime);
             forUI();
         }
 
         private void forUI() {
-            SetLayparam.setWidthAsHeight(VideoGalleryAdapter.this.context, this.relmain, 470, 484);
-            SetLayparam.setWidthAsHeight(VideoGalleryAdapter.this.context, this.reltime, 144, 154);
-            SetLayparam.setHeightAsBoth(VideoGalleryAdapter.this.context, this.ivi, 90);
-            SetLayparam.setMarginLeft(VideoGalleryAdapter.this.context, this.ivi, 20);
-            SetLayparam.setPadding(VideoGalleryAdapter.this.context, this.tvtime, 30, 70, 0, 0);
-            SetLayparam.setHeightAsBoth(VideoGalleryAdapter.this.context, this.ivplay, 110);
+            SetLayparam.setWidthAsHeight(context, relmain, 470, 484);
+            SetLayparam.setWidthAsHeight(context, reltime, 144, 154);
+            SetLayparam.setHeightAsBoth(context, ivi, 90);
+            SetLayparam.setMarginLeft(context, ivi, 20);
+            SetLayparam.setPadding(context, tvtime, 30, 70, 0, 0);
+            SetLayparam.setHeightAsBoth(context, ivplay, 110);
         }
     }
 }

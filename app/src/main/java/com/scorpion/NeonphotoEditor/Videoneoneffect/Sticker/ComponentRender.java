@@ -30,25 +30,25 @@ public class ComponentRender {
     private int mTexture;
 
     public ComponentRender(Context context, Component component) {
-        this.mContext = context;
-        this.mComponent = component;
-        this.mRenderVertices = ByteBuffer.allocateDirect(32).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        mContext = context;
+        mComponent = component;
+        mRenderVertices = ByteBuffer.allocateDirect(32).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
 
     public void setBitmapCache(IBitmapCache iBitmapCache) {
-        this.mBitmapCache = iBitmapCache;
+        mBitmapCache = iBitmapCache;
     }
 
     public void setScreenAnchor(ScreenAnchor screenAnchor) {
-        this.mScreenAnchor = screenAnchor;
+        mScreenAnchor = screenAnchor;
     }
 
     public void updateRenderVertices(int i, int i2) {
         double d;
-        PointF leftAnchorPoint = this.mScreenAnchor.getLeftAnchorPoint();
-        PointF rightAnchorPoint = this.mScreenAnchor.getRightAnchorPoint();
-        PointF leftAnchorPoint2 = this.mComponent.textureAnchor.getLeftAnchorPoint();
-        PointF rightAnchorPoint2 = this.mComponent.textureAnchor.getRightAnchorPoint();
+        PointF leftAnchorPoint = mScreenAnchor.getLeftAnchorPoint();
+        PointF rightAnchorPoint = mScreenAnchor.getRightAnchorPoint();
+        PointF leftAnchorPoint2 = mComponent.textureAnchor.getLeftAnchorPoint();
+        PointF rightAnchorPoint2 = mComponent.textureAnchor.getRightAnchorPoint();
         PointF pointF = new PointF(leftAnchorPoint.x, leftAnchorPoint.y);
         PointF pointF2 = new PointF(rightAnchorPoint.x, rightAnchorPoint.y);
         float distanceOf = distanceOf(pointF, pointF2) / distanceOf(leftAnchorPoint2, rightAnchorPoint2);
@@ -56,13 +56,13 @@ public class ComponentRender {
         leftAnchorPoint2.y *= distanceOf;
         rightAnchorPoint2.x *= distanceOf;
         rightAnchorPoint2.y *= distanceOf;
-        float f = ((float) this.mComponent.width) * distanceOf;
-        float f2 = ((float) this.mComponent.height) * distanceOf;
+        float f = ((float) mComponent.width) * distanceOf;
+        float f2 = ((float) mComponent.height) * distanceOf;
         PointF pointF3 = new PointF(pointF.x - leftAnchorPoint2.x, pointF.y + leftAnchorPoint2.y);
         PointF pointF4 = new PointF(pointF3.x, pointF3.y - f2);
         PointF pointF5 = new PointF(pointF3.x + f, pointF3.y);
         PointF pointF6 = new PointF(pointF5.x, pointF4.y);
-        if (this.mScreenAnchor.roll == 2.14748365E9f) {
+        if (mScreenAnchor.roll == 2.14748365E9f) {
             PointF pointF7 = new PointF(pointF3.x + rightAnchorPoint2.x, pointF3.y - rightAnchorPoint2.y);
             float distanceOf2 = distanceOf(pointF, pointF7);
             float distanceOf3 = distanceOf(pointF, pointF2);
@@ -72,7 +72,7 @@ public class ComponentRender {
                 d = -d;
             }
         } else {
-            double d2 = (double) this.mScreenAnchor.roll;
+            double d2 = (double) mScreenAnchor.roll;
             Double.isNaN(d2);
             d = ((180.0d - d2) / 180.0d) * 3.14d;
         }
@@ -87,66 +87,66 @@ public class ComponentRender {
         PointF transVerticesToOpenGL3 = transVerticesToOpenGL(rotateVertices3, f3, f4);
         PointF transVerticesToOpenGL4 = transVerticesToOpenGL(rotateVertices4, f3, f4);
         float[] fArr = {transVerticesToOpenGL4.x, transVerticesToOpenGL4.y, transVerticesToOpenGL2.x, transVerticesToOpenGL2.y, transVerticesToOpenGL3.x, transVerticesToOpenGL3.y, transVerticesToOpenGL.x, transVerticesToOpenGL.y};
-        this.mRenderVertices.clear();
-        this.mRenderVertices.put(fArr);
+        mRenderVertices.clear();
+        mRenderVertices.put(fArr);
     }
 
     public void setmIsPause(boolean z) {
-        this.mIsPause = z;
+        mIsPause = z;
     }
 
     public void setTouch(boolean z) {
-        this.isTouch = z;
+        isTouch = z;
     }
 
     public void setEffectTimeBar(VideoEffectTimeBar VideoEffectTimeBar1) {
-        this.effectTimeBar = VideoEffectTimeBar1;
+        effectTimeBar = VideoEffectTimeBar1;
     }
 
     public void onDraw(int i, int i2, int i3, FloatBuffer floatBuffer) {
-        this.mRenderVertices.position(0);
+        mRenderVertices.position(0);
         floatBuffer.position(0);
-        if (this.mStartTime == -1) {
-            this.mStartTime = System.currentTimeMillis();
+        if (mStartTime == -1) {
+            mStartTime = System.currentTimeMillis();
         }
-        int round = Math.round(((((float) (this.mComponent.length - 1)) * 1.0f) / ((float) this.mComponent.duration)) * ((float) ((System.currentTimeMillis() - this.mStartTime) % ((long) this.mComponent.duration))));
-        if (this.mBitmapCache == null) {
-            this.mBitmapCache = new LruBitmapCache((int) (Runtime.getRuntime().maxMemory() / 4));
+        int round = Math.round(((((float) (mComponent.length - 1)) * 1.0f) / ((float) mComponent.duration)) * ((float) ((System.currentTimeMillis() - mStartTime) % ((long) mComponent.duration))));
+        if (mBitmapCache == null) {
+            mBitmapCache = new LruBitmapCache((int) (Runtime.getRuntime().maxMemory() / 4));
         }
-        String str = this.mComponent.resources.get(round);
-        Bitmap bitmap = this.mBitmapCache.get(str);
+        String str = mComponent.resources.get(round);
+        Bitmap bitmap = mBitmapCache.get(str);
         if (bitmap == null || bitmap.isRecycled()) {
-            bitmap = BitmapUtil.loadBitmap(this.mContext, str);
+            bitmap = BitmapUtil.loadBitmap(mContext, str);
             if (bitmap != null && !bitmap.isRecycled()) {
-                this.mBitmapCache.put(str, bitmap);
+                mBitmapCache.put(str, bitmap);
             } else {
                 return;
             }
         }
-        if (!this.effectTimeBar.isEffect() && !this.isTouch) {
+        if (!effectTimeBar.isEffect() && !isTouch) {
             bitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         }
-        if (this.mLastIndex != round) {
-            if (this.mTexture != 0) {
-                GLES20.glDeleteTextures(1, new int[]{this.mTexture}, 0);
-                this.mTexture = 0;
+        if (mLastIndex != round) {
+            if (mTexture != 0) {
+                GLES20.glDeleteTextures(1, new int[]{mTexture}, 0);
+                mTexture = 0;
             }
-            this.mTexture = BitmapUtil.bindBitmap(bitmap);
+            mTexture = BitmapUtil.bindBitmap(bitmap);
         }
         GLES20.glActiveTexture(33986);
-        GLES20.glBindTexture(3553, this.mTexture);
+        GLES20.glBindTexture(3553, mTexture);
         GLES20.glUniform1i(i, 2);
-        GLES20.glVertexAttribPointer(i2, 2, 5126, false, 0, this.mRenderVertices);
+        GLES20.glVertexAttribPointer(i2, 2, 5126, false, 0, mRenderVertices);
         GLES20.glVertexAttribPointer(i3, 2, 5126, false, 0, floatBuffer);
         GLES20.glDrawArrays(5, 0, 4);
         GLES20.glBindTexture(3553, 0);
-        this.mLastIndex = round;
+        mLastIndex = round;
     }
 
     public void destroy() {
-        if (this.mTexture != 0) {
-            GLES20.glDeleteTextures(1, new int[]{this.mTexture}, 0);
-            this.mTexture = 0;
+        if (mTexture != 0) {
+            GLES20.glDeleteTextures(1, new int[]{mTexture}, 0);
+            mTexture = 0;
         }
     }
 

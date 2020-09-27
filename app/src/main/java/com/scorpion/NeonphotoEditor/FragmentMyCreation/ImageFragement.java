@@ -45,30 +45,30 @@ public class ImageFragement extends Fragment {
     @Nullable
     public View onCreateView(@NonNull LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.myimage_fragement, viewGroup, false);
-        this.context = getActivity();
-        this.rcv = (RecyclerView) inflate.findViewById(R.id.rcvicreation);
-        this.pbar = (ProgressBar) inflate.findViewById(R.id.pbar);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = getActivity();
+        rcv = (RecyclerView) inflate.findViewById(R.id.rcvicreation);
+        pbar = (ProgressBar) inflate.findViewById(R.id.pbar);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
         return inflate;
     }
 
     private void init() {
-        this.rcv.setLayoutManager(new GridLayoutManager(this.context, 2));
-        this.rcv.addItemDecoration(new RVGridSpacing(2, getWidth(37), true));
-        this.rcv.addOnItemTouchListener(new RecyclerTouchListener(this.context, this.rcv, new RecyclerTouchListener.ClickListener() {
+        rcv.setLayoutManager(new GridLayoutManager(context, 2));
+        rcv.addItemDecoration(new RVGridSpacing(2, getWidth(37), true));
+        rcv.addOnItemTouchListener(new RecyclerTouchListener(context, rcv, new RecyclerTouchListener.ClickListener() {
             public void onLongClick(View view, int i) {
             }
 
             public void onClick(View view, int i) {
-                if (!ImageFragement.this.isClicked) {
-                    ImageFragement.this.isClicked = true;
-                    Intent intent = new Intent(ImageFragement.this.context, NeonPhotoPreview.class);
-                    intent.putExtra("path", ImageFragement.this.aldata.get(i));
+                if (!isClicked) {
+                    isClicked = true;
+                    Intent intent = new Intent(context, NeonPhotoPreview.class);
+                    intent.putExtra("path", aldata.get(i));
                     intent.putExtra("from", 1);
-                    ImageFragement.this.startActivity(intent);
+                    startActivity(intent);
                 }
             }
         }));
@@ -76,9 +76,9 @@ public class ImageFragement extends Fragment {
     }
 
     public void loadData() {
-        this.aldata.clear();
+        aldata.clear();
         String[] strArr = {"%" + getResources().getString(R.string.app_name) + "_%.jpg"};
-        ContentResolver contentResolver = this.context.getContentResolver();
+        ContentResolver contentResolver = context.getContentResolver();
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         Cursor query = contentResolver.query(uri, new String[]{"_id", "_data", "_display_name", "_size", "date_added"}, "_data" + " like ? ", strArr, "date_added DESC");
         if (query != null) {
@@ -90,8 +90,8 @@ public class ImageFragement extends Fragment {
                     Helper.showLog("NNN", "Not Found : " + string);
                 } else if (file.length() <= 0) {
                     Helper.showLog("NNN", "Size zero : " + string);
-                } else if (!this.aldata.contains(string)) {
-                    this.aldata.add(string);
+                } else if (!aldata.contains(string)) {
+                    aldata.add(string);
                 }
             }
         }
@@ -99,20 +99,20 @@ public class ImageFragement extends Fragment {
 
     public void onResume() {
         super.onResume();
-        this.isClicked = false;
+        isClicked = false;
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        this.isClicked = false;
+        isClicked = false;
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     @SuppressLint({"StaticFieldLeak"})
@@ -122,22 +122,22 @@ public class ImageFragement extends Fragment {
 
         public void onPreExecute() {
             super.onPreExecute();
-            ImageFragement.this.rcv.setVisibility(View.GONE);
-            ImageFragement.this.pbar.setVisibility(View.VISIBLE);
-            ImageFragement.this.isClicked = false;
+            rcv.setVisibility(View.GONE);
+            pbar.setVisibility(View.VISIBLE);
+            isClicked = false;
         }
 
         public Void doInBackground(Void... voidArr) {
-            ImageFragement.this.loadData();
+            loadData();
             return null;
         }
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            ImageFragement.this.adapter = new MyImageAdapter(ImageFragement.this.context, ImageFragement.this.aldata);
-            ImageFragement.this.rcv.setAdapter(ImageFragement.this.adapter);
-            ImageFragement.this.rcv.setVisibility(View.VISIBLE);
-            ImageFragement.this.pbar.setVisibility(View.GONE);
+            adapter = new MyImageAdapter(context, aldata);
+            rcv.setAdapter(adapter);
+            rcv.setVisibility(View.VISIBLE);
+            pbar.setVisibility(View.GONE);
         }
     }
 }

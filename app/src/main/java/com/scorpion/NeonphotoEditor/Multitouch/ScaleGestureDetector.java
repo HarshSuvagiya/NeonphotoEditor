@@ -51,7 +51,7 @@ public class ScaleGestureDetector {
     }
 
     public ScaleGestureDetector(OnScaleGestureListener onScaleGestureListener) {
-        this.mListener = onScaleGestureListener;
+        mListener = onScaleGestureListener;
     }
 
     public boolean onTouchEvent(View view, MotionEvent motionEvent) {
@@ -60,94 +60,94 @@ public class ScaleGestureDetector {
             reset();
         }
         boolean z = false;
-        if (this.mInvalidGesture) {
+        if (mInvalidGesture) {
             return false;
         }
-        if (this.mGestureInProgress) {
+        if (mGestureInProgress) {
             switch (actionMasked) {
                 case 1:
                     reset();
                     break;
                 case 2:
                     setContext(view, motionEvent);
-                    if (this.mCurrPressure / this.mPrevPressure > PRESSURE_THRESHOLD && this.mListener.onScale(view, this)) {
-                        this.mPrevEvent.recycle();
-                        this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                    if (mCurrPressure / mPrevPressure > PRESSURE_THRESHOLD && mListener.onScale(view, this)) {
+                        mPrevEvent.recycle();
+                        mPrevEvent = MotionEvent.obtain(motionEvent);
                         break;
                     }
                 case 3:
-                    this.mListener.onScaleEnd(view, this);
+                    mListener.onScaleEnd(view, this);
                     reset();
                     break;
                 case 5:
-                    this.mListener.onScaleEnd(view, this);
-                    int i = this.mActiveId0;
-                    int i2 = this.mActiveId1;
+                    mListener.onScaleEnd(view, this);
+                    int i = mActiveId0;
+                    int i2 = mActiveId1;
                     reset();
-                    this.mPrevEvent = MotionEvent.obtain(motionEvent);
-                    if (!this.mActive0MostRecent) {
+                    mPrevEvent = MotionEvent.obtain(motionEvent);
+                    if (!mActive0MostRecent) {
                         i = i2;
                     }
-                    this.mActiveId0 = i;
-                    this.mActiveId1 = motionEvent.getPointerId(motionEvent.getActionIndex());
-                    this.mActive0MostRecent = false;
-                    if (motionEvent.findPointerIndex(this.mActiveId0) < 0 || this.mActiveId0 == this.mActiveId1) {
-                        this.mActiveId0 = motionEvent.getPointerId(findNewActiveIndex(motionEvent, this.mActiveId1, -1));
+                    mActiveId0 = i;
+                    mActiveId1 = motionEvent.getPointerId(motionEvent.getActionIndex());
+                    mActive0MostRecent = false;
+                    if (motionEvent.findPointerIndex(mActiveId0) < 0 || mActiveId0 == mActiveId1) {
+                        mActiveId0 = motionEvent.getPointerId(findNewActiveIndex(motionEvent, mActiveId1, -1));
                     }
                     setContext(view, motionEvent);
-                    this.mGestureInProgress = this.mListener.onScaleBegin(view, this);
+                    mGestureInProgress = mListener.onScaleBegin(view, this);
                     break;
                 case 6:
                     int pointerCount = motionEvent.getPointerCount();
                     int actionIndex = motionEvent.getActionIndex();
                     int pointerId = motionEvent.getPointerId(actionIndex);
                     if (pointerCount > 2) {
-                        if (pointerId == this.mActiveId0) {
-                            int findNewActiveIndex = findNewActiveIndex(motionEvent, this.mActiveId1, actionIndex);
+                        if (pointerId == mActiveId0) {
+                            int findNewActiveIndex = findNewActiveIndex(motionEvent, mActiveId1, actionIndex);
                             if (findNewActiveIndex >= 0) {
-                                this.mListener.onScaleEnd(view, this);
-                                this.mActiveId0 = motionEvent.getPointerId(findNewActiveIndex);
-                                this.mActive0MostRecent = true;
-                                this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                                mListener.onScaleEnd(view, this);
+                                mActiveId0 = motionEvent.getPointerId(findNewActiveIndex);
+                                mActive0MostRecent = true;
+                                mPrevEvent = MotionEvent.obtain(motionEvent);
                                 setContext(view, motionEvent);
-                                this.mGestureInProgress = this.mListener.onScaleBegin(view, this);
-                                this.mPrevEvent.recycle();
-                                this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                                mGestureInProgress = mListener.onScaleBegin(view, this);
+                                mPrevEvent.recycle();
+                                mPrevEvent = MotionEvent.obtain(motionEvent);
                                 setContext(view, motionEvent);
                             }
                         } else {
-                            if (pointerId == this.mActiveId1) {
-                                int findNewActiveIndex2 = findNewActiveIndex(motionEvent, this.mActiveId0, actionIndex);
+                            if (pointerId == mActiveId1) {
+                                int findNewActiveIndex2 = findNewActiveIndex(motionEvent, mActiveId0, actionIndex);
                                 if (findNewActiveIndex2 >= 0) {
-                                    this.mListener.onScaleEnd(view, this);
-                                    this.mActiveId1 = motionEvent.getPointerId(findNewActiveIndex2);
-                                    this.mActive0MostRecent = false;
-                                    this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                                    mListener.onScaleEnd(view, this);
+                                    mActiveId1 = motionEvent.getPointerId(findNewActiveIndex2);
+                                    mActive0MostRecent = false;
+                                    mPrevEvent = MotionEvent.obtain(motionEvent);
                                     setContext(view, motionEvent);
-                                    this.mGestureInProgress = this.mListener.onScaleBegin(view, this);
+                                    mGestureInProgress = mListener.onScaleBegin(view, this);
                                 }
                             }
-                            this.mPrevEvent.recycle();
-                            this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                            mPrevEvent.recycle();
+                            mPrevEvent = MotionEvent.obtain(motionEvent);
                             setContext(view, motionEvent);
                         }
                         z = true;
-                        this.mPrevEvent.recycle();
-                        this.mPrevEvent = MotionEvent.obtain(motionEvent);
+                        mPrevEvent.recycle();
+                        mPrevEvent = MotionEvent.obtain(motionEvent);
                         setContext(view, motionEvent);
                     } else {
                         z = true;
                     }
                     if (z) {
                         setContext(view, motionEvent);
-                        int i3 = pointerId == this.mActiveId0 ? this.mActiveId1 : this.mActiveId0;
+                        int i3 = pointerId == mActiveId0 ? mActiveId1 : mActiveId0;
                         int findPointerIndex = motionEvent.findPointerIndex(i3);
-                        this.mFocusX = motionEvent.getX(findPointerIndex);
-                        this.mFocusY = motionEvent.getY(findPointerIndex);
-                        this.mListener.onScaleEnd(view, this);
+                        mFocusX = motionEvent.getX(findPointerIndex);
+                        mFocusY = motionEvent.getY(findPointerIndex);
+                        mListener.onScaleEnd(view, this);
                         reset();
-                        this.mActiveId0 = i3;
-                        this.mActive0MostRecent = true;
+                        mActiveId0 = i3;
+                        mActive0MostRecent = true;
                         break;
                     }
                     break;
@@ -155,28 +155,28 @@ public class ScaleGestureDetector {
         } else if (actionMasked != 5) {
             switch (actionMasked) {
                 case 0:
-                    this.mActiveId0 = motionEvent.getPointerId(0);
-                    this.mActive0MostRecent = true;
+                    mActiveId0 = motionEvent.getPointerId(0);
+                    mActive0MostRecent = true;
                     break;
                 case 1:
                     reset();
                     break;
             }
         } else {
-            if (this.mPrevEvent != null) {
-                this.mPrevEvent.recycle();
+            if (mPrevEvent != null) {
+                mPrevEvent.recycle();
             }
-            this.mPrevEvent = MotionEvent.obtain(motionEvent);
-            this.mTimeDelta = 0;
+            mPrevEvent = MotionEvent.obtain(motionEvent);
+            mTimeDelta = 0;
             int actionIndex2 = motionEvent.getActionIndex();
-            int findPointerIndex2 = motionEvent.findPointerIndex(this.mActiveId0);
-            this.mActiveId1 = motionEvent.getPointerId(actionIndex2);
+            int findPointerIndex2 = motionEvent.findPointerIndex(mActiveId0);
+            mActiveId1 = motionEvent.getPointerId(actionIndex2);
             if (findPointerIndex2 < 0 || findPointerIndex2 == actionIndex2) {
-                this.mActiveId0 = motionEvent.getPointerId(findNewActiveIndex(motionEvent, this.mActiveId1, -1));
+                mActiveId0 = motionEvent.getPointerId(findNewActiveIndex(motionEvent, mActiveId1, -1));
             }
-            this.mActive0MostRecent = false;
+            mActive0MostRecent = false;
             setContext(view, motionEvent);
-            this.mGestureInProgress = this.mListener.onScaleBegin(view, this);
+            mGestureInProgress = mListener.onScaleBegin(view, this);
         }
         return true;
     }
@@ -193,24 +193,24 @@ public class ScaleGestureDetector {
     }
 
     private void setContext(View view, MotionEvent motionEvent) {
-        if (this.mCurrEvent != null) {
-            this.mCurrEvent.recycle();
+        if (mCurrEvent != null) {
+            mCurrEvent.recycle();
         }
-        this.mCurrEvent = MotionEvent.obtain(motionEvent);
-        this.mCurrLen = -1.0f;
-        this.mPrevLen = -1.0f;
-        this.mScaleFactor = -1.0f;
-        this.mCurrSpanVector.set(0.0f, 0.0f);
-        MotionEvent motionEvent2 = this.mPrevEvent;
-        int findPointerIndex = motionEvent2.findPointerIndex(this.mActiveId0);
-        int findPointerIndex2 = motionEvent2.findPointerIndex(this.mActiveId1);
-        int findPointerIndex3 = motionEvent.findPointerIndex(this.mActiveId0);
-        int findPointerIndex4 = motionEvent.findPointerIndex(this.mActiveId1);
+        mCurrEvent = MotionEvent.obtain(motionEvent);
+        mCurrLen = -1.0f;
+        mPrevLen = -1.0f;
+        mScaleFactor = -1.0f;
+        mCurrSpanVector.set(0.0f, 0.0f);
+        MotionEvent motionEvent2 = mPrevEvent;
+        int findPointerIndex = motionEvent2.findPointerIndex(mActiveId0);
+        int findPointerIndex2 = motionEvent2.findPointerIndex(mActiveId1);
+        int findPointerIndex3 = motionEvent.findPointerIndex(mActiveId0);
+        int findPointerIndex4 = motionEvent.findPointerIndex(mActiveId1);
         if (findPointerIndex < 0 || findPointerIndex2 < 0 || findPointerIndex3 < 0 || findPointerIndex4 < 0) {
-            this.mInvalidGesture = true;
+            mInvalidGesture = true;
             Log.e(TAG, "Invalid MotionEvent stream detected.", new Throwable());
-            if (this.mGestureInProgress) {
-                this.mListener.onScaleEnd(view, this);
+            if (mGestureInProgress) {
+                mListener.onScaleEnd(view, this);
                 return;
             }
             return;
@@ -223,95 +223,95 @@ public class ScaleGestureDetector {
         float y3 = motionEvent.getY(findPointerIndex3);
         float x4 = motionEvent.getX(findPointerIndex4) - x3;
         float y4 = motionEvent.getY(findPointerIndex4) - y3;
-        this.mCurrSpanVector.set(x4, y4);
-        this.mPrevFingerDiffX = x2 - x;
-        this.mPrevFingerDiffY = y2 - y;
-        this.mCurrFingerDiffX = x4;
-        this.mCurrFingerDiffY = y4;
-        this.mFocusX = x3 + (x4 * 0.5f);
-        this.mFocusY = y3 + (y4 * 0.5f);
-        this.mTimeDelta = motionEvent.getEventTime() - motionEvent2.getEventTime();
-        this.mCurrPressure = motionEvent.getPressure(findPointerIndex3) + motionEvent.getPressure(findPointerIndex4);
-        this.mPrevPressure = motionEvent2.getPressure(findPointerIndex) + motionEvent2.getPressure(findPointerIndex2);
+        mCurrSpanVector.set(x4, y4);
+        mPrevFingerDiffX = x2 - x;
+        mPrevFingerDiffY = y2 - y;
+        mCurrFingerDiffX = x4;
+        mCurrFingerDiffY = y4;
+        mFocusX = x3 + (x4 * 0.5f);
+        mFocusY = y3 + (y4 * 0.5f);
+        mTimeDelta = motionEvent.getEventTime() - motionEvent2.getEventTime();
+        mCurrPressure = motionEvent.getPressure(findPointerIndex3) + motionEvent.getPressure(findPointerIndex4);
+        mPrevPressure = motionEvent2.getPressure(findPointerIndex) + motionEvent2.getPressure(findPointerIndex2);
     }
 
     private void reset() {
-        if (this.mPrevEvent != null) {
-            this.mPrevEvent.recycle();
-            this.mPrevEvent = null;
+        if (mPrevEvent != null) {
+            mPrevEvent.recycle();
+            mPrevEvent = null;
         }
-        if (this.mCurrEvent != null) {
-            this.mCurrEvent.recycle();
-            this.mCurrEvent = null;
+        if (mCurrEvent != null) {
+            mCurrEvent.recycle();
+            mCurrEvent = null;
         }
-        this.mGestureInProgress = false;
-        this.mActiveId0 = -1;
-        this.mActiveId1 = -1;
-        this.mInvalidGesture = false;
+        mGestureInProgress = false;
+        mActiveId0 = -1;
+        mActiveId1 = -1;
+        mInvalidGesture = false;
     }
 
     public boolean isInProgress() {
-        return this.mGestureInProgress;
+        return mGestureInProgress;
     }
 
     public float getFocusX() {
-        return this.mFocusX;
+        return mFocusX;
     }
 
     public float getFocusY() {
-        return this.mFocusY;
+        return mFocusY;
     }
 
     public float getCurrentSpan() {
-        if (this.mCurrLen == -1.0f) {
-            float f = this.mCurrFingerDiffX;
-            float f2 = this.mCurrFingerDiffY;
-            this.mCurrLen = (float) Math.sqrt((double) ((f * f) + (f2 * f2)));
+        if (mCurrLen == -1.0f) {
+            float f = mCurrFingerDiffX;
+            float f2 = mCurrFingerDiffY;
+            mCurrLen = (float) Math.sqrt((double) ((f * f) + (f2 * f2)));
         }
-        return this.mCurrLen;
+        return mCurrLen;
     }
 
     public Vector2D getCurrentSpanVector() {
-        return this.mCurrSpanVector;
+        return mCurrSpanVector;
     }
 
     public float getCurrentSpanX() {
-        return this.mCurrFingerDiffX;
+        return mCurrFingerDiffX;
     }
 
     public float getCurrentSpanY() {
-        return this.mCurrFingerDiffY;
+        return mCurrFingerDiffY;
     }
 
     public float getPreviousSpan() {
-        if (this.mPrevLen == -1.0f) {
-            float f = this.mPrevFingerDiffX;
-            float f2 = this.mPrevFingerDiffY;
-            this.mPrevLen = (float) Math.sqrt((double) ((f * f) + (f2 * f2)));
+        if (mPrevLen == -1.0f) {
+            float f = mPrevFingerDiffX;
+            float f2 = mPrevFingerDiffY;
+            mPrevLen = (float) Math.sqrt((double) ((f * f) + (f2 * f2)));
         }
-        return this.mPrevLen;
+        return mPrevLen;
     }
 
     public float getPreviousSpanX() {
-        return this.mPrevFingerDiffX;
+        return mPrevFingerDiffX;
     }
 
     public float getPreviousSpanY() {
-        return this.mPrevFingerDiffY;
+        return mPrevFingerDiffY;
     }
 
     public float getScaleFactor() {
-        if (this.mScaleFactor == -1.0f) {
-            this.mScaleFactor = getCurrentSpan() / getPreviousSpan();
+        if (mScaleFactor == -1.0f) {
+            mScaleFactor = getCurrentSpan() / getPreviousSpan();
         }
-        return this.mScaleFactor;
+        return mScaleFactor;
     }
 
     public long getTimeDelta() {
-        return this.mTimeDelta;
+        return mTimeDelta;
     }
 
     public long getEventTime() {
-        return this.mCurrEvent.getEventTime();
+        return mCurrEvent.getEventTime();
     }
 }

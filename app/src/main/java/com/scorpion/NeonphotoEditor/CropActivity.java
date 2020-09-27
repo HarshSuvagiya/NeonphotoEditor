@@ -41,34 +41,34 @@ public class CropActivity extends Activity {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_crop);
         getWindow().setFlags(1024, 1024);
-        this.context = this;
-        this.civ = (CropImageView) findViewById(R.id.civ);
-        this.header = (TextView) findViewById(R.id.my_header_text);
-        this.ivdone = (ImageView) findViewById(R.id.ivoption);
-        this.lbottom = (LinearLayout) findViewById(R.id.linearbottom);
-        this.relpbar = (RelativeLayout) findViewById(R.id.relpbar);
-        this.ivfh = (ImageView) findViewById(R.id.ivfh);
-        this.ivfv = (ImageView) findViewById(R.id.ivfv);
-        this.ivrl = (ImageView) findViewById(R.id.ivrl);
-        this.ivrr = (ImageView) findViewById(R.id.ivrr);
-        this.width = Helper.getWidth(this.context);
-        this.height = Helper.getHeight(this.context);
+        context = this;
+        civ = (CropImageView) findViewById(R.id.civ);
+        header = (TextView) findViewById(R.id.my_header_text);
+        ivdone = (ImageView) findViewById(R.id.ivoption);
+        lbottom = (LinearLayout) findViewById(R.id.linearbottom);
+        relpbar = (RelativeLayout) findViewById(R.id.relpbar);
+        ivfh = (ImageView) findViewById(R.id.ivfh);
+        ivfv = (ImageView) findViewById(R.id.ivfv);
+        ivrl = (ImageView) findViewById(R.id.ivrl);
+        ivrr = (ImageView) findViewById(R.id.ivrr);
+        width = Helper.getWidth(context);
+        height = Helper.getHeight(context);
         forUI();
         init();
     }
 
     private void forUI() {
-        SetLayparam.setMargins(this.context, this.civ, 0, 50, 0, 50);
-        SetLayparam.setHeight(this.context, this.lbottom, 250);
+        SetLayparam.setMargins(context, civ, 0, 50, 0, 50);
+        SetLayparam.setHeight(context, lbottom, 250);
 
     }
 
     private void init() {
 
-        this.ivdone.setVisibility(View.VISIBLE);
-        this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
-        this.cropuri = Uri.parse(getIntent().getStringExtra("uri"));
-        this.civ.setImageUriAsync(this.cropuri);
+        ivdone.setVisibility(View.VISIBLE);
+        header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
+        cropuri = Uri.parse(getIntent().getStringExtra("uri"));
+        civ.setImageUriAsync(cropuri);
     }
 
     public void option(View view) {
@@ -76,34 +76,34 @@ public class CropActivity extends Activity {
     }
 
     public void onSaveComplete(final String str) {
-        Intent intent = new Intent(this.context, PhotoEffectEditor.class);
+        Intent intent = new Intent(context, PhotoEffectEditor.class);
         intent.putExtra("crop", str);
         startActivity(intent);
         finish();
     }
 
     public void flipVertical(View view) {
-        this.civ.flipImageVertically();
+        civ.flipImageVertically();
     }
 
     public void flipHorizontal(View view) {
-        this.civ.flipImageHorizontally();
+        civ.flipImageHorizontally();
     }
 
     public void rotateRight(View view) {
-        this.civ.rotateImage(90);
+        civ.rotateImage(90);
     }
 
     public void rotateLeft(View view) {
-        this.civ.rotateImage(-90);
+        civ.rotateImage(-90);
     }
 
     public int getWidth(int i) {
-        return (this.width * i) / 1080;
+        return (width * i) / 1080;
     }
 
     public int getHeight(int i) {
-        return (this.height * i) / 1920;
+        return (height * i) / 1920;
     }
 
     public void back(View view) {
@@ -124,20 +124,20 @@ public class CropActivity extends Activity {
 
         public void onPreExecute() {
             super.onPreExecute();
-            CropActivity.this.relpbar.setVisibility(View.VISIBLE);
-            this.cropped = CropActivity.this.civ.getCroppedImage();
+            relpbar.setVisibility(View.VISIBLE);
+            cropped = civ.getCroppedImage();
         }
 
         public Void doInBackground(Void... voidArr) {
-            this.cropped = Helper.getBitmapResize(CropActivity.this.context, this.cropped, 1080, 1080);
-            this.path = Helper.saveCropBitmap(CropActivity.this.context, this.cropped);
+            cropped = Helper.getBitmapResize(context, cropped, 1080, 1080);
+            path = Helper.saveCropBitmap(context, cropped);
             return null;
         }
 
         public void onPostExecute(Void voidR) {
             super.onPostExecute(voidR);
-            CropActivity.this.relpbar.setVisibility(View.GONE);
-            CropActivity.this.onSaveComplete(this.path);
+            relpbar.setVisibility(View.GONE);
+            onSaveComplete(path);
         }
     }
 
