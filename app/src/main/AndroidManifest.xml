@@ -36,7 +36,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="com.scorpion.NeonphotoEditor.PhotoPreview"
+        <activity android:name="com.scorpion.NeonphotoEditor.NeonPhotoPreview"
             android:screenOrientation="portrait">
         </activity>
 
@@ -49,10 +49,10 @@
         <activity android:name="com.scorpion.NeonphotoEditor.GalleryVideoList"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.scorpion.NeonphotoEditor.VideoEffectEditor"
+        <activity android:name="com.scorpion.NeonphotoEditor.NeonVideoEffectEditor"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.scorpion.NeonphotoEditor.VideoPreview"
+        <activity android:name="com.scorpion.NeonphotoEditor.NeonVideoPreview"
             android:screenOrientation="portrait">
         </activity>
 

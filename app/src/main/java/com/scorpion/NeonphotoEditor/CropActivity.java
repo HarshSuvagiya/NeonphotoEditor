@@ -14,10 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.Layparam;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class CropActivity extends Activity {
     CropImageView civ;
@@ -37,9 +36,6 @@ public class CropActivity extends Activity {
     public void nothing(View view) {
     }
 
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -62,17 +58,13 @@ public class CropActivity extends Activity {
     }
 
     private void forUI() {
-        Layparam.setMargins(this.context, this.civ, 0, 50, 0, 50);
-        Layparam.setHeight(this.context, this.lbottom, 200);
-        Layparam.setMarginBottom(this.context, this.lbottom, 50);
-        Layparam.setHeightAsBoth(this.context, this.ivfh, 139);
-        Layparam.setHeightAsBoth(this.context, this.ivfv, 139);
-        Layparam.setHeightAsBoth(this.context, this.ivrl, 139);
-        Layparam.setHeightAsBoth(this.context, this.ivrr, 139);
+        SetLayparam.setMargins(this.context, this.civ, 0, 50, 0, 50);
+        SetLayparam.setHeight(this.context, this.lbottom, 250);
+
     }
 
     private void init() {
-//        this.header.setText(R.string.crop);
+
         this.ivdone.setVisibility(View.VISIBLE);
         this.header.setTypeface(Typeface.createFromAsset(getAssets(), "Poppins-Bold.ttf"));
         this.cropuri = Uri.parse(getIntent().getStringExtra("uri"));

@@ -31,7 +31,7 @@
                 android:layout_width="90px"
                 android:layout_height="90px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/tick_mark" />
+                android:src="@drawable/donefile" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

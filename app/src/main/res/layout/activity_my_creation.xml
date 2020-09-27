@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg1"
   >
 
     <LinearLayout
@@ -11,12 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/topheader" />
+        <include layout="@layout/topbarheader" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
@@ -24,36 +26,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35px"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:weightSum="2"
                 android:orientation="horizontal">
 
-                <View
+
+
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="right|center_vertical"
+                    android:layout_weight="1"
+                    >
+                    <ImageView
+                        android:id="@+id/ivvtab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="videotab"
+                        android:layout_gravity="right"
+                        android:src="@drawable/video_spiral_press" />
 
-                <ImageView
-                    android:id="@+id/ivvtab"
-                    android:layout_width="482px"
-                    android:layout_height="100px"
-                    android:onClick="videotab"
-                    android:src="@drawable/video_spiral_press" />
 
-                <View
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    >
+                    <ImageView
+                        android:id="@+id/ivptab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="imagetab"
+                        android:layout_gravity="left"
+                        android:src="@drawable/image_spiral_unpress" />
 
-                <ImageView
-                    android:id="@+id/ivptab"
-                    android:layout_width="482px"
-                    android:layout_height="100px"
-                    android:onClick="imagetab"
-                    android:src="@drawable/image_spiral_unpress" />
+                </LinearLayout>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+
+
+
+
             </LinearLayout>
 
             <LinearLayout

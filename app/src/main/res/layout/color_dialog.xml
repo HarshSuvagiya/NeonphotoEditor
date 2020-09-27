@@ -17,8 +17,8 @@
         <RelativeLayout
             android:id="@+id/reltitle"
             android:layout_width="match_parent"
-            android:layout_height="150px"
-            android:background="@drawable/dialog_title">
+            android:layout_height="100px"
+          >
 
             <TextView
                 android:id="@+id/tvtitle"
@@ -37,7 +37,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="40px"
-                android:src="@drawable/close_unpressed" />
+                android:src="@drawable/closefile" />
         </RelativeLayout>
 
         <LinearLayout
@@ -57,7 +57,7 @@
                 android:layout_gravity="center_horizontal"
                 android:clipToPadding="false">
 
-                <com.scorpion.NeonphotoEditor.colorfiles.AmbilWarnaSquare
+                <com.scorpion.NeonphotoEditor.Colorfiles.AmbilWarnaSquare
                     android:id="@+id/ambilwarna_viewSatBri"
                     android:layout_width="500px"
                     android:layout_height="400px"
@@ -207,9 +207,9 @@
 
                 <ImageView
                     android:id="@+id/ivcancel"
-                    android:layout_width="316px"
-                    android:layout_height="116px"
-                    android:src="@drawable/cancel" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cancelfile" />
 
                 <View
                     android:layout_width="0dp"
@@ -218,9 +218,9 @@
 
                 <ImageView
                     android:id="@+id/ivok"
-                    android:layout_width="316px"
-                    android:layout_height="116px"
-                    android:src="@drawable/ok" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/okfile" />
 
                 <View
                     android:layout_width="0dp"

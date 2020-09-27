@@ -10,10 +10,10 @@ public class Vector2D extends PointF {
         super(f, f2);
     }
 
-    public static float getAngle(Vector2D fX_Vector2D, Vector2D fX_Vector2D2) {
-        fX_Vector2D.normalize();
-        fX_Vector2D2.normalize();
-        return (float) ((Math.atan2((double) fX_Vector2D2.y, (double) fX_Vector2D2.x) - Math.atan2((double) fX_Vector2D.y, (double) fX_Vector2D.x)) * 57.29577951308232d);
+    public static float getAngle(Vector2D Vector2D1, Vector2D Vector2D2) {
+        Vector2D1.normalize();
+        Vector2D2.normalize();
+        return (float) ((Math.atan2((double) Vector2D2.y, (double) Vector2D2.x) - Math.atan2((double) Vector2D2.y, (double) Vector2D2.x)) * 57.29577951308232d);
     }
 
     public void normalize() {

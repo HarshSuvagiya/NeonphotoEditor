@@ -19,13 +19,11 @@ class DefaultVideoRender extends GLRender implements IVideoRender {
         onDrawFrame();
     }
 
-    /* access modifiers changed from: protected */
     public void initShaderHandles() {
         super.initShaderHandles();
         this.mMatrixHandle = GLES20.glGetUniformLocation(this.mProgramHandle, UNIFORM_CAM_MATRIX);
     }
 
-    /* access modifiers changed from: protected */
     public void initGLContext() {
         super.initGLContext();
         if (this.mTextureIn != 0) {
@@ -47,7 +45,6 @@ class DefaultVideoRender extends GLRender implements IVideoRender {
         this.mSurfaceTexture = new SurfaceTexture(this.mTextureIn);
     }
 
-    /* access modifiers changed from: protected */
     public void bindShaderValues() {
         super.bindShaderVertices();
         GLES20.glActiveTexture(33984);

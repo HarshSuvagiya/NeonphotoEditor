@@ -8,8 +8,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Surface;
 
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.VideoEffectTimeBar;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.VideoEffectTimeBar;
 
 import cn.ezandroid.ezfilter.core.environment.IGLEnvironment;
 import java.io.IOException;
@@ -67,11 +67,11 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         }
     }
 
-    public VideoInput(Context context, IGLEnvironment iGLEnvironment, Uri uri, IMediaPlayer fX_IMediaPlayer) {
+    public VideoInput(Context context, IGLEnvironment iGLEnvironment, Uri uri, IMediaPlayer IMediaPlayer) {
         this.mRender = iGLEnvironment;
         initShader();
         try {
-            setVideoUri(context, uri, fX_IMediaPlayer);
+            setVideoUri(context, uri, IMediaPlayer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,31 +102,31 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         this.iEffectTimeController = iEffectTimeController2;
     }
 
-    public void setVideoEffectTimeBar(VideoEffectTimeBar fX_VideoEffectTimeBar) {
-        this.videoEffectTimeBar = fX_VideoEffectTimeBar;
+    public void setVideoEffectTimeBar(VideoEffectTimeBar VideoEffectTimeBar) {
+        this.videoEffectTimeBar = VideoEffectTimeBar;
     }
 
-    public void setVideoUri(Context context, Uri uri, IMediaPlayer fX_IMediaPlayer) throws IOException {
+    public void setVideoUri(Context context, Uri uri, IMediaPlayer IMediaPlayer) throws IOException {
         if (uri != null) {
             release();
             this.mVideoUri = uri;
-            this.mPlayer = fX_IMediaPlayer;
+            this.mPlayer = IMediaPlayer;
             this.mPlayer.setDataSource(context, this.mVideoUri);
             this.mPlayer.setLooping(this.mIsLoop);
             this.mPlayer.setVolume(this.mVideoVolumeLeft, this.mVideoVolumeRight);
             this.mPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
-                public final void onPrepared(IMediaPlayer fX_IMediaPlayer) {
-                    VideoInput.lambda$setVideoUri$0(VideoInput.this, fX_IMediaPlayer);
+                public final void onPrepared(IMediaPlayer IMediaPlayer) {
+                    VideoInput.lambda$setVideoUri$0(VideoInput.this, IMediaPlayer);
                 }
             });
             this.mPlayer.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
-                public final void onCompletion(IMediaPlayer fX_IMediaPlayer) {
-                    VideoInput.lambda$setVideoUri$1(VideoInput.this, fX_IMediaPlayer);
+                public final void onCompletion(IMediaPlayer IMediaPlayer) {
+                    VideoInput.lambda$setVideoUri$1(VideoInput.this, IMediaPlayer);
                 }
             });
             this.mPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
-                public final boolean onError(IMediaPlayer fX_IMediaPlayer, int i, int i2) {
-                    return VideoInput.lambda$setVideoUri$2(VideoInput.this, fX_IMediaPlayer, i, i2);
+                public final boolean onError(IMediaPlayer IMediaPlayer, int i, int i2) {
+                    return VideoInput.lambda$setVideoUri$2(VideoInput.this, IMediaPlayer, i, i2);
                 }
             });
             reInit();
@@ -134,30 +134,30 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         }
     }
 
-    public static /* synthetic */ void lambda$setVideoUri$0(VideoInput fX_VideoInput, IMediaPlayer fX_IMediaPlayer) {
-        fX_VideoInput.mReady = true;
-        if (fX_VideoInput.mStartWhenReady) {
-            fX_IMediaPlayer.start();
+    public static  void lambda$setVideoUri$0(VideoInput VideoInput, IMediaPlayer IMediaPlayer) {
+        VideoInput.mReady = true;
+        if (VideoInput.mStartWhenReady) {
+            IMediaPlayer.start();
         }
-        fX_VideoInput.setRenderSize(fX_VideoInput.mPlayer.getVideoWidth(), fX_VideoInput.mPlayer.getVideoHeight());
-        if (fX_VideoInput.mPreparedListener != null) {
-            fX_VideoInput.mPreparedListener.onPrepared(fX_IMediaPlayer);
+        VideoInput.setRenderSize(VideoInput.mPlayer.getVideoWidth(), VideoInput.mPlayer.getVideoHeight());
+        if (VideoInput.mPreparedListener != null) {
+            VideoInput.mPreparedListener.onPrepared(IMediaPlayer);
         }
     }
 
-    public static /* synthetic */ void lambda$setVideoUri$1(VideoInput fX_VideoInput, IMediaPlayer fX_IMediaPlayer) {
-        if (fX_VideoInput.mCompletionListener != null) {
-            fX_VideoInput.mCompletionListener.onCompletion(fX_IMediaPlayer);
-            if (fX_VideoInput.totalframe == 0) {
-                fX_VideoInput.totalframe = fX_VideoInput.frame;
+    public static /* synthetic */ void lambda$setVideoUri$1(VideoInput VideoInput, IMediaPlayer IMediaPlayer) {
+        if (VideoInput.mCompletionListener != null) {
+            VideoInput.mCompletionListener.onCompletion(IMediaPlayer);
+            if (VideoInput.totalframe == 0) {
+                VideoInput.totalframe = VideoInput.frame;
             }
-            fX_VideoInput.frame = 0;
-            fX_VideoInput.loaded = true;
+            VideoInput.frame = 0;
+            VideoInput.loaded = true;
         }
     }
 
-    public static /* synthetic */ boolean lambda$setVideoUri$2(VideoInput fX_VideoInput, IMediaPlayer fX_IMediaPlayer, int i, int i2) {
-        return fX_VideoInput.mErrorListener == null || fX_VideoInput.mErrorListener.onError(fX_IMediaPlayer, i, i2);
+    public static boolean lambda$setVideoUri$2(VideoInput VideoInput, IMediaPlayer IMediaPlayer, int i, int i2) {
+        return VideoInput.mErrorListener == null || VideoInput.mErrorListener.onError(IMediaPlayer, i, i2);
     }
 
     public void setVideoUri(Context context, Uri uri) throws IOException {
@@ -195,8 +195,7 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
             this.mPlayer.setVolume(this.mVideoVolumeLeft, this.mVideoVolumeRight);
         }
     }
-
-    /* access modifiers changed from: protected */
+    
     public void drawFrame() {
         try {
             this.mSurfaceTexture.updateTexImage();
@@ -214,14 +213,12 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         onDrawFrame();
         return this.mSurfaceTexture;
     }
-
-    /* access modifiers changed from: protected */
+    
     public void initShaderHandles() {
         super.initShaderHandles();
         this.mMatrixHandle = GLES20.glGetUniformLocation(this.mProgramHandle, UNIFORM_CAM_MATRIX);
     }
-
-    /* access modifiers changed from: protected */
+    
     public void initGLContext() {
         super.initGLContext();
         this.mReady = false;
@@ -252,9 +249,9 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         });
     }
 
-    public static /* synthetic */ void lambda$initGLContext$3(VideoInput fX_VideoInput) {
+    public static  void lambda$initGLContext$3(VideoInput VideoInput) {
         try {
-            fX_VideoInput.mPlayer.prepareAsync();
+            VideoInput.mPlayer.prepareAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -282,8 +279,7 @@ public class VideoInput extends FBORender implements SurfaceTexture.OnFrameAvail
         this.frame++;
         Helper.showLog("FFF", this.frame + " : " + this.altemp.size());
     }
-
-    /* access modifiers changed from: protected */
+    
     public void bindShaderValues() {
         super.bindShaderVertices();
         Helper.freeMemory();

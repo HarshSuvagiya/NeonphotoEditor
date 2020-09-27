@@ -10,7 +10,6 @@ public abstract class BufferOutput<T extends Buffer> extends FBORender {
 
     public abstract T initBuffer(int i, int i2);
 
-    /* access modifiers changed from: protected */
     public void onDraw() {
         super.onDraw();
         if (this.mOutputBuffer == null || this.mSizeChanged) {

@@ -14,7 +14,6 @@ public class MultiTouchListener implements View.OnTouchListener {
     private int mActivePointerId = -1;
     private float mPrevX;
     private float mPrevY;
-    //cmdlcdsnvn
     private ScaleGestureDetector mScaleGestureDetector = new ScaleGestureDetector(new ScaleGestureListener());
     public float maximumScale = 10.0f;
     public float minimumScale = 0.5f;
@@ -171,21 +170,21 @@ public class MultiTouchListener implements View.OnTouchListener {
             this.mPrevSpanVector = new Vector2D();
         }
 
-        public boolean onScaleBegin(View view, ScaleGestureDetector fX_ScaleGestureDetector) {
-            this.mPivotX = fX_ScaleGestureDetector.getFocusX();
-            this.mPivotY = fX_ScaleGestureDetector.getFocusY();
-            this.mPrevSpanVector.set(fX_ScaleGestureDetector.getCurrentSpanVector());
+        public boolean onScaleBegin(View view, ScaleGestureDetector ScaleGestureDetector1) {
+            this.mPivotX = ScaleGestureDetector1.getFocusX();
+            this.mPivotY = ScaleGestureDetector1.getFocusY();
+            this.mPrevSpanVector.set(ScaleGestureDetector1.getCurrentSpanVector());
             return true;
         }
 
-        public boolean onScale(View view, ScaleGestureDetector fX_ScaleGestureDetector) {
+        public boolean onScale(View view, ScaleGestureDetector ScaleGestureDetector1) {
             TransformInfo transformInfo = new TransformInfo();
-            transformInfo.deltaScale = MultiTouchListener.this.isScaleEnabled ? fX_ScaleGestureDetector.getScaleFactor() : 1.0f;
+            transformInfo.deltaScale = MultiTouchListener.this.isScaleEnabled ? ScaleGestureDetector1.getScaleFactor() : 1.0f;
             float f = 0.0f;
-            transformInfo.deltaAngle = MultiTouchListener.this.isRotateEnabled ? Vector2D.getAngle(this.mPrevSpanVector, fX_ScaleGestureDetector.getCurrentSpanVector()) : 0.0f;
-            transformInfo.deltaX = MultiTouchListener.this.isTranslateEnabled ? fX_ScaleGestureDetector.getFocusX() - this.mPivotX : 0.0f;
+            transformInfo.deltaAngle = MultiTouchListener.this.isRotateEnabled ? Vector2D.getAngle(this.mPrevSpanVector, ScaleGestureDetector1.getCurrentSpanVector()) : 0.0f;
+            transformInfo.deltaX = MultiTouchListener.this.isTranslateEnabled ? ScaleGestureDetector1.getFocusX() - this.mPivotX : 0.0f;
             if (MultiTouchListener.this.isTranslateEnabled) {
-                f = fX_ScaleGestureDetector.getFocusY() - this.mPivotY;
+                f = ScaleGestureDetector1.getFocusY() - this.mPivotY;
             }
             transformInfo.deltaY = f;
             transformInfo.pivotX = this.mPivotX;

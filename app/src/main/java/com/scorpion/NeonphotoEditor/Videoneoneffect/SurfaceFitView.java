@@ -28,9 +28,9 @@ public class SurfaceFitView extends GLSurfaceView implements IFitView {
         setRenderMode(0);
     }
 
-    public void initRenderPipeline(FBORender fX_FBORender) {
-        if (fX_FBORender != null) {
-            this.mPipeline.setStartPointRender(fX_FBORender);
+    public void initRenderPipeline(FBORender FBORender1) {
+        if (FBORender1 != null) {
+            this.mPipeline.setStartPointRender(FBORender1);
         }
     }
 
@@ -75,7 +75,6 @@ public class SurfaceFitView extends GLSurfaceView implements IFitView {
         return this.mHelper.getPreviewHeight();
     }
 
-    /* access modifiers changed from: protected */
     public void onMeasure(int i, int i2) {
         this.mHelper.calculatePreviewSize(View.MeasureSpec.getSize(i), View.MeasureSpec.getSize(i2));
         super.onMeasure(View.MeasureSpec.makeMeasureSpec(this.mHelper.getPreviewWidth(), 1073741824), View.MeasureSpec.makeMeasureSpec(this.mHelper.getPreviewHeight(), 1073741824));

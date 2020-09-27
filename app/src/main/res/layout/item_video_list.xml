@@ -41,7 +41,7 @@
                     android:paddingLeft="30px"
                     android:paddingTop="70px"
                     android:text="share"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -50,7 +50,7 @@
                 android:layout_width="110px"
                 android:layout_height="110px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/play_list" />
+                android:src="@drawable/play_edit" />
 
             <View
                 android:layout_width="match_parent"

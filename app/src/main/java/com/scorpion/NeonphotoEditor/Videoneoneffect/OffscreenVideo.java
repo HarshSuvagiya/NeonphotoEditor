@@ -16,12 +16,10 @@ import javax.microedition.khronos.opengles.GL10;
 public class OffscreenVideo {
     private MediaExtractor mExtractor;
     private int mHeight;
-    /* access modifiers changed from: private */
     public VideoFBORender mOffscreenRender;
     private RenderPipeline mPipeline;
     private MediaUtil.Track mTrack;
     private String mVideoPath;
-    /* access modifiers changed from: private */
     public IVideoRenderListener mVideoRenderListener;
     private int mWidth;
 

@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:background="@drawable/bg1"
     android:orientation="vertical">
 
-    <include layout="@layout/topheader" />
+    <include layout="@layout/topbarheader" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +36,9 @@
             android:id="@+id/linearbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85px"
-            android:layout_marginBottom="80px"
+            android:paddingTop="85px"
+            android:background="@color/topbar"
+            android:paddingBottom="80px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -47,10 +49,10 @@
 
             <ImageView
                 android:id="@+id/ivshare"
-                android:layout_width="392px"
-                android:layout_height="156px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="share"
-                android:src="@drawable/share_unpress" />
+                android:src="@drawable/sharefile" />
 
             <View
                 android:layout_width="0dp"
@@ -59,10 +61,10 @@
 
             <ImageView
                 android:id="@+id/ivdelete"
-                android:layout_width="392px"
-                android:layout_height="156px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="delete"
-                android:src="@drawable/delete_unpress" />
+                android:src="@drawable/deletefile" />
 
             <View
                 android:layout_width="0dp"

@@ -31,7 +31,6 @@ public class FBORender extends GLRender {
         return super.toString() + " Targets:" + this.mTargets.size();
     }
 
-    /* access modifiers changed from: protected */
     public void drawFrame() {
         if (this.mTextureOut == null) {
             if (this.mWidth != 0 && this.mHeight != 0) {
@@ -52,12 +51,10 @@ public class FBORender extends GLRender {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw() {
         super.drawFrame();
     }
 
-    /* access modifiers changed from: protected */
     public void onRenderSizeChanged() {
         initFBO();
     }
@@ -99,17 +96,17 @@ public class FBORender extends GLRender {
         return this.mTargets;
     }
 
-    public void addTarget(OnTextureAcceptableListener fX_OnTextureAcceptableListener) {
+    public void addTarget(OnTextureAcceptableListener OnTextureAcceptableListener1) {
         synchronized (this.mTargets) {
-            if (!this.mTargets.contains(fX_OnTextureAcceptableListener) && fX_OnTextureAcceptableListener != null) {
-                this.mTargets.add(fX_OnTextureAcceptableListener);
+            if (!this.mTargets.contains(OnTextureAcceptableListener1) && OnTextureAcceptableListener1 != null) {
+                this.mTargets.add(OnTextureAcceptableListener1);
             }
         }
     }
 
-    public void removeTarget(OnTextureAcceptableListener fX_OnTextureAcceptableListener) {
+    public void removeTarget(OnTextureAcceptableListener OnTextureAcceptableListener1) {
         synchronized (this.mTargets) {
-            this.mTargets.remove(fX_OnTextureAcceptableListener);
+            this.mTargets.remove(OnTextureAcceptableListener1);
         }
     }
 

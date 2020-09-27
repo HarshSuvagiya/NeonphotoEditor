@@ -12,12 +12,10 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.scorpion.NeonphotoEditor.fragment.ImageCreation;
-import com.scorpion.NeonphotoEditor.fragment.VideoCreation;
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.Layparam;
-
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import com.scorpion.NeonphotoEditor.FragmentMyCreation.ImageFragement;
+import com.scorpion.NeonphotoEditor.FragmentMyCreation.VideoFragement;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 
 public class MyCreation extends FragmentActivity {
     private FrameLayout adContainerView;
@@ -25,17 +23,14 @@ public class MyCreation extends FragmentActivity {
     int current;
     TextView header;
     int height;
-    ImageCreation iCreationFrag;
+    ImageFragement iCreationFrag;
     ImageView ivptab;
     ImageView ivvtab;
     LinearLayout lfrag;
     LinearLayout ltab;
-    VideoCreation vCreationFrag;
+    VideoFragement vCreationFrag;
     int width;
 
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -54,10 +49,10 @@ public class MyCreation extends FragmentActivity {
     }
 
     public void forUI() {
-        Layparam.setMarginTop(this.context, this.ltab, 35);
-        Layparam.setMarginTop(this.context, this.lfrag, 20);
-        Layparam.setHeightWidth(this.context, this.ivptab, 482, 100);
-        Layparam.setHeightWidth(this.context, this.ivvtab, 482, 100);
+        SetLayparam.setMarginTop(this.context, this.ltab, 35);
+        SetLayparam.setMarginTop(this.context, this.lfrag, 20);
+        SetLayparam.setHeightWidth(this.context, this.ivptab, 482, 100);
+        SetLayparam.setHeightWidth(this.context, this.ivvtab, 482, 100);
     }
 
     public void init() {
@@ -70,7 +65,7 @@ public class MyCreation extends FragmentActivity {
         this.ivptab.setImageResource(R.drawable.image_spiral_press);
         this.ivvtab.setImageResource(R.drawable.video_spiral_unpress);
         if (this.iCreationFrag == null) {
-            this.iCreationFrag = new ImageCreation();
+            this.iCreationFrag = new ImageFragement();
         }
         FragmentTransaction beginTransaction = getSupportFragmentManager().beginTransaction();
         beginTransaction.replace(this.lfrag.getId(), this.iCreationFrag);
@@ -82,7 +77,7 @@ public class MyCreation extends FragmentActivity {
         this.ivptab.setImageResource(R.drawable.image_spiral_unpress);
         this.ivvtab.setImageResource(R.drawable.video_spiral_press);
         if (this.vCreationFrag == null) {
-            this.vCreationFrag = new VideoCreation();
+            this.vCreationFrag = new VideoFragement();
         }
         FragmentTransaction beginTransaction = getSupportFragmentManager().beginTransaction();
         beginTransaction.replace(this.lfrag.getId(), this.vCreationFrag);

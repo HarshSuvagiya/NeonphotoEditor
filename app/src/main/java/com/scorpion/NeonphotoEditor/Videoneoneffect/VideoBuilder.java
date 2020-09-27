@@ -3,7 +3,7 @@ package com.scorpion.NeonphotoEditor.Videoneoneffect;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 
-import com.scorpion.NeonphotoEditor.util.VideoEffectTimeBar;
+import com.scorpion.NeonphotoEditor.Util.VideoEffectTimeBar;
 
 import cn.ezandroid.ezfilter.core.util.NumberUtil;
 import cn.ezandroid.ezfilter.extra.IAdjustable;
@@ -26,8 +26,8 @@ public class VideoBuilder extends EZFilter.Builder {
         this.mVideo = uri;
     }
 
-    public VideoBuilder setMediaPlayer(IMediaPlayer fX_IMediaPlayer) {
-        this.mMediaPlayer = fX_IMediaPlayer;
+    public VideoBuilder setMediaPlayer(IMediaPlayer IMediaPlayer1) {
+        this.mMediaPlayer = IMediaPlayer1;
         return this;
     }
 
@@ -61,8 +61,8 @@ public class VideoBuilder extends EZFilter.Builder {
         return this;
     }
 
-    public VideoBuilder setVideoEffectTimeBar(VideoEffectTimeBar fX_VideoEffectTimeBar) {
-        this.videoEffectTimeBar = fX_VideoEffectTimeBar;
+    public VideoBuilder setVideoEffectTimeBar(VideoEffectTimeBar VideoEffectTimeBar1) {
+        this.videoEffectTimeBar = VideoEffectTimeBar1;
         return this;
     }
 
@@ -75,20 +75,20 @@ public class VideoBuilder extends EZFilter.Builder {
     }
 
     public void output(String str, int i, int i2) throws IOException {
-        OffscreenVideo fX_OffscreenVideo = new OffscreenVideo(this.mVideo.getPath());
+        OffscreenVideo OffscreenVideo1 = new OffscreenVideo(this.mVideo.getPath());
         try {
             for (FilterRender addFilterRender : this.mFilterRenders) {
-                fX_OffscreenVideo.addFilterRender(addFilterRender);
+                OffscreenVideo1.addFilterRender(addFilterRender);
             }
-            fX_OffscreenVideo.save(str, i, i2);
+            OffscreenVideo1.save(str, i, i2);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public FBORender getStartPointRender(IFitView fX_IFitView) {
+    public FBORender getStartPointRender(IFitView IFitView1) {
         if (this.mVideoInput == null) {
-            this.mVideoInput = new VideoInput(fX_IFitView.getContext(), fX_IFitView, this.mVideo, this.mMediaPlayer);
+            this.mVideoInput = new VideoInput(IFitView1.getContext(), IFitView1, this.mVideo, this.mMediaPlayer);
             this.mVideoInput.setStartWhenReady(this.mStartWhenReady);
             this.mVideoInput.setLoop(this.mVideoLoop);
             this.mVideoInput.setVolume(this.mVideoVolume, this.mVideoVolume);
@@ -100,12 +100,12 @@ public class VideoBuilder extends EZFilter.Builder {
         return this.mVideoInput;
     }
 
-    public float getAspectRatio(IFitView fX_IFitView) {
+    public float getAspectRatio(IFitView IFitView1) {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         try {
             String scheme = this.mVideo.getScheme();
             if (scheme == null || (!scheme.equals("http") && !scheme.equals("https"))) {
-                mediaMetadataRetriever.setDataSource(fX_IFitView.getContext(), this.mVideo);
+                mediaMetadataRetriever.setDataSource(IFitView1.getContext(), this.mVideo);
             } else {
                 mediaMetadataRetriever.setDataSource(this.mVideo.toString(), new HashMap());
             }

@@ -17,8 +17,8 @@
         <RelativeLayout
             android:id="@+id/reltitle"
             android:layout_width="match_parent"
-            android:layout_height="150px"
-            android:background="@drawable/dialog_title">
+            android:layout_height="100px"
+           >
 
             <TextView
                 android:id="@+id/tvtitle"
@@ -37,7 +37,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="40px"
-                android:src="@drawable/close_unpressed" />
+                android:src="@drawable/closefile" />
         </RelativeLayout>
 
         <ListView

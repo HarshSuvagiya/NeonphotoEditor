@@ -4,15 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg1"
     android:orientation="vertical">
-
-<!--    <include layout="@layout/topheader"-->
-<!--        />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/topbar"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -24,7 +22,7 @@
             android:layout_marginLeft="10dp"
             android:contentDescription="@string/app_name"
             android:onClick="back"
-            android:src="@drawable/back_unpressed" />
+            android:src="@drawable/backfile" />
 
         <TextView
             android:id="@+id/my_header_text"
@@ -37,7 +35,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/app_name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="18dp" />
 
         <ImageView
@@ -48,7 +46,7 @@
             android:layout_marginRight="10dp"
             android:contentDescription="@string/app_name"
             android:onClick="option"
-            android:src="@drawable/done_unpressed"
+            android:src="@drawable/donefile"
             android:visibility="invisible" />
     </LinearLayout>
 
@@ -74,7 +72,8 @@
                 android:id="@+id/linearbottom"
                 android:layout_width="match_parent"
                 android:layout_height="200px"
-                android:layout_marginBottom="50px"
+                android:background="@color/topbar"
+                android:paddingBottom="50px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -85,10 +84,10 @@
 
                 <ImageView
                     android:id="@+id/ivfh"
-                    android:layout_width="139px"
-                    android:layout_height="139px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="flipHorizontal"
-                    android:src="@drawable/flip_l" />
+                    android:src="@drawable/flipvertical" />
 
                 <View
                     android:layout_width="0dp"
@@ -97,10 +96,10 @@
 
                 <ImageView
                     android:id="@+id/ivfv"
-                    android:layout_width="139px"
-                    android:layout_height="139px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="flipVertical"
-                    android:src="@drawable/flip_r" />
+                    android:src="@drawable/fliphorizontal" />
 
                 <View
                     android:layout_width="0dp"
@@ -109,10 +108,10 @@
 
                 <ImageView
                     android:id="@+id/ivrl"
-                    android:layout_width="139px"
-                    android:layout_height="139px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="rotateLeft"
-                    android:src="@drawable/rotate_l" />
+                    android:src="@drawable/rotateleft" />
 
                 <View
                     android:layout_width="0dp"
@@ -121,10 +120,10 @@
 
                 <ImageView
                     android:id="@+id/ivrr"
-                    android:layout_width="139px"
-                    android:layout_height="139px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="rotateRight"
-                    android:src="@drawable/rotate_r" />
+                    android:src="@drawable/rotateright" />
 
                 <View
                     android:layout_width="0dp"

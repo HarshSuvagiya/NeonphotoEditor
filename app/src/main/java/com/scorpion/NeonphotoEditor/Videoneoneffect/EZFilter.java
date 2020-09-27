@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EZFilter {
-    /* access modifiers changed from: private */
+
     public static IBitmapCache sBitmapCache = new LruBitmapCache((int) (Runtime.getRuntime().maxMemory() / 4));
 
     private EZFilter() {
@@ -53,12 +53,12 @@ public class EZFilter {
         return new ViewBuilder(iGLView);
     }
 
-    public static MultiBuilder input(List<Builder> list, MultiInput fX_MultiInput) {
-        return new MultiBuilder(list, fX_MultiInput);
+    public static MultiBuilder input(List<Builder> list, MultiInput MultiInput1) {
+        return new MultiBuilder(list, MultiInput1);
     }
 
-    public static SplitBuilder input(Builder builder, SplitInput fX_SplitInput) {
-        return new SplitBuilder(builder, fX_SplitInput);
+    public static SplitBuilder input(Builder builder, SplitInput SplitInput1) {
+        return new SplitBuilder(builder, SplitInput1);
     }
 
     public static abstract class Builder {
@@ -68,23 +68,21 @@ public class EZFilter {
         protected Handler mMainHandler = new Handler(Looper.getMainLooper());
         protected String mOutputPath;
 
-        public abstract float getAspectRatio(IFitView fX_IFitView);
+        public abstract float getAspectRatio(IFitView IFitView1);
 
-        public abstract FBORender getStartPointRender(IFitView fX_IFitView);
+        public abstract FBORender getStartPointRender(IFitView IFitView1);
 
         protected Builder() {
         }
 
-        /* access modifiers changed from: protected */
-        public Builder addFilter(FilterRender fX_FilterRender) {
-            if (fX_FilterRender != null && !this.mFilterRenders.contains(fX_FilterRender)) {
-                fX_FilterRender.setBitmapCache(EZFilter.sBitmapCache);
-                this.mFilterRenders.add(fX_FilterRender);
+        public Builder addFilter(FilterRender FilterRender1) {
+            if (FilterRender1 != null && !this.mFilterRenders.contains(FilterRender1)) {
+                FilterRender1.setBitmapCache(EZFilter.sBitmapCache);
+                this.mFilterRenders.add(FilterRender1);
             }
             return this;
         }
 
-        /* access modifiers changed from: protected */
         public <T extends FilterRender & IAdjustable> Builder addFilter(T t, float f) {
             if (t != null && !this.mFilterRenders.contains(t)) {
                 t.setBitmapCache(EZFilter.sBitmapCache);
@@ -94,7 +92,6 @@ public class EZFilter {
             return this;
         }
 
-        /* access modifiers changed from: protected */
         public Builder enableRecord(String str, boolean z, boolean z2) {
             this.mOutputPath = str;
             this.mEnableRecordVideo = z;
@@ -102,15 +99,15 @@ public class EZFilter {
             return this;
         }
 
-        public RenderPipeline into(IFitView fX_IFitView, boolean z) {
-            RenderPipeline renderPipeline = fX_IFitView.getRenderPipeline();
+        public RenderPipeline into(IFitView IFitView1, boolean z) {
+            RenderPipeline renderPipeline = IFitView1.getRenderPipeline();
             if (renderPipeline != null && z) {
                 renderPipeline.clean();
             }
-            fX_IFitView.initRenderPipeline(getStartPointRender(fX_IFitView));
-            RenderPipeline renderPipeline2 = fX_IFitView.getRenderPipeline();
-            boolean aspectRatio = fX_IFitView.setAspectRatio(getAspectRatio(fX_IFitView), 0, 0);
-            fX_IFitView.requestRender();
+            IFitView1.initRenderPipeline(getStartPointRender(IFitView1));
+            RenderPipeline renderPipeline2 = IFitView1.getRenderPipeline();
+            boolean aspectRatio = IFitView1.setAspectRatio(getAspectRatio(IFitView1), 0, 0);
+            IFitView1.requestRender();
             if (renderPipeline2 != null) {
                 renderPipeline2.clearEndPointRenders();
                 renderPipeline2.addEndPointRender(new GLRender());
@@ -124,18 +121,18 @@ public class EZFilter {
             }
             if (aspectRatio) {
                 Handler handler = this.mMainHandler;
-                fX_IFitView.getClass();
+                IFitView1.getClass();
                 handler.post(new Runnable() {
                     public final void run() {
-                        fX_IFitView.requestLayout();
+                        IFitView1.requestLayout();
                     }
                 });
             }
             return renderPipeline2;
         }
 
-        public RenderPipeline into(IFitView fX_IFitView) {
-            return into(fX_IFitView, true);
+        public RenderPipeline into(IFitView IFitView1) {
+            return into(IFitView1, true);
         }
     }
 }

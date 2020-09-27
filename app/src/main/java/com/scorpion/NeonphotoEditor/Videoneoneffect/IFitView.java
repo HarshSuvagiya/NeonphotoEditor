@@ -12,7 +12,7 @@ public interface IFitView extends IGLEnvironment {
 
     RenderPipeline getRenderPipeline();
 
-    void initRenderPipeline(FBORender fX_FBORender);
+    void initRenderPipeline(FBORender FBORender1);
 
     void requestLayout();
 

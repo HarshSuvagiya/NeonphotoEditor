@@ -7,55 +7,90 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/bg"
     android:weightSum="10">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:gravity="center"
         android:layout_gravity="center"
         >
-        <Button
-            android:id="@+id/ivphoto"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="center"
+        >
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="photo"
-            android:text="Neon Photo Effect" />
-
+            android:layout_gravity="center"
+            android:src="@drawable/title"></ImageView>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="center"
+        android:layout_gravity="center"
+        >
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/ivphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="photo"
+                android:src="@drawable/neonimage" />
+
+        </LinearLayout>
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.3"
         android:gravity="center"
         android:layout_gravity="center"
         >
-        <Button
+        <ImageView
             android:id="@+id/videoeffect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="video"
-            android:text="Neon Video Effect" />
+            android:src="@drawable/neonvideo" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.3"
         android:gravity="center"
         android:layout_gravity="center"
         >
-        <Button
+
+        <ImageView
             android:id="@+id/mygallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:onClick="creation"
-            android:text="My Gallery" />
+            android:src="@drawable/mygalleryfile" />
+
 
     </LinearLayout>
 

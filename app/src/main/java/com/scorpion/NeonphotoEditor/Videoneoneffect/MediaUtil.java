@@ -80,7 +80,7 @@ public class MediaUtil {
         return null;
     }
 
-    /* JADX INFO: finally extract failed */
+
     public static Metadata getMetadata(String str) {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         try {

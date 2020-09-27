@@ -29,8 +29,7 @@ public class RenderPipeline implements Renderer {
 
     public interface OnFilterRendersChangedListener {
 
-        /* renamed from: fx.neonsketch.videoeffect.ezutil.FX_RenderPipeline$OnFilterRendersChangedListener$-CC  reason: invalid class name */
-        public final /* synthetic */ class CC {
+             public final class CC {
             public static void $default$onFilterRendersChanged(OnFilterRendersChangedListener onFilterRendersChangedListener) {
             }
         }
@@ -40,8 +39,7 @@ public class RenderPipeline implements Renderer {
 
     public interface OnSurfaceListener {
 
-        /* renamed from: fx.neonsketch.videoeffect.ezutil.FX_RenderPipeline$OnSurfaceListener$-CC  reason: invalid class name */
-        public final /* synthetic */ class CC {
+             public final  class CC {
             public static void $default$onSurfaceChanged(OnSurfaceListener onSurfaceListener, GL10 gl10, int i, int i2) {
             }
 
@@ -61,7 +59,7 @@ public class RenderPipeline implements Renderer {
 
     public void onSurfaceCreated(GL10 gl10, EGLConfig eGLConfig) {
         if (L.LOG_PIPELINE_CREATE) {
-            Log.e("FX_RenderPipeline", this + " onSurfaceCreated");
+            Log.e("RenderPipeline", this + " onSurfaceCreated");
         }
         synchronized (this.mOnSurfaceListeners) {
             for (OnSurfaceListener onSurfaceCreated : this.mOnSurfaceListeners) {
@@ -72,7 +70,7 @@ public class RenderPipeline implements Renderer {
 
     public void onSurfaceChanged(GL10 gl10, int i, int i2) {
         if (L.LOG_PIPELINE_CHANGE) {
-            Log.e("FX_RenderPipeline", this + " onSurfaceChanged:" + i + "x" + i2);
+            Log.e("RenderPipeline", this + " onSurfaceChanged:" + i + "x" + i2);
         }
         setRenderSize(i, i2);
         synchronized (this.mOnSurfaceListeners) {
@@ -100,7 +98,7 @@ public class RenderPipeline implements Renderer {
 
     public void onDrawFrame(GL10 gl10) {
         if (L.LOG_PIPELINE_DRAW) {
-            Log.e("FX_RenderPipeline", this + " onDrawFrame:" + this.mWidth + "x" + this.mHeight + " " + isRendering());
+            Log.e("RenderPipeline", this + " onDrawFrame:" + this.mWidth + "x" + this.mHeight + " " + isRendering());
         }
         if (gl10 != null) {
             GLES20.glClearColor(this.mBackgroundRed, this.mBackgroundGreen, this.mBackgroundBlue, this.mBackgroundAlpha);
@@ -123,7 +121,7 @@ public class RenderPipeline implements Renderer {
 
     public void onSurfaceDestroyed() {
         if (L.LOG_PIPELINE_DESTROY) {
-            Log.e("FX_RenderPipeline", this + " onSurfaceDestroyed " + Thread.currentThread().getName());
+            Log.e("RenderPipeline", this + " onSurfaceDestroyed " + Thread.currentThread().getName());
         }
         if (this.mStartPointRender != null) {
             this.mStartPointRender.clearTargets();
@@ -187,9 +185,9 @@ public class RenderPipeline implements Renderer {
         }
     }
 
-    public void addRenderToDestroy(GLRender fX_GLRender) {
+    public void addRenderToDestroy(GLRender GLRender1) {
         synchronized (this.mRendersToDestroy) {
-            this.mRendersToDestroy.add(fX_GLRender);
+            this.mRendersToDestroy.add(GLRender1);
         }
     }
 
@@ -302,20 +300,20 @@ public class RenderPipeline implements Renderer {
         return this.mEndPointRenders;
     }
 
-    public synchronized void setStartPointRender(FBORender fX_FBORender) {
-        if (fX_FBORender != null) {
-            if (this.mStartPointRender != fX_FBORender) {
+    public synchronized void setStartPointRender(FBORender FBORender1) {
+        if (FBORender1 != null) {
+            if (this.mStartPointRender != FBORender1) {
                 if (this.mStartPointRender != null) {
                     synchronized (this.mStartPointRender.getTargets()) {
                         for (OnTextureAcceptableListener addTarget : this.mStartPointRender.getTargets()) {
-                            fX_FBORender.addTarget(addTarget);
+                            FBORender1.addTarget(addTarget);
                         }
                     }
                     this.mStartPointRender.clearTargets();
                     addRenderToDestroy(this.mStartPointRender);
-                    this.mStartPointRender = fX_FBORender;
+                    this.mStartPointRender = FBORender1;
                 } else {
-                    this.mStartPointRender = fX_FBORender;
+                    this.mStartPointRender = FBORender1;
                     synchronized (this.mEndPointRenders) {
                         for (GLRender addTarget2 : this.mEndPointRenders) {
                             this.mStartPointRender.addTarget(addTarget2);
@@ -326,19 +324,19 @@ public class RenderPipeline implements Renderer {
         }
     }
 
-    public synchronized void addEndPointRender(GLRender fX_GLRender) {
+    public synchronized void addEndPointRender(GLRender GLRender1) {
         synchronized (this.mEndPointRenders) {
-            if (fX_GLRender != null) {
+            if (GLRender1 != null) {
                 try {
-                    if (!this.mEndPointRenders.contains(fX_GLRender) && this.mStartPointRender != null) {
-                        fX_GLRender.resetRotate();
-                        fX_GLRender.setRotate90Degrees(this.mCurrentRotation);
+                    if (!this.mEndPointRenders.contains(GLRender1) && this.mStartPointRender != null) {
+                        GLRender1.resetRotate();
+                        GLRender1.setRotate90Degrees(this.mCurrentRotation);
                         if (this.mFilterRenders.isEmpty()) {
-                            this.mStartPointRender.addTarget(fX_GLRender);
+                            this.mStartPointRender.addTarget(GLRender1);
                         } else {
-                            this.mFilterRenders.get(this.mFilterRenders.size() - 1).addTarget(fX_GLRender);
+                            this.mFilterRenders.get(this.mFilterRenders.size() - 1).addTarget(GLRender1);
                         }
-                        this.mEndPointRenders.add(fX_GLRender);
+                        this.mEndPointRenders.add(GLRender1);
                         updateEndPointRender();
                     }
                 } catch (Throwable th) {
@@ -351,18 +349,18 @@ public class RenderPipeline implements Renderer {
         return;
     }
 
-    public synchronized void removeEndPointRender(GLRender fX_GLRender) {
+    public synchronized void removeEndPointRender(GLRender GLRender1) {
         synchronized (this.mEndPointRenders) {
-            if (fX_GLRender != null) {
+            if (GLRender1 != null) {
                 try {
-                    if (this.mEndPointRenders.contains(fX_GLRender) && this.mStartPointRender != null) {
-                        this.mEndPointRenders.remove(fX_GLRender);
+                    if (this.mEndPointRenders.contains(GLRender1) && this.mStartPointRender != null) {
+                        this.mEndPointRenders.remove(GLRender1);
                         if (this.mFilterRenders.isEmpty()) {
-                            this.mStartPointRender.removeTarget(fX_GLRender);
+                            this.mStartPointRender.removeTarget(GLRender1);
                         } else {
-                            this.mFilterRenders.get(this.mFilterRenders.size() - 1).removeTarget(fX_GLRender);
+                            this.mFilterRenders.get(this.mFilterRenders.size() - 1).removeTarget(GLRender1);
                         }
-                        addRenderToDestroy(fX_GLRender);
+                        addRenderToDestroy(GLRender1);
                     }
                 } catch (Throwable th) {
                     while (true) {

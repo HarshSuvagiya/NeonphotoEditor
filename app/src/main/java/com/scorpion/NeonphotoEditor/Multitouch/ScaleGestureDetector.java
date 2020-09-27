@@ -6,7 +6,7 @@ import android.view.View;
 
 public class ScaleGestureDetector {
     private static final float PRESSURE_THRESHOLD = 0.67f;
-    private static final String TAG = "FX_ScaleGestureDetector";
+    private static final String TAG = "ScaleGestureDetector";
     private boolean mActive0MostRecent;
     private int mActiveId0;
     private int mActiveId1;
@@ -30,19 +30,19 @@ public class ScaleGestureDetector {
     private long mTimeDelta;
 
     public interface OnScaleGestureListener {
-        boolean onScale(View view, ScaleGestureDetector fX_ScaleGestureDetector);
+        boolean onScale(View view, ScaleGestureDetector ScaleGestureDetector1);
 
-        boolean onScaleBegin(View view, ScaleGestureDetector fX_ScaleGestureDetector);
+        boolean onScaleBegin(View view, ScaleGestureDetector ScaleGestureDetector1);
 
-        void onScaleEnd(View view, ScaleGestureDetector fX_ScaleGestureDetector);
+        void onScaleEnd(View view, ScaleGestureDetector ScaleGestureDetector1);
     }
 
     public static class SimpleOnScaleGestureListener implements OnScaleGestureListener {
-        public boolean onScale(View view, ScaleGestureDetector fX_ScaleGestureDetector) {
+        public boolean onScale(View view, ScaleGestureDetector ScaleGestureDetector1) {
             return false;
         }
 
-        public boolean onScaleBegin(View view, ScaleGestureDetector fX_ScaleGestureDetector) {
+        public boolean onScaleBegin(View view, ScaleGestureDetector ScaleGestureDetector1) {
             return true;
         }
 

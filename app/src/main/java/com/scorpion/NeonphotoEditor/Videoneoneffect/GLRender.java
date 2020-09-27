@@ -56,7 +56,6 @@ public class GLRender implements OnTextureAcceptableListener {
     protected int mWidth;
     protected FloatBuffer mWorldVertices;
 
-    /* access modifiers changed from: protected */
     public void onRenderSizeChanged() {
     }
 
@@ -67,7 +66,6 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mRunOnDrawEnd = new LinkedList();
     }
 
-    /* access modifiers changed from: protected */
     public void initWorldVertices() {
         float[] fArr = {-1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f};
         this.mWorldVertices = ByteBuffer.allocateDirect(fArr.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -78,7 +76,6 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mWorldVertices = floatBuffer;
     }
 
-    /* access modifiers changed from: protected */
     public void initTextureVertices() {
         this.mTextureVertices = new FloatBuffer[4];
         float[] fArr = {0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f};
@@ -107,7 +104,6 @@ public class GLRender implements OnTextureAcceptableListener {
         return this.mHeight;
     }
 
-    /* access modifiers changed from: protected */
     public void setWidth(int i) {
         if (!this.mCustomSizeSet && this.mWidth != i) {
             this.mWidth = i;
@@ -115,7 +111,6 @@ public class GLRender implements OnTextureAcceptableListener {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void setHeight(int i) {
         if (!this.mCustomSizeSet && this.mHeight != i) {
             this.mHeight = i;
@@ -158,7 +153,6 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mSizeChanged = true;
     }
 
-    /* access modifiers changed from: protected */
     public void initShaderHandles() {
         this.mPositionHandle = GLES20.glGetAttribLocation(this.mProgramHandle, "position");
         this.mTextureCoordHandle = GLES20.glGetAttribLocation(this.mProgramHandle, "inputTextureCoordinate");
@@ -172,7 +166,6 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mEDurationHandle = GLES20.glGetAttribLocation(this.mProgramHandle, EDURATION);
     }
 
-    /* access modifiers changed from: protected */
     public void bindShaderVertices() {
         this.mWorldVertices.position(0);
         GLES20.glVertexAttribPointer(this.mPositionHandle, 2, 5126, false, 8, this.mWorldVertices);
@@ -182,14 +175,12 @@ public class GLRender implements OnTextureAcceptableListener {
         GLES20.glEnableVertexAttribArray(this.mTextureCoordHandle);
     }
 
-    /* access modifiers changed from: protected */
     public void bindShaderTextures() {
         GLES20.glActiveTexture(33984);
         GLES20.glBindTexture(3553, this.mTextureIn);
         GLES20.glUniform1i(this.mTextureHandle, 0);
     }
 
-    /* access modifiers changed from: protected */
     public void bindShaderValues() {
         bindShaderVertices();
         bindShaderTextures();
@@ -199,7 +190,6 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mInitialized = false;
     }
 
-    /* access modifiers changed from: protected */
     public void logDraw() {
         Log.e("RenderDraw", toString() + " Fps:" + this.mFps);
     }
@@ -242,7 +232,7 @@ public class GLRender implements OnTextureAcceptableListener {
         return this.mFps;
     }
 
-    /* access modifiers changed from: protected */
+
     public void drawFrame() {
         if (this.mTextureIn != 0) {
             if (!(this.mWidth == 0 || this.mHeight == 0)) {
@@ -256,12 +246,12 @@ public class GLRender implements OnTextureAcceptableListener {
         }
     }
 
-    /* access modifiers changed from: protected */
+
     public String[] getShaderAttributes() {
         return new String[]{"position", "inputTextureCoordinate"};
     }
 
-    /* access modifiers changed from: protected */
+
     public void initGLContext() {
         String vertexShader = getVertexShader();
         String fragmentShader = getFragmentShader();
@@ -273,12 +263,12 @@ public class GLRender implements OnTextureAcceptableListener {
         initShaderHandles();
     }
 
-    /* access modifiers changed from: protected */
+
     public String getVertexShader() {
         return this.mVertexShader;
     }
 
-    /* access modifiers changed from: protected */
+
     public String getFragmentShader() {
         return this.mFragmentShader;
     }
@@ -291,7 +281,7 @@ public class GLRender implements OnTextureAcceptableListener {
         this.mFragmentShader = str;
     }
 
-    /* access modifiers changed from: protected */
+
     public void logDestroy() {
         Log.e("RenderDestroy", toString() + " Thread:" + Thread.currentThread().getName());
     }
@@ -315,7 +305,7 @@ public class GLRender implements OnTextureAcceptableListener {
         }
     }
 
-    /* access modifiers changed from: protected */
+
     public void runAll(Queue<Runnable> queue) {
         synchronized (queue) {
             while (!queue.isEmpty()) {
@@ -336,10 +326,10 @@ public class GLRender implements OnTextureAcceptableListener {
         }
     }
 
-    public void onTextureAcceptable(int i, GLRender fX_GLRender) {
+    public void onTextureAcceptable(int i, GLRender GLRender1) {
         this.mTextureIn = i;
-        setWidth(fX_GLRender.getWidth());
-        setHeight(fX_GLRender.getHeight());
+        setWidth(GLRender1.getWidth());
+        setHeight(GLRender1.getHeight());
         onDrawFrame();
     }
 }

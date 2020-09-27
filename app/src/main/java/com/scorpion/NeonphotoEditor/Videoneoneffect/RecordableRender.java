@@ -1,6 +1,6 @@
 package com.scorpion.NeonphotoEditor.Videoneoneffect;
 
-import com.scorpion.NeonphotoEditor.util.Helper;
+import com.scorpion.NeonphotoEditor.Util.Helper;
 
 import cn.ezandroid.ezfilter.media.record.IAudioExtraEncoder;
 import cn.ezandroid.ezfilter.media.record.IRecordListener;
@@ -45,8 +45,8 @@ public class RecordableRender extends FBORender implements ISupportRecord {
         this.mRecordAudio = z2;
     }
 
-    public void onTextureAcceptable(int i, GLRender fX_GLRender) {
-        super.onTextureAcceptable(i, fX_GLRender);
+    public void onTextureAcceptable(int i, GLRender GLRender1) {
+        super.onTextureAcceptable(i, GLRender1);
         try {
             if (this.mVideoEncoder != null && i != this.mVideoEncoder.getInputTextureId()) {
                 this.mVideoEncoder.setInputTextureId(i);
@@ -115,7 +115,7 @@ public class RecordableRender extends FBORender implements ISupportRecord {
         }
     }
 
-    /* access modifiers changed from: protected */
+
     public void drawFrame() {
         super.drawFrame();
         try {

@@ -10,14 +10,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.scorpion.NeonphotoEditor.adapter.TextureAdapter;
-import com.scorpion.NeonphotoEditor.util.GridRecyclerView;
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.Path;
-import com.scorpion.NeonphotoEditor.util.RVGridSpacing;
-import com.scorpion.NeonphotoEditor.util.RecyclerTouchListener;
-
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import com.scorpion.NeonphotoEditor.Adapters.TextureAdapter;
+import com.scorpion.NeonphotoEditor.Util.GridRecyclerView;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.Path;
+import com.scorpion.NeonphotoEditor.Util.RVGridSpacing;
+import com.scorpion.NeonphotoEditor.Util.RecyclerTouchListener;
 
 public class TextureList extends Activity {
     TextureAdapter adapter;
@@ -29,10 +27,6 @@ public class TextureList extends Activity {
 
     private void forUI() {
     }
-
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);

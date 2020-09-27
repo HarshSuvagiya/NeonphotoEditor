@@ -47,18 +47,18 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
-import com.scorpion.NeonphotoEditor.adapter.FilterAdapter;
-import com.scorpion.NeonphotoEditor.adapter.FontAdapter;
-import com.scorpion.NeonphotoEditor.adapter.SpiralAdapter;
-import com.scorpion.NeonphotoEditor.autocutimage.ImageBlurMaker;
-import com.scorpion.NeonphotoEditor.autocutimage.ImageCutter;
-import com.scorpion.NeonphotoEditor.autocutimage.ImageUtils;
-import com.scorpion.NeonphotoEditor.colorfiles.AmbilWarnaDialog;
+import com.scorpion.NeonphotoEditor.Adapters.FilterAdapter;
+import com.scorpion.NeonphotoEditor.Adapters.FontAdapter;
+import com.scorpion.NeonphotoEditor.Adapters.ImageSpiralAdapter;
+import com.scorpion.NeonphotoEditor.AutoBgRemove.ImageBlurMaker;
+import com.scorpion.NeonphotoEditor.AutoBgRemove.ImageCutter;
+import com.scorpion.NeonphotoEditor.AutoBgRemove.ImageUtils;
+import com.scorpion.NeonphotoEditor.Colorfiles.AmbilWarnaDialog;
 import com.scorpion.NeonphotoEditor.Multitouch.MultiTouchListener;
-import com.scorpion.NeonphotoEditor.util.Constant;
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.Path;
-import com.scorpion.NeonphotoEditor.util.Layparam;
+import com.scorpion.NeonphotoEditor.Util.Constant;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.Path;
+import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 import com.zomato.photofilters.SampleFilters;
 import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
@@ -66,7 +66,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.ColorOverlaySubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.VignetteSubFilter;
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -85,7 +85,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     Bitmap RedCutBit;
     final int SPIRAL = 0;
     final int TEXT = 1;
-    SpiralAdapter adapter;
+    ImageSpiralAdapter adapter;
     ArrayList<Bitmap> albitmap = new ArrayList<>();
     ArrayList<PointF> allredpath = new ArrayList<>();
     Bitmap backBitmap;
@@ -142,13 +142,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     public void nothing(View view) {
     }
 
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
-
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView((int) R.layout.activity_spiral_edit);
+        setContentView((int) R.layout.imagespiral_edit);
         getWindow().setFlags(1024, 1024);
         this.context = this;
         this.header = (TextView) findViewById(R.id.my_header_text);
@@ -191,35 +187,35 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     private void forUI() {
-        Layparam.setWidthAsBoth(this.context, this.releditor, 1080);
-        Layparam.setMarginTop(this.context, this.releditor, 50);
-        Layparam.setPadding(this.context, this.ltext, 0, 20, 0, 20);
-        Layparam.setHeightWidth(this.context, this.reledit, 821, 110);
-        Layparam.setPadding(this.context, this.ettext, 50, 0, 120, 0);
-        Layparam.setHeightAsWidth(this.context, this.ivcolor, 100, 120);
-        Layparam.setHeightAsWidth(this.context, this.ivfont, 100, 120);
-        Layparam.setHeightAsWidth(this.context, this.ivtdone, 100, 120);
-        Layparam.setMargins(this.context, this.ivtdone, 0, 0, 10, 0);
-        Layparam.setMargins(this.context, this.rcvspiral, 0, 25, 0, 25);
-        Layparam.setMargins(this.context, this.rcvfilter, 0, 25, 0, 25);
-        Layparam.setPadding(this.context, this.lbg, 0, 15, 0, 15);
-        Layparam.setPadding(this.context, this.lgradient, 0, 15, 0, 15);
-        Layparam.setPaddingTop(this.context, this.lbottom, 35);
-        Layparam.setHeightAsWidth(this.context, this.ivspiral, 150, 200);
-        Layparam.setHeightAsWidth(this.context, this.ivfilter, 150, 200);
-        Layparam.setHeightAsWidth(this.context, this.ivtext, 150, 200);
-        Layparam.setHeightAsWidth(this.context, this.ivbg, 150, 200);
-        Layparam.setHeightWidth(this.context, this.ivgallery, 302, 112);
-        Layparam.setHeightWidth(this.context, this.ivbgcolor, 302, 112);
-        Layparam.setHeightWidth(this.context, this.ivgradient, 302, 112);
-        Layparam.setHeightWidth(this.context, this.ivtexture, 302, 112);
-        Layparam.setMarginLeft(this.context, this.ivgallery, 15);
-        Layparam.setMarginLeft(this.context, this.ivbgcolor, 15);
-        Layparam.setMarginLeft(this.context, this.ivgradient, 15);
-        Layparam.setMarginLeft(this.context, this.ivtexture, 15);
-        Layparam.setHeightAsWidth(this.context, this.ivgback, 112, 112);
-        Layparam.setHeightAsWidth(this.context, this.ivfirst, 411, 112);
-        Layparam.setHeightAsWidth(this.context, this.ivsecond, 458, 112);
+        SetLayparam.setWidthAsBoth(this.context, this.releditor, 1080);
+        SetLayparam.setMarginTop(this.context, this.releditor, 50);
+        SetLayparam.setPadding(this.context, this.ltext, 0, 20, 0, 20);
+        SetLayparam.setHeightWidth(this.context, this.reledit, 821, 110);
+        SetLayparam.setPadding(this.context, this.ettext, 50, 0, 120, 0);
+        SetLayparam.setHeightAsWidth(this.context, this.ivcolor, 100, 120);
+        SetLayparam.setHeightAsWidth(this.context, this.ivfont, 100, 120);
+        SetLayparam.setHeightAsWidth(this.context, this.ivtdone, 100, 120);
+        SetLayparam.setMargins(this.context, this.ivtdone, 0, 0, 10, 0);
+        SetLayparam.setMargins(this.context, this.rcvspiral, 0, 25, 0, 25);
+        SetLayparam.setMargins(this.context, this.rcvfilter, 0, 25, 0, 25);
+        SetLayparam.setPadding(this.context, this.lbg, 0, 15, 0, 15);
+        SetLayparam.setPadding(this.context, this.lgradient, 0, 15, 0, 15);
+        SetLayparam.setPaddingTop(this.context, this.lbottom, 35);
+        SetLayparam.setHeightAsWidth(this.context, this.ivspiral, 150, 200);
+        SetLayparam.setHeightAsWidth(this.context, this.ivfilter, 150, 200);
+        SetLayparam.setHeightAsWidth(this.context, this.ivtext, 150, 200);
+        SetLayparam.setHeightAsWidth(this.context, this.ivbg, 150, 200);
+        SetLayparam.setHeightWidth(this.context, this.ivgallery, 302, 112);
+        SetLayparam.setHeightWidth(this.context, this.ivbgcolor, 302, 112);
+        SetLayparam.setHeightWidth(this.context, this.ivgradient, 302, 112);
+        SetLayparam.setHeightWidth(this.context, this.ivtexture, 302, 112);
+        SetLayparam.setMarginLeft(this.context, this.ivgallery, 15);
+        SetLayparam.setMarginLeft(this.context, this.ivbgcolor, 15);
+        SetLayparam.setMarginLeft(this.context, this.ivgradient, 15);
+        SetLayparam.setMarginLeft(this.context, this.ivtexture, 15);
+        SetLayparam.setHeightAsWidth(this.context, this.ivgback, 112, 112);
+        SetLayparam.setHeightAsWidth(this.context, this.ivfirst, 411, 112);
+        SetLayparam.setHeightAsWidth(this.context, this.ivsecond, 458, 112);
     }
 
     private void init() {
@@ -259,7 +255,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     private void initRecycler() {
         this.rcvspiral.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false));
         this.rcvfilter.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false));
-        this.adapter = new SpiralAdapter(this.context, new SpiralAdapter.OnSpiralListener() {
+        this.adapter = new ImageSpiralAdapter(this.context, new ImageSpiralAdapter.OnSpiralListener() {
             public void onSpiralClicked(int i) {
                 PhotoEffectEditor.this.setSpiral(i);
             }
@@ -282,9 +278,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     public void onCropDone(Bitmap bitmap) {
         this.cropBitmap = Bitmap.createBitmap(bitmap);
         this.ivcut.setImageBitmap(this.cropBitmap);
-        MultiTouchListener fX_MultiTouchListener = new MultiTouchListener();
-        fX_MultiTouchListener.addSimultaneousView(this.ivbspiral);
-        this.ivfspiral.setOnTouchListener(fX_MultiTouchListener);
+        MultiTouchListener MultiTouchListener = new MultiTouchListener();
+        MultiTouchListener.addSimultaneousView(this.ivbspiral);
+        this.ivfspiral.setOnTouchListener(MultiTouchListener);
         setSpiral(0);
         new LoadFilter().execute(new Void[0]);
         this.backBitmap = getBitmapFromView(this.ivblur);
@@ -366,10 +362,10 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
         dialog.setContentView(inflate);
         ListView listView = (ListView) inflate.findViewById(R.id.spinlist);
         ImageView imageView = (ImageView) inflate.findViewById(R.id.ivclose);
-        Layparam.setHeightWidth(this.context, (LinearLayout) inflate.findViewById(R.id.lineardialog), 969, 1056);
-        Layparam.setHeight(this.context, (RelativeLayout) inflate.findViewById(R.id.reltitle), 150);
-        Layparam.setHeightAsBoth(this.context, imageView, 90);
-        Layparam.setMarginRight(this.context, imageView, 40);
+        SetLayparam.setHeightWidth(this.context, (LinearLayout) inflate.findViewById(R.id.lineardialog), 969, 1056);
+        SetLayparam.setHeight(this.context, (RelativeLayout) inflate.findViewById(R.id.reltitle), 150);
+        SetLayparam.setHeightAsBoth(this.context, imageView, 90);
+        SetLayparam.setMarginRight(this.context, imageView, 40);
         listView.setAdapter(new FontAdapter(this.context, Constant.font));
         imageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -379,9 +375,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long j) {
                 Constant.fontname = Constant.font[i];
-                PhotoEffectEditor fX_SpiralEdit = PhotoEffectEditor.this;
+                PhotoEffectEditor PhotoEffectEditor1 = PhotoEffectEditor.this;
                 AssetManager assets = PhotoEffectEditor.this.context.getAssets();
-                fX_SpiralEdit.externalFont = Typeface.createFromAsset(assets, "fonts/" + Constant.fontname + ".ttf");
+                PhotoEffectEditor1.externalFont = Typeface.createFromAsset(assets, "fonts/" + Constant.fontname + ".ttf");
                 PhotoEffectEditor.this.ettext.setTypeface(PhotoEffectEditor.this.externalFont);
                 dialog.dismiss();
             }
@@ -465,7 +461,7 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void onSaveComplete(String str) {
-        Intent intent = new Intent(this.context, PhotoPreview.class);
+        Intent intent = new Intent(this.context, NeonPhotoPreview.class);
         intent.putExtra("from", 0);
         intent.putExtra("path", str);
         startActivity(intent);
@@ -610,9 +606,9 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
 
     public void showColor(boolean z, final int i1, int i2) {
         new AmbilWarnaDialog(this.context, Boolean.valueOf(z), i2, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            public void onOk(AmbilWarnaDialog fX_AmbilWarnaDialog, int i) {
+            public void onOk(AmbilWarnaDialog AmbilWarnaDialog1, int i) {
                 PhotoEffectEditor.this.applyToType(i1, i);
-                fX_AmbilWarnaDialog.getDialog().dismiss();
+                AmbilWarnaDialog1.getDialog().dismiss();
             }
 
             public void onCancel(AmbilWarnaDialog fX_AmbilWarnaDialog) {

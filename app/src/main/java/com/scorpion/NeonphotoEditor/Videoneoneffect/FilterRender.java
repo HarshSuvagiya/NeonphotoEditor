@@ -1,7 +1,7 @@
 package com.scorpion.NeonphotoEditor.Videoneoneffect;
 
-import com.scorpion.NeonphotoEditor.Videoneoneffect.particle.Geometry;
-import com.scorpion.NeonphotoEditor.Videoneoneffect.particle.ParticleShooter;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.Particle.Geometry;
+import com.scorpion.NeonphotoEditor.Videoneoneffect.Particle.ParticleShooter;
 
 import cn.ezandroid.ezfilter.core.cache.IBitmapCache;
 import cn.ezandroid.ezfilter.core.cache.LruBitmapCache;

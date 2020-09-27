@@ -8,20 +8,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-import com.scorpion.NeonphotoEditor.util.Helper;
-
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 
 public class HomeActivity extends Activity {
     Context context;
     int height;
-    Button ivmy;
-    Button ivphoto;
+    ImageView ivmy;
+    ImageView ivphoto,videoeffect;
     LinearLayout lmore;
     View vspace;
     int width;
@@ -29,17 +28,15 @@ public class HomeActivity extends Activity {
     private void init() {
     }
 
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_home);
         this.context = this;
             goToMain();
-        this.ivphoto = (Button) findViewById(R.id.ivphoto);
-        this.ivmy = (Button) findViewById(R.id.mygallery);
+        this.ivphoto = (ImageView) findViewById(R.id.ivphoto);
+        this.ivmy = (ImageView) findViewById(R.id.mygallery);
+        videoeffect=findViewById(R.id.videoeffect);
 
         this.width = Helper.getWidth(this.context);
         this.height = Helper.getHeight(this.context);
@@ -48,8 +45,9 @@ public class HomeActivity extends Activity {
 
     private void forUI() {
 
-//        Layparam.setHeightWidth(this.context, this.ivphoto, 310, 320);
-//        Layparam.setHeightWidth(this.context, this.ivmy, 700, 140);
+        SetLayparam.setHeightWidth(this.context, this.ivphoto, 790, 430);
+        SetLayparam.setHeightWidth(this.context, this.ivmy, 790, 430);
+        SetLayparam.setHeightWidth(this.context, this.videoeffect, 790, 430);
 
     }
 

@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:background="@drawable/bg1"
     android:orientation="vertical">
 
-    <include layout="@layout/topheader" />
+    <include layout="@layout/topbarheader" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                     android:orientation="vertical"
                     android:padding="20px">
 
-                    <com.scorpion.NeonphotoEditor.util.VideoEffectTimeBar
+                    <com.scorpion.NeonphotoEditor.Util.VideoEffectTimeBar
                         android:id="@+id/vseek"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -84,11 +85,10 @@
 
                 <ImageView
                     android:id="@+id/ivedit"
-                    android:layout_width="226px"
-                    android:layout_height="204px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="size"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/edit" />
+                    android:src="@drawable/editfile" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvsticker"
@@ -121,7 +121,7 @@
                     android:layout_width="90px"
                     android:layout_height="90px"
                     android:onClick="delete"
-                    android:src="@drawable/size_icon" />
+                    android:src="@drawable/sizefile" />
 
                 <SeekBar
                     android:id="@+id/seeksize"
@@ -129,6 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:max="100"
+                    android:progressDrawable="@drawable/seekbarr"
+                    android:thumbTint="@color/colorAccent"
                     android:maxHeight="18px"
                    />
 
@@ -137,7 +139,7 @@
                     android:layout_width="90px"
                     android:layout_height="90px"
                     android:onClick="delete"
-                    android:src="@drawable/delete" />
+                    android:src="@drawable/deletefilee" />
             </LinearLayout>
         </LinearLayout>
 
@@ -145,7 +147,7 @@
             android:id="@+id/lpbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000"
+            android:background="@drawable/bg1"
             android:gravity="center"
             android:onClick="nothing"
             android:orientation="vertical"
@@ -165,8 +167,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="pleasewait"
-                android:textColor="#000"
+                android:text="Rendering Video Please Wait..."
+                android:textColor="#FFF"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>

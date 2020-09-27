@@ -10,7 +10,6 @@
         android:id="@+id/linearitexture"
         android:layout_width="484px"
         android:layout_height="484px"
-        android:background="@drawable/texture_frame"
         android:padding="4px">
 
         <ImageView

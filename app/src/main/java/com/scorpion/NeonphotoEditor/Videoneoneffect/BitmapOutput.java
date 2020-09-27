@@ -14,7 +14,6 @@ public class BitmapOutput extends BufferOutput<IntBuffer> {
         void bitmapOutput(Bitmap bitmap);
     }
 
-    /* access modifiers changed from: protected */
     public void initTextureVertices() {
         this.mTextureVertices = new FloatBuffer[4];
         float[] fArr = {0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f};

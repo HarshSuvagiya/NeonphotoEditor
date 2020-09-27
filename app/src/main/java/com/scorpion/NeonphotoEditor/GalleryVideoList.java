@@ -15,18 +15,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.scorpion.NeonphotoEditor.adapter.VideoListAdapter;
-import com.scorpion.NeonphotoEditor.util.Helper;
-import com.scorpion.NeonphotoEditor.util.RVGridSpacing;
-import com.scorpion.NeonphotoEditor.util.RecyclerTouchListener;
-import com.scorpion.NeonphotoEditor.util.Vdata;
+import com.scorpion.NeonphotoEditor.Adapters.VideoGalleryAdapter;
+import com.scorpion.NeonphotoEditor.Util.Helper;
+import com.scorpion.NeonphotoEditor.Util.RVGridSpacing;
+import com.scorpion.NeonphotoEditor.Util.RecyclerTouchListener;
+import com.scorpion.NeonphotoEditor.Util.Vdata;
 
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.ArrayList;
 
 public class GalleryVideoList extends Activity {
     private FrameLayout adContainerView;
-    VideoListAdapter adapter;
+    VideoGalleryAdapter adapter;
     Context context;
     TextView header;
     int height;
@@ -45,9 +44,6 @@ public class GalleryVideoList extends Activity {
     public void nothing(View view) {
     }
 
-//    public void attachBaseContext(Context context2) {
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(context2));
-//    }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -84,7 +80,7 @@ public class GalleryVideoList extends Activity {
                     String path = GalleryVideoList.this.vl.get(i).getPath();
                     String duration = GalleryVideoList.this.vl.get(i).getDuration();
                     Uri.parse(path);
-                    Intent intent = new Intent(GalleryVideoList.this.context, VideoEffectEditor.class);
+                    Intent intent = new Intent(GalleryVideoList.this.context, NeonVideoEffectEditor.class);
                     intent.putExtra("path", path + "");
                     intent.putExtra("duration", duration);
                     GalleryVideoList.this.startActivity(intent);
@@ -136,7 +132,7 @@ public class GalleryVideoList extends Activity {
             super.onPostExecute(voidR);
             GalleryVideoList.this.relpbar.setVisibility(View.GONE);
             if (GalleryVideoList.this.vl.size() > 0) {
-                GalleryVideoList.this.adapter = new VideoListAdapter(GalleryVideoList.this.context, GalleryVideoList.this.vl);
+                GalleryVideoList.this.adapter = new VideoGalleryAdapter(GalleryVideoList.this.context, GalleryVideoList.this.vl);
                 GalleryVideoList.this.rcv.setAdapter(GalleryVideoList.this.adapter);
                 GalleryVideoList.this.rcv.setVisibility(View.VISIBLE);
                 return;

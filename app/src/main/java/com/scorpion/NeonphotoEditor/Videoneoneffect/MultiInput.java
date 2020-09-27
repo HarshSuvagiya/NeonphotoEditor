@@ -33,7 +33,6 @@ public class MultiInput extends FBORender {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void initShaderHandles() {
         super.initShaderHandles();
         for (int i = 0; i < this.mNumOfInputs - 1; i++) {
@@ -43,7 +42,6 @@ public class MultiInput extends FBORender {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void bindShaderValues() {
         super.bindShaderValues();
         for (int i = 0; i < this.mNumOfInputs - 1; i++) {
