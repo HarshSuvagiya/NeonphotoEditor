@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.Util.Helper;
 import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 
@@ -32,13 +33,24 @@ public class NeonPhotoPreview extends Activity {
     LinearLayout lbottom;
     String path;
     int width;
-
+    private com.facebook.ads.AdView adViewfb;
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_preview);
-        getWindow().setFlags(1024, 1024);
         context = this;
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(NeonPhotoPreview.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
+
         header = (TextView) findViewById(R.id.my_header_text);
         iv = (ImageView) findViewById(R.id.ivpreview);
         ivshare = (ImageView) findViewById(R.id.ivshare);

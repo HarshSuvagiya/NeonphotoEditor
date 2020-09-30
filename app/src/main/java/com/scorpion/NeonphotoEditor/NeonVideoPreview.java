@@ -17,6 +17,7 @@ import android.widget.VideoView;
 
 import androidx.core.content.FileProvider;
 
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.Util.Helper;
 import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 
@@ -34,13 +35,24 @@ public class NeonVideoPreview extends Activity {
     String vpath;
     VideoView vv;
     int width;
-
+    private com.facebook.ads.AdView adViewfb;
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_play);
         getWindow().setFlags(1024, 1024);
         context = this;
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(NeonVideoPreview.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
         header = (TextView) findViewById(R.id.my_header_text);
         vv = (VideoView) findViewById(R.id.videoview);
         ivshare = (ImageView) findViewById(R.id.ivshare);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.FragmentMyCreation.ImageFragement;
 import com.scorpion.NeonphotoEditor.FragmentMyCreation.VideoFragement;
 import com.scorpion.NeonphotoEditor.Util.Helper;
@@ -30,12 +31,23 @@ public class MyCreation extends FragmentActivity {
     LinearLayout ltab;
     VideoFragement vCreationFrag;
     int width;
-
+    private com.facebook.ads.AdView adViewfb;
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_my_creation);
         this.context = this;
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(MyCreation.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
 
         this.header = (TextView) findViewById(R.id.my_header_text);
         this.ltab = (LinearLayout) findViewById(R.id.lineartab);
@@ -51,8 +63,8 @@ public class MyCreation extends FragmentActivity {
     public void forUI() {
         SetLayparam.setMarginTop(this.context, this.ltab, 35);
         SetLayparam.setMarginTop(this.context, this.lfrag, 20);
-        SetLayparam.setHeightWidth(this.context, this.ivptab, 482, 100);
-        SetLayparam.setHeightWidth(this.context, this.ivvtab, 482, 100);
+//        SetLayparam.setHeightWidth(this.context, this.ivptab, 482, 100);
+//        SetLayparam.setHeightWidth(this.context, this.ivvtab, 482, 100);
     }
 
     public void init() {

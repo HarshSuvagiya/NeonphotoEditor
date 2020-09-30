@@ -77,6 +77,6 @@
             android:id="@+id/vline"
             android:layout_width="1000px"
             android:layout_height="4px"
-            android:background="@drawable/line" />
+            android:background="#fff" />
     </LinearLayout>
 </LinearLayout>

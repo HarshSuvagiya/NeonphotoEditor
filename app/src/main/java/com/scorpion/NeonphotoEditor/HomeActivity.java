@@ -74,8 +74,12 @@ public class HomeActivity extends Activity {
     }
 
     public void creation(View view) {
+        FBInterstitial.getInstance().displayFBInterstitial(HomeActivity.this, new FBInterstitial.FbCallback() {
+            public void callbackCall() {
+                startActivity(new Intent(context, MyCreation.class));
+            }
+        });
 
-        startActivity(new Intent(context, MyCreation.class));
     }
 
     public void onActivityResult(int i, int i2, Intent intent) {

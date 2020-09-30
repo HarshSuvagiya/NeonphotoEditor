@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.Adapters.TextureAdapter;
 import com.scorpion.NeonphotoEditor.Util.GridRecyclerView;
 import com.scorpion.NeonphotoEditor.Util.Helper;
@@ -27,14 +29,24 @@ public class TextureList extends Activity {
 
     private void forUI() {
     }
-
+    private com.facebook.ads.AdView adViewfb;
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_texture_list);
         getWindow().setFlags(1024, 1024);
         context = this;
 
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(TextureList.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
 
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
         header = (TextView) findViewById(R.id.my_header_text);
         rcv = (GridRecyclerView) findViewById(R.id.rcvtexture);
         width = Helper.getWidth(context);

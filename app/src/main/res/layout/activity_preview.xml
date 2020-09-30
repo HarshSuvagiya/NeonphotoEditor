@@ -36,9 +36,9 @@
             android:id="@+id/linearbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="85px"
+            android:paddingTop="25px"
             android:background="@color/topbar"
-            android:paddingBottom="80px"
+            android:paddingBottom="25px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -71,5 +71,17 @@
                 android:layout_height="1dp"
                 android:layout_weight="2" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="3dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:visibility="visible"></LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -461,10 +461,14 @@ public class PhotoEffectEditor extends Activity implements FilterAdapter.OnFilte
     }
 
     public void onSaveComplete(String str) {
-        Intent intent = new Intent(context, NeonPhotoPreview.class);
-        intent.putExtra("from", 0);
-        intent.putExtra("path", str);
-        startActivity(intent);
+        FBInterstitial.getInstance().displayFBInterstitial(PhotoEffectEditor.this, new FBInterstitial.FbCallback() {
+            public void callbackCall() {
+                Intent intent = new Intent(context, NeonPhotoPreview.class);
+                intent.putExtra("from", 0);
+                intent.putExtra("path", str);
+                startActivity(intent);
+            }
+        });
     }
 
     public void setSpiral(int i) {

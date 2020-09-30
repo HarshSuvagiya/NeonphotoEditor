@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class androidx.appcompat.widget.** { *; }
+
+-keep class com.zomato.photofilters.** {*;}
+-keepclassmembers  class com.zomato.photofilters.** {*;}

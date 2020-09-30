@@ -6,4 +6,10 @@
     <string name="font_style">Font Style</string>
     <string name="preview">Preview</string>
 
+
+    <string name="banner_ad_unit_idfb">1221017061613070_1221018681612908</string>
+    <string name="interstitial_ad_unit_idfb">1221017061613070_1221018464946263</string>
+    <string name="native_ad_unit_Idfb">1221017061613070_1221018194946290</string>
+
+
 </resources>

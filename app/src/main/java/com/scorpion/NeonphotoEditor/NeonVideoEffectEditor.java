@@ -10,15 +10,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.arthenica.mobileffmpeg.FFmpeg;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdIconView;
+import com.facebook.ads.AdOptionsView;
+import com.facebook.ads.NativeAd;
+import com.facebook.ads.NativeAdLayout;
+import com.facebook.ads.NativeAdListener;
 import com.scorpion.NeonphotoEditor.Adapters.ExtraUsedAdapter;
 import com.scorpion.NeonphotoEditor.Adapters.VideoStickerAdapter;
 import com.scorpion.NeonphotoEditor.Util.Constant;
@@ -39,6 +49,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -93,7 +104,8 @@ public class NeonVideoEffectEditor extends Activity {
     int usticker = -1;
     VideoEffectTimeBar vseek;
     int width;
-
+    RelativeLayout hint;
+    ImageView okbtn;
     public void nothing(View view) {
     }
 
@@ -102,7 +114,18 @@ public class NeonVideoEffectEditor extends Activity {
         setContentView((int) R.layout.activity_sticker_preview);
         getWindow().setFlags(1024, 1024);
         context = this;
-
+        nativeAdLayout = (NativeAdLayout) findViewById(R.id.native_ad_container);
+        nativeAdLayout.setVisibility(View.VISIBLE);
+        hint = (RelativeLayout) findViewById(R.id.hint);
+        okbtn = (ImageView) findViewById(R.id.btnok);
+        okbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hint.setVisibility(View.GONE);
+            }
+        });
+        //nativead
+        loadNativeAd();
         header = (TextView) findViewById(R.id.my_header_text);
         ivdone = (ImageView) findViewById(R.id.ivoption);
         ivback = (ImageView) findViewById(R.id.ivback);
@@ -125,6 +148,58 @@ public class NeonVideoEffectEditor extends Activity {
         height = Helper.getHeight(context);
         forUI();
         init();
+    }
+
+    NativeAdLayout   nativeAdLayout;
+    private void loadNativeAd() {
+        final com.facebook.ads.NativeAd nativeAd = new NativeAd(getApplicationContext(), getString(R.string.native_ad_unit_Idfb));
+        nativeAd.setAdListener(new NativeAdListener() {
+            public void onAdClicked(Ad ad) {
+            }
+
+            public void onError(Ad ad, AdError adError) {
+            }
+
+            public void onLoggingImpression(Ad ad) {
+            }
+
+            public void onMediaDownloaded(Ad ad) {
+            }
+
+            public void onAdLoaded(Ad ad) {
+                inflateAd(nativeAd);
+            }
+        });
+        nativeAd.loadAd();
+    }
+
+    public void inflateAd(com.facebook.ads.NativeAd nativeAd2) {
+        nativeAd2.unregisterView();
+        int i = 0;
+        LinearLayout adView = (LinearLayout) LayoutInflater.from(getApplicationContext()).inflate(R.layout.fbnative_ad, nativeAdLayout, false);
+        nativeAdLayout.addView(adView);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ad_choices_container);
+        AdOptionsView adOptionsView = new AdOptionsView(getApplicationContext(), nativeAd2, nativeAdLayout);
+        linearLayout.removeAllViews();
+        linearLayout.addView(adOptionsView, 0);
+        AdIconView adIconView = (AdIconView) adView.findViewById(R.id.native_ad_icon);
+        TextView textView = (TextView) adView.findViewById(R.id.native_ad_title);
+        com.facebook.ads.MediaView mediaView = (com.facebook.ads.MediaView) adView.findViewById(R.id.native_ad_media);
+        TextView textView2 = (TextView) adView.findViewById(R.id.native_ad_sponsored_label);
+        Button button = (Button) adView.findViewById(R.id.native_ad_call_to_action);
+        textView.setText(nativeAd2.getAdvertiserName());
+        ((TextView) adView.findViewById(R.id.native_ad_body)).setText(nativeAd2.getAdBodyText());
+        ((TextView) adView.findViewById(R.id.native_ad_social_context)).setText(nativeAd2.getAdSocialContext());
+        if (!nativeAd2.hasCallToAction()) {
+            i = 4;
+        }
+        button.setVisibility(i);
+        button.setText(nativeAd2.getAdCallToAction());
+        textView2.setText(nativeAd2.getSponsoredTranslation());
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(textView);
+        arrayList.add(button);
+        nativeAd2.registerViewForInteraction((View) adView, mediaView, (com.facebook.ads.MediaView) adIconView, (List<View>) arrayList);
     }
 
     private void forUI() {
@@ -467,10 +542,15 @@ public class NeonVideoEffectEditor extends Activity {
                         lpbar.setVisibility(View.GONE);
                         ivback.setVisibility(View.VISIBLE);
                         ivdone.setVisibility(View.VISIBLE);
-                        Intent intent = new Intent(context, NeonVideoPreview.class);
-                        intent.putExtra("vpath", file.getAbsolutePath());
-                        intent.putExtra("fromedit", true);
-                        startActivity(intent);
+                        FBInterstitial.getInstance().displayFBInterstitial(NeonVideoEffectEditor.this, new FBInterstitial.FbCallback() {
+                            public void callbackCall() {
+                                Intent intent = new Intent(context, NeonVideoPreview.class);
+                                intent.putExtra("vpath", file.getAbsolutePath());
+                                intent.putExtra("fromedit", true);
+                                startActivity(intent);
+                            }
+                        });
+
                     }
                 });
             }

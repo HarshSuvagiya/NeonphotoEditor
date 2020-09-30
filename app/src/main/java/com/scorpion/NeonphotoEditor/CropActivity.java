@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.Util.Helper;
 import com.scorpion.NeonphotoEditor.Util.SetLayparam;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -32,7 +33,7 @@ public class CropActivity extends Activity {
     LinearLayout lbottom;
     RelativeLayout relpbar;
     int width;
-
+    private com.facebook.ads.AdView adViewfb;
     public void nothing(View view) {
     }
 
@@ -42,6 +43,18 @@ public class CropActivity extends Activity {
         setContentView((int) R.layout.activity_crop);
         getWindow().setFlags(1024, 1024);
         context = this;
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(CropActivity.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
+
         civ = (CropImageView) findViewById(R.id.civ);
         header = (TextView) findViewById(R.id.my_header_text);
         ivdone = (ImageView) findViewById(R.id.ivoption);
@@ -76,10 +89,16 @@ public class CropActivity extends Activity {
     }
 
     public void onSaveComplete(final String str) {
-        Intent intent = new Intent(context, PhotoEffectEditor.class);
-        intent.putExtra("crop", str);
-        startActivity(intent);
-        finish();
+        FBInterstitial.getInstance().displayFBInterstitial(CropActivity.this, new FBInterstitial.FbCallback() {
+            public void callbackCall() {
+                Intent intent = new Intent(context, PhotoEffectEditor.class);
+                intent.putExtra("crop", str);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
     }
 
     public void flipVertical(View view) {

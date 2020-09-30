@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.facebook.ads.AdSize;
 import com.scorpion.NeonphotoEditor.Adapters.VideoGalleryAdapter;
 import com.scorpion.NeonphotoEditor.Util.Helper;
 import com.scorpion.NeonphotoEditor.Util.RVGridSpacing;
@@ -37,6 +40,7 @@ public class GalleryVideoList extends Activity {
     TextView tvnothing;
     ArrayList<Vdata> vl = new ArrayList<>();
     int width;
+    private com.facebook.ads.AdView adViewfb;
 
     private void forUI() {
     }
@@ -50,7 +54,17 @@ public class GalleryVideoList extends Activity {
         setContentView((int) R.layout.activity_video_list);
         getWindow().setFlags(1024, 1024);
         context = this;
+        //banner ad
+        adViewfb = new com.facebook.ads.AdView(GalleryVideoList.this, getString(R.string.banner_ad_unit_idfb), AdSize.BANNER_HEIGHT_50);
 
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+        adContainer.setVisibility(View.VISIBLE);
+        // Add the ad view to your activity layout
+        adContainer.addView(adViewfb);
+
+        // Request an ad
+        adViewfb.loadAd();
         header = (TextView) findViewById(R.id.my_header_text);
         ivmore = (ImageView) findViewById(R.id.ivoption);
         relpbar = (RelativeLayout) findViewById(R.id.relpbar);
@@ -80,10 +94,16 @@ public class GalleryVideoList extends Activity {
                     String path = vl.get(i).getPath();
                     String duration = vl.get(i).getDuration();
                     Uri.parse(path);
-                    Intent intent = new Intent(context, NeonVideoEffectEditor.class);
-                    intent.putExtra("path", path + "");
-                    intent.putExtra("duration", duration);
-                    startActivity(intent);
+                    FBInterstitial.getInstance().displayFBInterstitial(GalleryVideoList.this, new FBInterstitial.FbCallback() {
+                        public void callbackCall() {
+                            Intent intent = new Intent(context, NeonVideoEffectEditor.class);
+                            intent.putExtra("path", path + "");
+                            intent.putExtra("duration", duration);
+                            startActivity(intent);
+                        }
+                    });
+
+
                 }
             }
         }));
