@@ -1,10 +1,12 @@
-package com.scorpion.NeonphotoEditor.AutoBgRemove;
+package com.scorpion.NeonphotoEditor.autocutimage;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.TextUtils;
 
 public class ImageUtils {
     public static Bitmap tfResizeBilinear(Bitmap bitmap, int i, int i2) {
@@ -15,7 +17,6 @@ public class ImageUtils {
         new Canvas(createBitmap).drawBitmap(bitmap, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()), new Rect(0, 0, i, i2), (Paint) null);
         return createBitmap;
     }
-
 
     public static Bitmap scaleBitmap(Bitmap bitmap, int i, int i2) {
         if (bitmap == null) {

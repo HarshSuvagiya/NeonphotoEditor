@@ -484,7 +484,8 @@ public class NeonVideoEffectEditor extends Activity {
             file.delete();
         }
 
-        int rc = FFmpeg.execute(new String[]{"ffmpeg", "-i", outfile.getAbsolutePath(), "-i", inputpath, "-c", "copy", "-map", "0:v:0", "-map", "1:a:0", "-shortest", file.getAbsolutePath()});
+        int rc = FFmpeg.execute(new String[]{"-y", "-i", outfile.getAbsolutePath(), "-i", inputpath,
+                "-c", "copy", "-map", "0:v:0", "-map", "1:a:0", "-shortest", file.getAbsolutePath()});
         if (rc == RETURN_CODE_SUCCESS) {
             Helper.showLog("SSS", "Mixing Audio Success");
             resultReady(file);

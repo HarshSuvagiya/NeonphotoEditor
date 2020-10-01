@@ -1,4 +1,4 @@
-package com.scorpion.NeonphotoEditor.AutoBgRemove;
+package com.scorpion.NeonphotoEditor.autocutimage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

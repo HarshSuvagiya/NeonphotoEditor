@@ -1,4 +1,4 @@
-package com.scorpion.NeonphotoEditor.AutoBgRemove;
+package com.scorpion.NeonphotoEditor.autocutimage;
 
 import android.graphics.PointF;
 import java.util.HashSet;
@@ -10,21 +10,21 @@ public class PointGenerator implements Callable<Set<PointF>> {
     private final int radius;
 
     public PointGenerator(Set<PointF> set, int i) {
-        partition = set;
-        radius = i;
+        this.partition = set;
+        this.radius = i;
     }
 
     public Set<PointF> call() {
         HashSet hashSet = new HashSet();
-        for (PointF next : partition) {
+        for (PointF next : this.partition) {
             float f = next.x;
             float f2 = next.y;
-            for (float f3 = f - ((float) radius); f3 <= f; f3 += 1.0f) {
-                for (float f4 = f2 - ((float) radius); f4 <= f2; f4 += 1.0f) {
+            for (float f3 = f - ((float) this.radius); f3 <= f; f3 += 1.0f) {
+                for (float f4 = f2 - ((float) this.radius); f4 <= f2; f4 += 1.0f) {
                     float f5 = f3 - f;
                     float f6 = f4 - f2;
                     float f7 = (f5 * f5) + (f6 * f6);
-                    int i = radius;
+                    int i = this.radius;
                     if (f7 <= ((float) (i * i))) {
                         float f8 = f - f5;
                         float f9 = f2 - f6;
