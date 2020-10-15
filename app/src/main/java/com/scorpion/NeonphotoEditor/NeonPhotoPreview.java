@@ -113,9 +113,15 @@ public class NeonPhotoPreview extends Activity {
 
     public void onBackPressed() {
          if (from == 0) {
-            Intent intent = new Intent(context, HomeActivity.class);
-            intent.setFlags(268435456);
-            startActivity(intent);
+             FBInterstitial.getInstance().displayFBInterstitial(NeonPhotoPreview.this, new FBInterstitial.FbCallback() {
+                 public void callbackCall() {
+                     Intent intent = new Intent(context, HomeActivity.class);
+                     intent.setFlags(268435456);
+                     startActivity(intent);
+                 }
+             });
+
+
         } else {
             super.onBackPressed();
             finish();

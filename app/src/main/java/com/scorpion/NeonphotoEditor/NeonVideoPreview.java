@@ -143,9 +143,14 @@ public class NeonVideoPreview extends Activity {
     public void onBackPressed() {
         vv.pause();
          if (fromEdit) {
-            Intent intent = new Intent(context, HomeActivity.class);
-            intent.setFlags(268435456);
-            startActivity(intent);
+             FBInterstitial.getInstance().displayFBInterstitial(NeonVideoPreview.this, new FBInterstitial.FbCallback() {
+                 public void callbackCall() {
+                     Intent intent = new Intent(context, HomeActivity.class);
+                     intent.setFlags(268435456);
+                     startActivity(intent);
+                 }
+             });
+
         } else {
             super.onBackPressed();
             finish();

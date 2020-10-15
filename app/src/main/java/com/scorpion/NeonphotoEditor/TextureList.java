@@ -67,11 +67,17 @@ public class TextureList extends Activity {
             }
 
             public void onClick(View view, int i) {
-                String texture = Path.TEXTURES.texture(i);
-                Intent intent = new Intent();
-                intent.putExtra("texture", texture);
-                setResult(-1, intent);
-                finish();
+                FBInterstitial.getInstance().displayFBInterstitial(TextureList.this, new FBInterstitial.FbCallback() {
+                    public void callbackCall() {
+                        String texture = Path.TEXTURES.texture(i);
+                        Intent intent = new Intent();
+                        intent.putExtra("texture", texture);
+                        setResult(-1, intent);
+                        finish();
+                    }
+                });
+
+
             }
         }));
     }
